@@ -76,7 +76,7 @@ export default function AppDetailPage() {
 
       {/* Tab content */}
       {tab === 0 && <OverviewTab app={app} onUpdate={handleUpdate} />}
-      {tab === 1 && <RegisteredClientsTab appName={app.name} />}
+      {tab === 1 && <RegisteredClientsTab appName={app.name} appId={id ?? ''} />}
     </Box>
   )
 }

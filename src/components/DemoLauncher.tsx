@@ -102,7 +102,7 @@ export default function DemoLauncher() {
 
       {/* FAB */}
       <Box onClick={() => setOpen((prev) => !prev)}
-        sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.875, bgcolor: open ? '#1a3a5c' : '#244B72', color: '#fff', borderRadius: '100px', px: 2, py: 1.125, cursor: 'pointer', boxShadow: '0px 4px 14px rgba(36,75,114,0.45)', userSelect: 'none', transition: 'background-color 0.15s', '&:hover': { bgcolor: '#1a3a5c' } }}>
+        sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.875, bgcolor: open ? '#5B21B6' : '#7C3AED', color: '#fff', borderRadius: '100px', px: 2, py: 1.125, cursor: 'pointer', boxShadow: '0px 4px 14px rgba(124,58,237,0.45)', userSelect: 'none', transition: 'background-color 0.15s', '&:hover': { bgcolor: '#5B21B6' } }}>
         <ExploreOutlinedIcon sx={{ fontSize: 18 }} />
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#fff', lineHeight: 1 }}>Demo</Typography>
       </Box>

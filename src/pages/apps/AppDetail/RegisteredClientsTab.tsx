@@ -19,7 +19,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import AddIcon from '@mui/icons-material/Add'
 import { REGISTERED_CLIENTS, type RegisteredClient } from './mockData'
 import UsersModal from './UsersModal'
-import AddCompanyModal, { type AvailableCompany } from './AddCompanyModal'
+import AddCompanyModal from './AddCompanyModal'
 import { PROV_CHIPS as PROV_CHIP, SIGNON_CHIPS as SO_CHIP } from '../../../lib/methodChips'
 
 function MethodChips({ methods, map }: { methods: string[]; map: Record<string, { label: string; bg: string; color: string }> }) {
@@ -37,8 +37,8 @@ function MethodChips({ methods, map }: { methods: string[]; map: Record<string, 
   )
 }
 
-export default function RegisteredClientsTab({ appName }: { appName: string }) {
-  const [clients, setClients] = useState<RegisteredClient[]>(REGISTERED_CLIENTS)
+export default function RegisteredClientsTab({ appName, appId }: { appName: string; appId: string }) {
+  const [clients] = useState<RegisteredClient[]>(REGISTERED_CLIENTS)
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
@@ -51,24 +51,6 @@ export default function RegisteredClientsTab({ appName }: { appName: string }) {
   )
   const paginated = filtered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
-  function removeClient(id: string) {
-    setClients((prev) => prev.filter((c) => c.id !== id))
-  }
-
-  function handleAddCompanies(companies: AvailableCompany[]) {
-    const newClients: RegisteredClient[] = companies.map((c) => ({
-      id: c.id,
-      name: c.name,
-      initials: c.initials,
-      avatarColor: '#90A4AE',
-      provisioning: ['SCIM'],
-      signOn: ['SSO'],
-      users: 0,
-      dateAdded: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      status: 'Active',
-    }))
-    setClients((prev) => [...prev, ...newClients])
-  }
 
   return (
     <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', overflow: 'hidden' }}>
@@ -128,12 +110,7 @@ export default function RegisteredClientsTab({ appName }: { appName: string }) {
                     <Typography sx={{ fontSize: '0.875rem' }}>{client.status}</Typography>
                   </Box>
                 </TableCell>
-                <TableCell sx={{ py: 1.5 }}>
-                  <Button size="small" onClick={() => removeClient(client.id)}
-                    sx={{ color: '#EF4444', fontWeight: 500, fontSize: '0.8rem', minWidth: 'auto', p: 0 }}>
-                    Remove
-                  </Button>
-                </TableCell>
+                <TableCell sx={{ py: 1.5 }} />
               </TableRow>
             ))}
           </TableBody>
@@ -156,8 +133,8 @@ export default function RegisteredClientsTab({ appName }: { appName: string }) {
       <AddCompanyModal
         open={addCompanyOpen}
         appName={appName}
+        appId={appId}
         onClose={() => setAddCompanyOpen(false)}
-        onAdd={handleAddCompanies}
       />
     </Box>
   )

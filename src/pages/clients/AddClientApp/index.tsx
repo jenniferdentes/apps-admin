@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -1088,8 +1088,12 @@ function Step5Review({ app }: { app: CatalogApp }) {
 
 export default function AddClientApp() {
   const navigate = useNavigate()
-  const [activeStep, setActiveStep] = useState(0)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const location = useLocation()
+  const locationState = location.state as { appId?: string; companyName?: string } | null
+  const preselectedAppId = locationState?.appId ?? null
+
+  const [activeStep, setActiveStep] = useState(preselectedAppId ? 1 : 0)
+  const [selectedId, setSelectedId] = useState<string | null>(preselectedAppId)
   const [toastOpen, setToastOpen] = useState(false)
 
   const selectedApp = CATALOG_APPS.find((a) => a.id === selectedId) ?? null
