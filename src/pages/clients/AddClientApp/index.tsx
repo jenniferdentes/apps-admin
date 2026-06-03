@@ -16,7 +16,6 @@ import Pagination from '@mui/material/Pagination'
 import InputAdornment from '@mui/material/InputAdornment'
 import ButtonBase from '@mui/material/ButtonBase'
 import InputBase from '@mui/material/InputBase'
-import Autocomplete from '@mui/material/Autocomplete'
 import Popover from '@mui/material/Popover'
 import IconButton from '@mui/material/IconButton'
 import Checkbox from '@mui/material/Checkbox'
@@ -40,8 +39,10 @@ import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined'
 import PersonRemoveOutlinedIcon from '@mui/icons-material/PersonRemoveOutlined'
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined'
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined'
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined'
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined'
 
-const STEPS = ['Select App', 'Provisioning & Sign-on', 'Rules', 'Champion Election', 'Champion Tasks', 'Review']
+const STEPS = ['Select App', 'Provisioning & Sign-on', 'Rules', 'Task Assignment', 'Task Setup', 'Review']
 
 interface CatalogApp {
   id: string
@@ -778,132 +779,98 @@ function Step3Rules({ app }: { app: CatalogApp }) {
 // ── Step 4: Champion Election ───────────────────────────────────────────────
 
 const DIRECT_USERS = [
-  { id: 'u1', name: 'Sara Conner',  initials: 'SC', avatarColor: '#EC407A', jobTitle: 'HR Coordinator' },
-  { id: 'u2', name: 'Jamie Vang',   initials: 'JV', avatarColor: '#26A69A', jobTitle: 'IT Manager' },
-  { id: 'u3', name: 'Alex Brown',   initials: 'AB', avatarColor: '#7E57C2', jobTitle: 'Operations Lead' },
-  { id: 'u4', name: 'Nina Okafor',  initials: 'NO', avatarColor: '#F59E0B', jobTitle: 'HR Coordinator' },
-  { id: 'u5', name: 'Tom Smith',    initials: 'TS', avatarColor: '#8B5CF6', jobTitle: 'DevOps Engineer' },
-  { id: 'u6', name: 'Carlos Reyes', initials: 'CR', avatarColor: '#7E57C2', jobTitle: 'Security Analyst' },
-  { id: 'u7', name: 'Maria Lopez',  initials: 'ML', avatarColor: '#FFA726', jobTitle: 'Scrum Master' },
-  { id: 'u8', name: 'Derek Chen',   initials: 'DC', avatarColor: '#26A69A', jobTitle: 'Backend Developer' },
+  { id: 'u1', name: 'James McCarthy', initials: 'JM', avatarColor: '#26A69A', jobTitle: 'Product Manager',    company: 'Summit Tech Solutions'   },
+  { id: 'u2', name: 'Aisha Singh',    initials: 'AS', avatarColor: '#F59E0B', jobTitle: 'Content Strategist', company: 'GreenLeaf Marketing'      },
+  { id: 'u3', name: 'Rafael Barbosa', initials: 'RB', avatarColor: '#1565C0', jobTitle: 'Investment Analyst', company: 'Horizon Financial'         },
+  { id: 'u4', name: 'Kara Thompson',  initials: 'KT', avatarColor: '#00ACC1', jobTitle: 'UI/UX Designer',     company: 'BlueWave Design Studio'    },
+  { id: 'u5', name: 'Daniel Nguyen',  initials: 'DN', avatarColor: '#7E57C2', jobTitle: 'Video Producer',     company: 'Crestline Media'           },
+  { id: 'u6', name: "Maya O'Connor",  initials: 'MO', avatarColor: '#43A047', jobTitle: 'Real Estate Agent',  company: 'Sunset Realty'             },
+  { id: 'u7', name: 'Liam Patel',     initials: 'LP', avatarColor: '#EF5350', jobTitle: 'Systems Engineer',   company: 'Apex Technologies'         },
+  { id: 'u8', name: 'Sofia Torres',   initials: 'ST', avatarColor: '#AB47BC', jobTitle: 'Marketing Director', company: 'Vantage Media'             },
 ]
 
-function Step4ChampionElection({ app }: { app: CatalogApp }) {
-  const [mode, setMode] = useState<'dynamic' | 'direct' | null>(null)
-  const [scope, setScope] = useState('Company')
-  const [jobTitle, setJobTitle] = useState('')
-  const [search, setSearch] = useState('')
-  const [selectedUsers, setSelectedUsers] = useState<string[]>([])
+const SCOPES = ['Client', 'Company', 'Site'] as const
+type Scope = typeof SCOPES[number]
 
-  const filteredUsers = DIRECT_USERS.filter((u) =>
-    u.name.toLowerCase().includes(search.toLowerCase()) ||
-    u.jobTitle.toLowerCase().includes(search.toLowerCase())
-  )
-
-  function toggleUser(id: string) {
-    setSelectedUsers((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])
-  }
-
-  const MODES = [
-    { value: 'dynamic' as const, label: 'Dynamic', subtitle: 'Org-chart based · scope + job title' },
-    { value: 'direct'  as const, label: 'Direct',  subtitle: 'Specific named users' },
-  ]
-
+function ScopeCard({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <AppBar app={app} />
-
-      <Box>
-        <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px', mb: 0.5 }}>
-          Champion Election
-        </Typography>
-        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.57 }}>
-          Sets how champions are selected when a task fires.
-        </Typography>
-      </Box>
-
-      {/* Mode cards */}
-      <Box sx={{ display: 'flex', gap: 2 }}>
-        {MODES.map((m) => {
-          const selected = mode === m.value
-          return (
-            <Box key={m.value} onClick={() => setMode(m.value)}
-              sx={{
-                flex: 1,
-                border: selected ? '2px solid #85A4C2' : '1px solid #EAECF0',
-                borderRadius: 1, p: 1.5, cursor: 'pointer',
-                bgcolor: selected ? '#F7F8FC' : '#fff',
-                display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                '&:hover': { bgcolor: selected ? '#F7F8FC' : '#FCFBFD', borderColor: selected ? '#85A4C2' : '#D0D5DD' },
-              }}
-            >
-              <Box>
-                <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.57, mb: 0.25 }}>{m.label}</Typography>
-                <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>{m.subtitle}</Typography>
-              </Box>
-              {selected && (
-                <Box sx={{ width: 24, height: 24, borderRadius: '99px', bgcolor: '#244B72', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <CheckIcon sx={{ fontSize: 14, color: '#fff' }} />
-                </Box>
-              )}
-            </Box>
-          )
-        })}
-      </Box>
-
-      {/* Dynamic config */}
-      {mode === 'dynamic' && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <Box>
-              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', mb: 0.75 }}>Scope</Typography>
-              <FormControl size="small" sx={{ width: 180 }}>
-                <Select value={scope} onChange={(e) => setScope(e.target.value)} sx={{ fontSize: '0.875rem' }}>
-                  {['Client', 'Company', 'Site'].map((s) => <MenuItem key={s} value={s}>{s}</MenuItem>)}
-                </Select>
-              </FormControl>
-            </Box>
-            <Box>
-              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', mb: 0.75 }}>Job Title</Typography>
-              <Autocomplete
-                size="small"
-                options={FIELD_VALUES['Job Title']}
-                value={jobTitle || null}
-                onChange={(_, value) => setJobTitle(value ?? '')}
-                sx={{ width: 260 }}
-                renderInput={(params) => (
-                  <TextField {...params} placeholder="Select job title" />
-                )}
-              />
-            </Box>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#EBF0F5', borderRadius: 1, px: 2, py: 1.5 }}>
-            <InfoOutlinedIcon sx={{ fontSize: 18, color: '#244B72', flexShrink: 0, mt: '1px' }} />
-            <Typography sx={{ fontSize: '0.875rem', color: '#244B72', lineHeight: 1.57 }}>
-              When a task fires, the first available champion matching this scope and job title will receive it. If they don't accept, it moves to the next match.
-            </Typography>
-          </Box>
+    <Box onClick={onClick} sx={{
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      minWidth: 120, px: 1.5, py: 1, borderRadius: 1,
+      cursor: 'pointer', userSelect: 'none',
+      bgcolor: selected ? '#F7F8FC' : '#fff',
+      border: selected ? '2px solid #85A4C2' : '1px solid #EAECF0',
+      transition: 'all 0.15s',
+      '&:hover': { borderColor: '#85A4C2', bgcolor: selected ? '#F0F5FA' : '#FCFBFD' },
+    }}>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>
+        {label}
+      </Typography>
+      {selected && (
+        <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: '#244B72', flexShrink: 0, ml: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <CheckIcon sx={{ fontSize: 12, color: '#fff' }} />
         </Box>
       )}
+    </Box>
+  )
+}
 
-      {/* Direct config */}
-      {mode === 'direct' && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <TextField size="small" placeholder="Search users" value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            sx={{ width: 300 }}
-            slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
-          />
+function Step4ChampionElection({ app }: { app: CatalogApp }) {
+  const [managerSearch, setManagerSearch] = useState('')
+  const [selectedManagers, setSelectedManagers] = useState<string[]>([])
 
-          {selectedUsers.length > 0 && (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
-              {selectedUsers.map((id) => {
+  const [scope, setScope] = useState<Scope>('Client')
+  const [jobTitle, setJobTitle] = useState('HR Coordinator')
+
+  const filteredManagers = DIRECT_USERS.filter((u) =>
+    u.name.toLowerCase().includes(managerSearch.toLowerCase()) ||
+    u.jobTitle.toLowerCase().includes(managerSearch.toLowerCase()) ||
+    u.company.toLowerCase().includes(managerSearch.toLowerCase())
+  )
+
+  function toggleManager(id: string) {
+    setSelectedManagers((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    )
+  }
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+      <AppBar app={app} chips={
+        <Chip label="SCIM" size="small" sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+      } />
+
+      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+        Task Assignment
+      </Typography>
+
+      {/* ── App Manager ─────────────────────────────────────────── */}
+      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
+          <ManageAccountsOutlinedIcon sx={{ fontSize: 22, color: '#4A5466' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>App Manager</Typography>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* Search */}
+          <Box sx={{ px: 2, pt: 2, pb: selectedManagers.length > 0 ? 1 : 2 }}>
+            <TextField fullWidth size="small"
+              placeholder="Search users to add as champions..."
+              value={managerSearch}
+              onChange={(e) => setManagerSearch(e.target.value)}
+              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
+            />
+          </Box>
+
+          {/* Selected chips */}
+          {selectedManagers.length > 0 && (
+            <Box sx={{ px: 2, pb: 1.5, display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
+              {selectedManagers.map((id) => {
                 const u = DIRECT_USERS.find((u) => u.id === id)!
                 return (
                   <Chip key={id}
-                    avatar={<Avatar sx={{ bgcolor: `${u.avatarColor} !important`, fontSize: '0.7rem !important', fontWeight: 600 }}>{u.initials}</Avatar>}
+                    avatar={<Avatar sx={{ bgcolor: `${u.avatarColor} !important`, fontSize: '0.65rem !important', fontWeight: 700 }}>{u.initials}</Avatar>}
                     label={u.name} size="small"
-                    onDelete={() => toggleUser(id)}
+                    onDelete={() => toggleManager(id)}
                     deleteIcon={<CloseIcon sx={{ fontSize: '14px !important' }} />}
                     sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 500, fontSize: '0.8125rem', height: 28, borderRadius: 100 }}
                   />
@@ -912,46 +879,78 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
             </Box>
           )}
 
-          <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden', maxHeight: 300, overflowY: 'auto' }}>
-            {filteredUsers.length > 0 ? filteredUsers.map((u, i) => {
-              const checked = selectedUsers.includes(u.id)
+          {/* User list */}
+          <Box sx={{ borderTop: '1px solid #EAECF0', maxHeight: 300, overflowY: 'auto' }}>
+            {filteredManagers.map((u, i) => {
+              const checked = selectedManagers.includes(u.id)
               return (
-                <Box key={u.id} onClick={() => toggleUser(u.id)}
+                <Box key={u.id} onClick={() => toggleManager(u.id)}
                   sx={{
                     display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25,
-                    borderBottom: i < filteredUsers.length - 1 ? '1px solid #EAECF0' : 'none',
+                    borderBottom: i < filteredManagers.length - 1 ? '1px solid #EAECF0' : 'none',
                     cursor: 'pointer',
                     bgcolor: checked ? '#F0F5FA' : '#fff',
                     '&:hover': { bgcolor: checked ? '#EBF0F5' : '#F7F8FC' },
                   }}
                 >
                   <Checkbox size="small" checked={checked}
-                    onChange={() => toggleUser(u.id)}
+                    onChange={() => toggleManager(u.id)}
                     onClick={(e) => e.stopPropagation()}
                     sx={{ p: 0, color: '#D0D5DD', '&.Mui-checked': { color: '#244B72' } }}
                   />
-                  <Avatar sx={{ width: 32, height: 32, bgcolor: u.avatarColor, fontSize: '0.8rem', fontWeight: 600, flexShrink: 0 }}>
+                  <Avatar sx={{ width: 32, height: 32, bgcolor: u.avatarColor, fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
                     {u.initials}
                   </Avatar>
-                  <Box>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>{u.name}</Typography>
-                    <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466' }}>{u.jobTitle}</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#202938', flexShrink: 0 }}>{u.name}</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', flexShrink: 0 }}>{u.company}</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', color: '#9AA2B2', flexShrink: 0 }}>{u.jobTitle}</Typography>
                   </Box>
                 </Box>
               )
-            }) : (
-              <Typography variant="body2" color="text.secondary" sx={{ px: 2, py: 3, textAlign: 'center' }}>No users found.</Typography>
-            )}
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#EBF0F5', borderRadius: 1, px: 2, py: 1.5 }}>
-            <InfoOutlinedIcon sx={{ fontSize: 18, color: '#244B72', flexShrink: 0, mt: '1px' }} />
-            <Typography sx={{ fontSize: '0.875rem', color: '#244B72', lineHeight: 1.57 }}>
-              When a task fires, it is sent to all selected champions. The first to accept becomes the responsible champion.
-            </Typography>
+            })}
           </Box>
         </Box>
-      )}
+      </Box>
+
+      {/* ── Task Assignment ──────────────────────────────────────── */}
+      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
+          <AssignmentIndOutlinedIcon sx={{ fontSize: 22, color: '#4A5466' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>Task Assignment</Typography>
+        </Box>
+        <Box sx={{ px: 2, py: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+            When a task fires, it routes to the first available person matching these criteria.
+          </Typography>
+
+          {/* Scope */}
+          <Box sx={{ display: 'flex', gap: 1.5 }}>
+            {SCOPES.map((s) => (
+              <ScopeCard key={s} label={s} selected={scope === s} onClick={() => setScope(s)} />
+            ))}
+          </Box>
+
+          {/* Job Title */}
+          <Box>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 0.75, letterSpacing: '0.1px' }}>Job Title</Typography>
+            <FormControl size="small" sx={{ width: 320 }}>
+              <Select
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                displayEmpty
+                renderValue={(v) => v || 'Select job title'}
+                sx={{ fontSize: '0.875rem' }}
+              >
+                {FIELD_VALUES['Job Title'].map((t) => (
+                  <MenuItem key={t} value={t} sx={{ fontSize: '0.875rem' }}>{t}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+
+        </Box>
+      </Box>
     </Box>
   )
 }
@@ -962,7 +961,7 @@ interface CItem { id: string; text: string }
 interface IStep { id: string; text: string }
 interface ISection { id: string; title: string; steps: IStep[] }
 
-function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddChecklist, onRemoveChecklist, onEditChecklist, sections, onAddSection, onRemoveSection, onEditSectionTitle, onAddStep, onRemoveStep, onEditStep, dueDays, onDueDaysChange }: {
+function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddChecklist, onRemoveChecklist, onEditChecklist, sections, onAddSection, onRemoveSection, onEditSectionTitle, onAddStep, onRemoveStep, onEditStep, dueDays, onDueDaysChange, autoFocus }: {
   type: 'onboarding' | 'offboarding'
   title: string
   onTitleChange: (v: string) => void
@@ -979,6 +978,7 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
   onEditStep: (sId: string, stId: string, text: string) => void
   dueDays: number
   onDueDaysChange: (v: number) => void
+  autoFocus?: boolean
 }) {
   const isOnboarding = type === 'onboarding'
   return (
@@ -997,7 +997,7 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
         {/* Task Title */}
         <Box sx={{ pb: 2, borderBottom: '1px solid #EAECF0' }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', mb: 0.75 }}>Task Title</Typography>
-          <TextField fullWidth size="small" value={title} onChange={(e) => onTitleChange(e.target.value)} />
+          <TextField fullWidth size="small" autoFocus={autoFocus} value={title} onChange={(e) => onTitleChange(e.target.value)} />
         </Box>
 
         {/* Checklist */}
@@ -1164,6 +1164,7 @@ function Step4ChampionTasks({ app }: { app: CatalogApp }) {
           sections={onSections} onAddSection={() => addSection(setOnSections)} onRemoveSection={(id) => removeSection(setOnSections, id)} onEditSectionTitle={(id, t) => editSectionTitle(setOnSections, id, t)}
           onAddStep={(sId) => addStep(setOnSections, sId)} onRemoveStep={(sId, stId) => removeStep(setOnSections, sId, stId)} onEditStep={(sId, stId, t) => editStep(setOnSections, sId, stId, t)}
           dueDays={onDays} onDueDaysChange={setOnDays}
+          autoFocus
         />
         <TaskSetupCard type="offboarding"
           title={offTitle} onTitleChange={setOffTitle}
