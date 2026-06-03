@@ -20,6 +20,11 @@ import Autocomplete from '@mui/material/Autocomplete'
 import Popover from '@mui/material/Popover'
 import IconButton from '@mui/material/IconButton'
 import Checkbox from '@mui/material/Checkbox'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Switch from '@mui/material/Switch'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import CheckIcon from '@mui/icons-material/Check'
@@ -31,6 +36,10 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined'
+import PersonRemoveOutlinedIcon from '@mui/icons-material/PersonRemoveOutlined'
+import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined'
+import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined'
 
 const STEPS = ['Select App', 'Provisioning & Sign-on', 'Rules', 'Champion Election', 'Champion Tasks', 'Review']
 
@@ -157,6 +166,7 @@ function Step1SelectApp({
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('All categories')
   const [page, setPage] = useState(1)
+  const [catalogDialogOpen, setCatalogDialogOpen] = useState(false)
 
   const filtered = useMemo(() =>
     CATALOG_APPS.filter((app) => {
@@ -192,9 +202,9 @@ function Step1SelectApp({
               </Select>
             </FormControl>
           </Box>
-          <Button variant="contained" startIcon={<AddIcon sx={{ fontSize: 18 }} />}
-            onClick={() => navigate('/apps/new')}
-            sx={{ fontWeight: 500, textTransform: 'none', boxShadow: 'none', '&:hover': { boxShadow: 'none' }, px: 2.5 }}>
+          <Button variant="outlined" startIcon={<AddIcon sx={{ fontSize: 18 }} />}
+            onClick={() => setCatalogDialogOpen(true)}
+            sx={{ fontWeight: 500, textTransform: 'none', boxShadow: 'none', borderColor: '#D0D5DD', color: '#244B72', '&:hover': { borderColor: '#244B72', boxShadow: 'none' }, px: 2.5 }}>
             Add Custom App
           </Button>
         </Box>
@@ -241,19 +251,220 @@ function Step1SelectApp({
       <Box sx={{ mt: 'auto', pt: 1, borderTop: '1px solid #EAECF0' }}>
         <Pagination count={totalPages} page={page} onChange={(_, p) => setPage(p)} shape="rounded" size="small" showFirstButton showLastButton />
       </Box>
+
+      {/* Global catalog clarification dialog */}
+      <Dialog open={catalogDialogOpen} onClose={() => setCatalogDialogOpen(false)} maxWidth="xs" fullWidth
+        slotProps={{ paper: { sx: { borderRadius: '8px' } } }}>
+        <DialogTitle sx={{
+          bgcolor: '#FCFBFD',
+          borderBottom: '1px solid #EAECF0',
+          p: 3,
+          fontSize: '1.25rem',
+          fontWeight: 600,
+          color: '#202938',
+          letterSpacing: '0.15px',
+          lineHeight: 1.6,
+        }}>
+          This adds to the global app catalog
+        </DialogTitle>
+        <DialogContent sx={{ px: 3, pb: 2.5, pt: '0 !important' }}>
+          <Box sx={{ pt: 1.5 }}>
+            <Typography sx={{ fontSize: '0.875rem', color: '#202938', lineHeight: 1.43, fontWeight: 400 }}>
+              {"Custom apps are added to your organization's shared catalog and become available to all clients — not just this one."}
+            </Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: '#202938', lineHeight: 1.43, fontWeight: 400 }}>
+              Once created, you can come back here to assign it to this client.
+            </Typography>
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ px: 1, py: 2, gap: 1 }}>
+          <Button variant="outlined" onClick={() => setCatalogDialogOpen(false)}
+            sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: '8px', px: 2, py: 0.75, boxShadow: '0px 1px 2px 0px rgba(16,24,40,0.05)', '&:hover': { borderColor: '#244B72', boxShadow: '0px 1px 2px 0px rgba(16,24,40,0.05)' } }}>
+            Cancel
+          </Button>
+          <Button variant="contained" onClick={() => navigate('/apps/new')}
+            sx={{ bgcolor: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: '8px', px: 2, py: 0.75, boxShadow: 'none', '&:hover': { bgcolor: '#1B3D5F', boxShadow: 'none' } }}>
+            Continue to App Catalog
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
 
 // ── Step 2: Provisioning & Sign-on ──────────────────────────────────────────
 
+const MOCK_TENANT_APPS = [
+  { id: 'ta1', name: 'Finity Dev — SCIM Provisioning' },
+  { id: 'ta2', name: 'Finity Dev — SSO (SAML)' },
+  { id: 'ta3', name: 'Finity — Enterprise App' },
+  { id: 'ta4', name: 'Finity Staging — SCIM' },
+]
+
+type ProvMethod = 'SCIM' | 'ChampionTask'
+
+const PROV_OPTS: { value: ProvMethod; label: string }[] = [
+  { value: 'SCIM',         label: 'SCIM'          },
+  { value: 'ChampionTask', label: 'Champion Task'  },
+]
+
+function OptionCard({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
+  return (
+    <Box onClick={onClick} sx={{
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      width: 320, minHeight: 48, p: 1.5, borderRadius: 1,
+      cursor: 'pointer', userSelect: 'none',
+      bgcolor: selected ? '#F7F8FC' : '#fff',
+      border: selected ? '2px solid #85A4C2' : '1px solid #EAECF0',
+      transition: 'all 0.15s',
+      '&:hover': { borderColor: '#85A4C2', bgcolor: selected ? '#F0F5FA' : '#FCFBFD' },
+    }}>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>
+        {label}
+      </Typography>
+      {selected && (
+        <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: '#244B72', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <CheckIcon sx={{ fontSize: 14, color: '#fff' }} />
+        </Box>
+      )}
+    </Box>
+  )
+}
+
+function EntraCallout({ tenantAppId, onChange }: { tenantAppId: string; onChange: (v: string) => void }) {
+  return (
+    <Box sx={{ bgcolor: '#F7F8FC', border: '1px solid #EAECF0', borderRadius: 1, px: 1.75, py: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+      <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
+          <LinkOutlinedIcon sx={{ fontSize: 20, color: '#202938' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>Link to Microsoft Entra</Typography>
+        </Box>
+        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+          SCIM requires a connection to a Microsoft enterprise app so CubX can read live user and group data.
+        </Typography>
+      </Box>
+      <FormControl fullWidth size="small">
+        <Select
+          value={tenantAppId}
+          onChange={(e) => onChange(e.target.value)}
+          displayEmpty
+          renderValue={(v) => v
+            ? MOCK_TENANT_APPS.find((a) => a.id === v)?.name
+            : 'Select enterprise app'
+          }
+          sx={{ bgcolor: '#fff', fontSize: '0.875rem' }}
+        >
+          {MOCK_TENANT_APPS.map((a) => (
+            <MenuItem key={a.id} value={a.id} sx={{ fontSize: '0.875rem' }}>{a.name}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
+  )
+}
+
+function ProvisioningCard({
+  type,
+  method,
+  onMethodChange,
+  tenantAppId,
+  onTenantChange,
+}: {
+  type: 'onboarding' | 'offboarding'
+  method: ProvMethod
+  onMethodChange: (v: ProvMethod) => void
+  tenantAppId: string
+  onTenantChange: (v: string) => void
+}) {
+  const isOnboarding = type === 'onboarding'
+  const Icon = isOnboarding ? PersonAddOutlinedIcon : PersonRemoveOutlinedIcon
+  return (
+    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
+      <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
+        <Icon sx={{ fontSize: 22, color: '#4A5466' }} />
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>
+          {isOnboarding ? 'Onboarding' : 'Offboarding'}
+        </Typography>
+      </Box>
+      <Box sx={{ px: 2, py: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        <Box>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 0.25, letterSpacing: '0.1px' }}>Provisioning Method</Typography>
+          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+            {isOnboarding
+              ? 'How will access be granted when a user is onboarded?'
+              : 'How will access be revoked when a user is offboarded?'}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+          {PROV_OPTS.map((opt) => (
+            <OptionCard key={opt.value} label={opt.label} selected={method === opt.value} onClick={() => onMethodChange(opt.value)} />
+          ))}
+        </Box>
+        {method === 'SCIM' && (
+          <EntraCallout tenantAppId={tenantAppId} onChange={onTenantChange} />
+        )}
+      </Box>
+    </Box>
+  )
+}
+
 function Step2Provisioning({ app }: { app: CatalogApp }) {
+  const [creationMethod,    setCreationMethod]    = useState<ProvMethod>('SCIM')
+  const [terminationMethod, setTerminationMethod] = useState<ProvMethod>('SCIM')
+  const [ssoEnabled,        setSsoEnabled]        = useState(true)
+  const [creationTenantApp,    setCreationTenantApp]    = useState('')
+  const [terminationTenantApp, setTerminationTenantApp] = useState('')
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <AppBar app={app} />
+
       <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
-        Provisioning & sign-on
+        Provisioning &amp; sign-on
       </Typography>
+
+      {/* Onboarding card */}
+      <ProvisioningCard
+        type="onboarding"
+        method={creationMethod}
+        onMethodChange={setCreationMethod}
+        tenantAppId={creationTenantApp}
+        onTenantChange={setCreationTenantApp}
+      />
+
+      {/* Offboarding card */}
+      <ProvisioningCard
+        type="offboarding"
+        method={terminationMethod}
+        onMethodChange={setTerminationMethod}
+        tenantAppId={terminationTenantApp}
+        onTenantChange={setTerminationTenantApp}
+      />
+
+      {/* Sign-on card */}
+      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
+          <VpnKeyOutlinedIcon sx={{ fontSize: 22, color: '#4A5466' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>Sign-on</Typography>
+        </Box>
+        <Box sx={{ px: 2, py: 2, display: 'flex', alignItems: 'center', gap: 3 }}>
+          <Box sx={{ flex: 1 }}>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 0.25 }}>SSO / SAML / OIDC</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+              Users sign in via your identity provider. Manual login is always available as a fallback.
+            </Typography>
+          </Box>
+          <Switch
+            checked={ssoEnabled}
+            onChange={(e) => setSsoEnabled(e.target.checked)}
+            sx={{
+              flexShrink: 0,
+              '& .MuiSwitch-switchBase.Mui-checked': { color: '#244B72' },
+              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: '#244B72' },
+            }}
+          />
+        </Box>
+      </Box>
     </Box>
   )
 }
