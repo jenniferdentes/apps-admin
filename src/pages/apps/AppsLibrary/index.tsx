@@ -166,7 +166,7 @@ export default function AppsLibrary() {
                   Sign-on
                 </TableCell>
                 <TableCell sx={{ width: 140, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
-                  Companies
+                  Clients
                 </TableCell>
                 <TableCell sx={{ width: 110, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
                   Actions

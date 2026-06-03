@@ -122,7 +122,6 @@ export default function AddNewApp() {
   const canNext =
     step === 0 ? data.appName.trim().length > 0 :
     step === 1 ? data.appName.trim().length > 0 :
-    step === 2 ? data.appType !== '' && data.provisioningMethods.length > 0 && data.signOnMethods.length > 0 :
     true
 
   const stepProps = { data, update, onNext: next, onBack: back }

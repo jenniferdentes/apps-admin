@@ -24,28 +24,16 @@ export default function Step4Support({ data, update }: Props) {
       <Box sx={{ bgcolor: '#F8FAFC', borderRadius: 1, p: 3 }}>
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 2.5 }}>Details</Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-          <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, mb: 0.75 }}>Contact Name</Typography>
-            <TextField
-              fullWidth
-              size="small"
-              placeholder="Placeholder"
-              value={data.contactName}
-              onChange={(e) => update({ contactName: e.target.value })}
-            />
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, mb: 0.75 }}>Contact Email</Typography>
-            <TextField
-              fullWidth
-              size="small"
-              placeholder="Placeholder"
-              type="email"
-              value={data.contactEmail}
-              onChange={(e) => update({ contactEmail: e.target.value })}
-            />
-          </Box>
+        <Box sx={{ mb: 2 }}>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, mb: 0.75 }}>Contact Email</Typography>
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Placeholder"
+            type="email"
+            value={data.contactEmail}
+            onChange={(e) => update({ contactEmail: e.target.value })}
+          />
         </Box>
 
         <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>

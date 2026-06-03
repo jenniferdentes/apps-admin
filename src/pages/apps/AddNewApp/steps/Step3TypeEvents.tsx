@@ -1,8 +1,8 @@
+import { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Chip from '@mui/material/Chip'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import Switch from '@mui/material/Switch'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import type { AppData } from '../index'
 
 interface Props {
@@ -12,189 +12,113 @@ interface Props {
   onBack: () => void
 }
 
-interface AppTypeCard {
-  value: 'microsoft' | 'manual'
-  label: string
-  subtitle: string
-}
-
-const APP_TYPES: AppTypeCard[] = [
-  { value: 'microsoft', label: 'Microsoft Integration', subtitle: 'Supports SCIM and SSO' },
-  { value: 'manual', label: 'Manual Provisioning', subtitle: 'Champion tasks only' },
+const CAPABILITIES = [
+  {
+    id: 'SCIM' as const,
+    label: 'SCIM Provisioning',
+    description: 'Supports automated provisioning via SCIM when configured with the app provider.',
+    category: 'provisioning',
+  },
+  {
+    id: 'SSO' as const,
+    label: 'SSO / SAML / OIDC',
+    description: 'Federated sign-on via an identity provider such as Microsoft Entra, Okta, or Google.',
+    category: 'sign-on',
+  },
 ]
-
-type ProvisioningMethod = 'SCIM' | 'ChampionTask'
-type SignOnMethod = 'SSO' | 'Manual'
-
-const PROVISIONING_OPTIONS: { value: ProvisioningMethod; label: string }[] = [
-  { value: 'SCIM', label: 'SCIM' },
-  { value: 'ChampionTask', label: 'Champion Task' },
-]
-
-const SIGNON_OPTIONS: { value: SignOnMethod; label: string }[] = [
-  { value: 'SSO', label: 'SSO' },
-  { value: 'Manual', label: 'Manual' },
-]
-
-function ToggleChip({
-  label,
-  selected,
-  onToggle,
-}: {
-  label: string
-  selected: boolean
-  onToggle: () => void
-}) {
-  return (
-    <Chip
-      label={label}
-      onClick={onToggle}
-      icon={selected ? <CheckCircleIcon sx={{ fontSize: 16, color: '#fff !important' }} /> : undefined}
-      sx={{
-        borderRadius: 20,
-        height: 36,
-        fontWeight: 500,
-        fontSize: '0.875rem',
-        bgcolor: selected ? '#1B2A3B' : '#fff',
-        color: selected ? '#fff' : '#1B2A3B',
-        border: '1px solid',
-        borderColor: selected ? '#1B2A3B' : '#CBD5E1',
-        '& .MuiChip-icon': { ml: 1 },
-        '&:hover': { bgcolor: selected ? '#243447' : '#F1F5F9' },
-        cursor: 'pointer',
-      }}
-    />
-  )
-}
 
 export default function Step3TypeEvents({ data, update }: Props) {
-  const availableProvisioning: ProvisioningMethod[] =
-    data.appType === 'manual' ? ['ChampionTask'] : ['SCIM', 'ChampionTask']
+  // Ensure manual fallbacks are always present
+  useEffect(() => {
+    const patch: Partial<AppData> = {}
+    if (!data.provisioningMethods.includes('ChampionTask'))
+      patch.provisioningMethods = [...data.provisioningMethods, 'ChampionTask']
+    if (!data.signOnMethods.includes('Manual'))
+      patch.signOnMethods = [...data.signOnMethods, 'Manual']
+    if (Object.keys(patch).length > 0) update(patch)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const availableSignOn: SignOnMethod[] = data.appType === 'manual' ? ['Manual'] : ['SSO', 'Manual']
-
-  function toggleProvisioning(method: ProvisioningMethod) {
-    const current = data.provisioningMethods
+  function toggleScim() {
+    const has = data.provisioningMethods.includes('SCIM')
     update({
-      provisioningMethods: current.includes(method)
-        ? current.filter((m) => m !== method)
-        : [...current, method],
+      provisioningMethods: has
+        ? data.provisioningMethods.filter((m) => m !== 'SCIM')
+        : [...data.provisioningMethods, 'SCIM'],
     })
   }
 
-  function toggleSignOn(method: SignOnMethod) {
-    const current = data.signOnMethods
+  function toggleSso() {
+    const has = data.signOnMethods.includes('SSO')
     update({
-      signOnMethods: current.includes(method)
-        ? current.filter((m) => m !== method)
-        : [...current, method],
+      signOnMethods: has
+        ? data.signOnMethods.filter((m) => m !== 'SSO')
+        : [...data.signOnMethods, 'SSO'],
     })
   }
 
-  function handleAppType(type: 'microsoft' | 'manual') {
-    update({
-      appType: type,
-      provisioningMethods: type === 'manual' ? ['ChampionTask'] : [],
-      signOnMethods: type === 'manual' ? ['Manual'] : [],
-    })
-  }
+  const scimOn = data.provisioningMethods.includes('SCIM')
+  const ssoOn = data.signOnMethods.includes('SSO')
 
-  const provisioningNote =
-    data.appType === 'microsoft'
-      ? 'Both SCIM and Champion task are available for clients to configure.'
-      : 'Champion Task is the only provisioning method for manual apps.'
-
-  const signOnNote =
-    data.appType === 'microsoft'
-      ? 'Both SSO and Manual are available for clients to configure.'
-      : 'Manual login is the only sign-on method for manual apps.'
+  const toggles = [
+    { cap: CAPABILITIES[0], enabled: scimOn, onToggle: toggleScim },
+    { cap: CAPABILITIES[1], enabled: ssoOn,  onToggle: toggleSso  },
+  ]
 
   return (
-    <Box sx={{ maxWidth: 1200 }}>
+    <Box sx={{ maxWidth: 680 }}>
       <Typography variant="h6" sx={{ mb: 0.5 }}>
-        App type &amp; Events
+        Capabilities
       </Typography>
       <Typography variant="body2" sx={{ mb: 3, lineHeight: 1.6 }}>
-        Choose the app type and set how users are provisioned for each event. Sign-on method applies to the whole app.
+        Enable the integration capabilities this app supports. These become available options when clients configure the app.
       </Typography>
 
-      {/* App Type */}
-      <Box sx={{ mb: 4 }}>
-        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 1.5 }}>App Type</Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          {APP_TYPES.map((t) => {
-            const selected = data.appType === t.value
-            return (
-              <Box
-                key={t.value}
-                onClick={() => handleAppType(t.value)}
-                sx={{
-                  width: 220,
-                  border: '1.5px solid',
-                  borderColor: selected ? '#1B2A3B' : '#E2E8F0',
-                  borderRadius: 1,
-                  p: 2,
-                  cursor: 'pointer',
-                  bgcolor: '#fff',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  '&:hover': { borderColor: '#94A3B8' },
-                }}
-              >
-                <Box>
-                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, mb: 0.25 }}>{t.label}</Typography>
-                  <Typography sx={{ fontSize: '0.75rem', color: '#64748B' }}>{t.subtitle}</Typography>
-                </Box>
-                {selected && <CheckCircleIcon sx={{ color: '#1B2A3B', fontSize: 20 }} />}
-              </Box>
-            )
-          })}
-        </Box>
-      </Box>
-
-      {/* Provisioning Method */}
-      <Box sx={{ mb: 4 }}>
-        <Box sx={{ mb: 1 }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>Provisioning Method</Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}>
-            <ArrowForwardIcon sx={{ fontSize: 14, color: '#64748B' }} />
-            <Typography sx={{ fontSize: '0.8rem', color: '#64748B' }}>{provisioningNote}</Typography>
-          </Box>
-        </Box>
-        <Box sx={{ display: 'flex', gap: 1, mt: 1.5 }}>
-          {PROVISIONING_OPTIONS.filter((o) => availableProvisioning.includes(o.value)).map((o) => (
-            <ToggleChip
-              key={o.value}
-              label={o.label}
-              selected={data.provisioningMethods.includes(o.value)}
-              onToggle={() => toggleProvisioning(o.value)}
+      {/* Capability switches */}
+      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden', mb: 2.5 }}>
+        {toggles.map(({ cap, enabled, onToggle }, i) => (
+          <Box
+            key={cap.id}
+            onClick={onToggle}
+            sx={{
+              display: 'flex', alignItems: 'center', gap: 2, px: 2.5, py: 2,
+              borderBottom: i < toggles.length - 1 ? '1px solid #EAECF0' : 'none',
+              bgcolor: enabled ? '#F7F8FC' : '#fff',
+              cursor: 'pointer',
+              transition: 'background-color 0.15s',
+              '&:hover': { bgcolor: enabled ? '#EBF0F5' : '#FCFBFD' },
+            }}
+          >
+            <Switch
+              checked={enabled}
+              onChange={onToggle}
+              onClick={(e) => e.stopPropagation()}
+              size="small"
+              sx={{
+                flexShrink: 0,
+                '& .MuiSwitch-switchBase.Mui-checked': { color: '#244B72' },
+                '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: '#244B72' },
+              }}
             />
-          ))}
-        </Box>
-      </Box>
-
-      {/* Sign-on Method */}
-      <Box sx={{ mb: 4 }}>
-        <Box sx={{ mb: 1 }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>Sign-on Method</Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}>
-            <ArrowForwardIcon sx={{ fontSize: 14, color: '#64748B' }} />
-            <Typography sx={{ fontSize: '0.8rem', color: '#64748B' }}>{signOnNote}</Typography>
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Typography sx={{ fontSize: '0.9375rem', fontWeight: 600, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.5 }}>
+                {cap.label}
+              </Typography>
+              <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.5, mt: 0.25 }}>
+                {cap.description}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Box sx={{ display: 'flex', gap: 1, mt: 1.5 }}>
-          {SIGNON_OPTIONS.filter((o) => availableSignOn.includes(o.value)).map((o) => (
-            <ToggleChip
-              key={o.value}
-              label={o.label}
-              selected={data.signOnMethods.includes(o.value)}
-              onToggle={() => toggleSignOn(o.value)}
-            />
-          ))}
-        </Box>
+        ))}
       </Box>
 
+      {/* Always-available note */}
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#F7F8FC', border: '1px solid #EAECF0', borderRadius: 1, px: 2, py: 1.5 }}>
+        <InfoOutlinedIcon sx={{ fontSize: 16, color: '#64748B', flexShrink: 0, mt: '2px' }} />
+        <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.6 }}>
+          <strong style={{ color: '#202938' }}>Champion Task provisioning</strong> and <strong style={{ color: '#202938' }}>manual login</strong> are always available — clients can use them regardless of the capabilities enabled above.
+        </Typography>
+      </Box>
     </Box>
   )
 }

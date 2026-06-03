@@ -1,4 +1,8 @@
 import { useState } from 'react'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
@@ -9,11 +13,12 @@ import MenuItem from '@mui/material/MenuItem'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControl from '@mui/material/FormControl'
 import Alert from '@mui/material/Alert'
+import Switch from '@mui/material/Switch'
 import CheckIcon from '@mui/icons-material/Check'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import AddIcon from '@mui/icons-material/Add'
-import type { AppDetail } from './mockData'
+import type { AppDetail, CheckItem, InstructionSection, InstructionStep, TaskDetail } from './mockData'
 import { PROV_CHIPS as PROVISIONING_CHIP, SIGNON_CHIPS as SIGNON_CHIP } from '../../../lib/methodChips'
 const CATEGORIES = ['Messaging', 'Collaboration', 'CRM', 'Finance', 'HR', 'Security', 'Productivity', 'Storage', 'Analytics', 'Development', 'Integrations']
 
@@ -60,13 +65,6 @@ function MethodChips({ methods, map }: { methods: string[]; map: Record<string, 
   )
 }
 
-function ToggleChip({ label, selected, onToggle }: { label: string; selected: boolean; onToggle: () => void }) {
-  return (
-    <Chip label={label} onClick={onToggle}
-      icon={selected ? <CheckCircleIcon sx={{ fontSize: 16, color: '#fff !important' }} /> : undefined}
-      sx={{ borderRadius: 20, height: 36, fontWeight: 500, fontSize: '0.875rem', bgcolor: selected ? '#1B2A3B' : '#fff', color: selected ? '#fff' : '#1B2A3B', border: '1px solid', borderColor: selected ? '#1B2A3B' : '#CBD5E1', '& .MuiChip-icon': { ml: 1 }, '&:hover': { bgcolor: selected ? '#243447' : '#F1F5F9' }, cursor: 'pointer' }} />
-  )
-}
 
 // ── App Details Section ─────────────────────────────────────────────────────
 function AppDetailsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Partial<AppDetail>) => void }) {
@@ -143,20 +141,21 @@ function AppDetailsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
 }
 
 // ── Type & Events Section ───────────────────────────────────────────────────
+const CAPABILITY_ROWS = [
+  { id: 'SCIM', field: 'provisioning' as const, label: 'SCIM Provisioning', description: 'Supports automated provisioning via SCIM when configured with the app provider.' },
+  { id: 'SSO',  field: 'signOn'       as const, label: 'SSO / SAML / OIDC',  description: 'Federated sign-on via an identity provider such as Microsoft Entra, Okta, or Google.' },
+]
+
 function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Partial<AppDetail>) => void }) {
   const [editing, setEditing] = useState(false)
-  const [draft, setDraft] = useState({ appType: app.appType, provisioning: [...app.provisioning], signOn: [...app.signOn] })
+  const [draft, setDraft] = useState({ provisioning: [...app.provisioning], signOn: [...app.signOn] })
 
   function save() { onSave(draft); setEditing(false) }
-  function cancel() { setDraft({ appType: app.appType, provisioning: [...app.provisioning], signOn: [...app.signOn] }); setEditing(false) }
+  function cancel() { setDraft({ provisioning: [...app.provisioning], signOn: [...app.signOn] }); setEditing(false) }
 
-  const toggleProv = (m: string) => {
-    const cur = draft.provisioning as string[]
-    setDraft({ ...draft, provisioning: cur.includes(m) ? cur.filter((x) => x !== m) : [...cur, m] } as typeof draft)
-  }
-  const toggleSO = (m: string) => {
-    const cur = draft.signOn as string[]
-    setDraft({ ...draft, signOn: cur.includes(m) ? cur.filter((x) => x !== m) : [...cur, m] } as typeof draft)
+  function toggle(field: 'provisioning' | 'signOn', id: string) {
+    const cur = draft[field] as string[]
+    setDraft({ ...draft, [field]: cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id] } as typeof draft)
   }
 
   return (
@@ -166,37 +165,54 @@ function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
           <Alert severity="warning" sx={{ mb: 3, fontSize: '0.8rem' }}>
             14 clients are registered with this app. Changes here will affect how the app is configured across all of them.
           </Alert>
-          <Box sx={{ mb: 3 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 1.5 }}>App Type</Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              {[{ value: 'microsoft', label: 'Microsoft Integration', sub: 'Supports SCIM and SSO' }, { value: 'manual', label: 'Manual Provisioning', sub: 'Champion tasks only' }].map((t) => (
-                <Box key={t.value} onClick={() => setDraft({ ...draft, appType: t.value as 'microsoft' | 'manual' })}
-                  sx={{ width: 200, border: '1.5px solid', borderColor: draft.appType === t.value ? '#1B2A3B' : '#E2E8F0', borderRadius: 1, p: 2, cursor: 'pointer', bgcolor: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <Box>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 500 }}>{t.label}</Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: '#64748B' }}>{t.sub}</Typography>
+
+          <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden', mb: 2.5 }}>
+            {CAPABILITY_ROWS.map(({ id, field, label, description }, i) => {
+              const enabled = (draft[field] as string[]).includes(id)
+              return (
+                <Box
+                  key={id}
+                  onClick={() => toggle(field, id)}
+                  sx={{
+                    display: 'flex', alignItems: 'center', gap: 2, px: 2.5, py: 2,
+                    borderBottom: i < CAPABILITY_ROWS.length - 1 ? '1px solid #EAECF0' : 'none',
+                    bgcolor: enabled ? '#F7F8FC' : '#fff',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.15s',
+                    '&:hover': { bgcolor: enabled ? '#EBF0F5' : '#FCFBFD' },
+                  }}
+                >
+                  <Switch
+                    checked={enabled}
+                    onChange={() => toggle(field, id)}
+                    onClick={(e) => e.stopPropagation()}
+                    size="small"
+                    sx={{
+                      flexShrink: 0,
+                      '& .MuiSwitch-switchBase.Mui-checked': { color: '#244B72' },
+                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: '#244B72' },
+                    }}
+                  />
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography sx={{ fontSize: '0.9375rem', fontWeight: 600, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.5 }}>
+                      {label}
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.5, mt: 0.25 }}>
+                      {description}
+                    </Typography>
                   </Box>
-                  {draft.appType === t.value && <CheckCircleIcon sx={{ color: '#1B2A3B', fontSize: 18 }} />}
                 </Box>
-              ))}
-            </Box>
+              )
+            })}
           </Box>
-          <Box sx={{ mb: 3 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 1 }}>Provisioning Method</Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              {['SCIM', 'ChampionTask'].map((m) => (
-                <ToggleChip key={m} label={PROVISIONING_CHIP[m].label} selected={(draft.provisioning as string[]).includes(m)} onToggle={() => toggleProv(m)} />
-              ))}
-            </Box>
+
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#F7F8FC', border: '1px solid #EAECF0', borderRadius: 1, px: 2, py: 1.5, mb: 3 }}>
+            <InfoOutlinedIcon sx={{ fontSize: 16, color: '#64748B', flexShrink: 0, mt: '2px' }} />
+            <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.6 }}>
+              <strong style={{ color: '#202938' }}>Champion Task provisioning</strong> and <strong style={{ color: '#202938' }}>manual login</strong> are always available — clients can use them regardless of the capabilities enabled above.
+            </Typography>
           </Box>
-          <Box sx={{ mb: 3 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 1 }}>Sign-on Method</Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              {['SSO', 'Manual'].map((m) => (
-                <ToggleChip key={m} label={SIGNON_CHIP[m].label} selected={(draft.signOn as string[]).includes(m)} onToggle={() => toggleSO(m)} />
-              ))}
-            </Box>
-          </Box>
+
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
             <Button variant="outlined" size="small" onClick={cancel}>Cancel</Button>
             <Button variant="contained" size="small" onClick={save}>Save</Button>
@@ -204,13 +220,12 @@ function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
         </Box>
       ) : (
         <Box>
-          <ReadField label="App Type" value={app.appType === 'microsoft' ? 'Microsoft Integration' : 'Manual Provisioning'} />
           <Box sx={{ display: 'flex', gap: 4 }}>
             <Box sx={{ flex: 1 }}>
               <ReadField label="Provisioning" value={<MethodChips methods={app.provisioning} map={PROVISIONING_CHIP} />} />
             </Box>
             <Box sx={{ flex: 1 }}>
-              <ReadField label="Provisioning" value={<MethodChips methods={app.signOn} map={SIGNON_CHIP} />} />
+              <ReadField label="Sign-on" value={<MethodChips methods={app.signOn} map={SIGNON_CHIP} />} />
             </Box>
           </Box>
         </Box>
@@ -310,6 +325,173 @@ function SupportSection({ app, onSave }: { app: AppDetail; onSave: (patch: Parti
 }
 
 // ── Tasks Template Section ──────────────────────────────────────────────────
+let _tid = 200
+function tid() { return String(++_tid) }
+
+function parsePasteLines(text: string): string[] {
+  return text.split('\n').map((l) => l.replace(/^[\d]+[.)]\s*|^[-•*]\s*/, '').trim()).filter(Boolean)
+}
+
+function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboarding' | 'Offboarding'; task: TaskDetail; onChange: (t: TaskDetail) => void; autoFocus?: boolean }) {
+  const [pasteHint, setPasteHint] = useState<number | null>(null)
+  const chipColor = label === 'Onboarding' ? { bg: '#DCFCE7', color: '#166534' } : { bg: '#FEE2E2', color: '#991B1B' }
+
+  function setChecklist(items: CheckItem[]) { onChange({ ...task, checklist: items }) }
+  function addChecklistItem() { setChecklist([...task.checklist, { id: tid(), text: '' }]) }
+  function removeChecklistItem(id: string) { setChecklist(task.checklist.filter((i) => i.id !== id)) }
+  function updateChecklistText(id: string, text: string) { setChecklist(task.checklist.map((i) => i.id === id ? { ...i, text } : i)) }
+  function handleChecklistPaste(e: React.ClipboardEvent<HTMLInputElement>, itemId: string) {
+    const lines = parsePasteLines(e.clipboardData.getData('text'))
+    if (lines.length <= 1) return
+    e.preventDefault()
+    const idx = task.checklist.findIndex((i) => i.id === itemId)
+    setChecklist([...task.checklist.slice(0, idx), ...lines.map((t) => ({ id: tid(), text: t })), ...task.checklist.slice(idx + 1)])
+    setPasteHint(lines.length)
+    setTimeout(() => setPasteHint(null), 2500)
+  }
+
+  function updateSection(sectionId: string, patch: Partial<InstructionSection>) {
+    onChange({ ...task, sections: task.sections.map((s) => s.id === sectionId ? { ...s, ...patch } : s) })
+  }
+  function addSection() { onChange({ ...task, sections: [...task.sections, { id: tid(), title: '', steps: [{ id: tid(), text: '' }] }] }) }
+  function removeSection(sectionId: string) { onChange({ ...task, sections: task.sections.filter((s) => s.id !== sectionId) }) }
+  function addStep(sectionId: string) {
+    const s = task.sections.find((s) => s.id === sectionId)
+    if (s) updateSection(sectionId, { steps: [...s.steps, { id: tid(), text: '' }] })
+  }
+  function updateStep(sectionId: string, stepId: string, text: string) {
+    const s = task.sections.find((s) => s.id === sectionId)
+    if (s) updateSection(sectionId, { steps: s.steps.map((st) => st.id === stepId ? { ...st, text } : st) })
+  }
+  function removeStep(sectionId: string, stepId: string) {
+    const s = task.sections.find((s) => s.id === sectionId)
+    if (s) updateSection(sectionId, { steps: s.steps.filter((st) => st.id !== stepId) })
+  }
+  function handleStepPaste(e: React.ClipboardEvent<HTMLInputElement>, sectionId: string, stepId: string) {
+    const lines = parsePasteLines(e.clipboardData.getData('text'))
+    if (lines.length <= 1) return
+    e.preventDefault()
+    const s = task.sections.find((s) => s.id === sectionId)
+    if (!s) return
+    const idx = s.steps.findIndex((st) => st.id === stepId)
+    updateSection(sectionId, { steps: [...s.steps.slice(0, idx), ...lines.map((t) => ({ id: tid(), text: t })), ...s.steps.slice(idx + 1)] })
+    setPasteHint(lines.length)
+    setTimeout(() => setPasteHint(null), 2500)
+  }
+
+  return (
+    <Box sx={{ border: '1px solid #E2E8F0', borderRadius: 1, overflow: 'hidden', mb: 3 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: '#F8FAFC', px: 2, py: 1.5, borderBottom: '1px solid #E2E8F0' }}>
+        <Chip label={label} size="small" sx={{ bgcolor: chipColor.bg, color: chipColor.color, fontWeight: 600, fontSize: '0.75rem', height: 24 }} />
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>Default {label.toLowerCase()} task</Typography>
+      </Box>
+
+      <Box sx={{ p: 2.5 }}>
+        {/* Task Name */}
+        <Box sx={{ mb: 3 }}>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, mb: 0.75 }}>Task Name</Typography>
+          <TextField fullWidth size="small" placeholder="e.g. Set up account access"
+            autoFocus={autoFocus}
+            value={task.title} onChange={(e) => onChange({ ...task, title: e.target.value })} />
+        </Box>
+
+        {/* Checklist */}
+        <Box sx={{ mb: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.25 }}>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>Checklist</Typography>
+            {pasteHint !== null && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <AutoAwesomeIcon sx={{ fontSize: 13, color: '#7C3AED' }} />
+                <Typography sx={{ fontSize: '0.75rem', color: '#7C3AED', fontWeight: 500 }}>Parsed {pasteHint} items</Typography>
+              </Box>
+            )}
+          </Box>
+          <Typography sx={{ fontSize: '0.75rem', color: '#64748B', mb: 1.5 }}>
+            Paste a numbered list to fill these automatically.
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            {task.checklist.map((item) => (
+              <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <DragIndicatorIcon sx={{ color: '#CBD5E1', fontSize: 18, cursor: 'grab', flexShrink: 0 }} />
+                <Box sx={{ width: 16, height: 16, borderRadius: '4px', border: '1.5px solid #CBD5E1', flexShrink: 0 }} />
+                <TextField fullWidth size="small" placeholder="Add a checklist item…"
+                  value={item.text}
+                  onChange={(e) => updateChecklistText(item.id, e.target.value)}
+                  slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleChecklistPaste(e, item.id) } }}
+                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#fff' } }}
+                />
+                <IconButton size="small" onClick={() => removeChecklistItem(item.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </Box>
+            ))}
+          </Box>
+          <Button size="small" startIcon={<AddIcon />} onClick={addChecklistItem} sx={{ mt: 1, color: '#1B2A3B', fontSize: '0.8rem' }}>
+            Add Item
+          </Button>
+        </Box>
+
+        {/* Instructions */}
+        <Box sx={{ mb: 3 }}>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 0.25 }}>Instructions</Typography>
+          <Typography sx={{ fontSize: '0.75rem', color: '#64748B', mb: 1.5 }}>
+            Paste multi-line content into any step to split it automatically.
+          </Typography>
+          {task.sections.map((section, sIdx) => (
+            <Box key={section.id} sx={{ border: '1px solid #E2E8F0', borderRadius: 1.5, p: 2, mb: 1.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+                <DragIndicatorIcon sx={{ color: '#CBD5E1', fontSize: 18, cursor: 'grab' }} />
+                <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: '#1B2A3B', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{sIdx + 1}</Box>
+                <TextField fullWidth size="small" placeholder="Section title"
+                  value={section.title} onChange={(e) => updateSection(section.id, { title: e.target.value })} />
+                <IconButton size="small" onClick={() => removeSection(section.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </Box>
+              {section.steps.map((step: InstructionStep, stIdx: number) => (
+                <Box key={step.id} sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 4, mb: 1 }}>
+                  <Typography sx={{ fontSize: '0.8rem', color: '#64748B', minWidth: 20 }}>{stIdx + 1}.</Typography>
+                  <TextField fullWidth size="small" placeholder="Add step…"
+                    value={step.text}
+                    onChange={(e) => updateStep(section.id, step.id, e.target.value)}
+                    slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleStepPaste(e, section.id, step.id) } }}
+                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#fff' } }}
+                  />
+                  <IconButton size="small" onClick={() => removeStep(section.id, step.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              ))}
+              <Button size="small" startIcon={<AddIcon />} onClick={() => addStep(section.id)} sx={{ ml: 4, color: '#1B2A3B', fontSize: '0.78rem' }}>
+                Add Step
+              </Button>
+            </Box>
+          ))}
+          <Button size="small" startIcon={<AddIcon />} onClick={addSection} sx={{ color: '#1B2A3B', fontSize: '0.8rem' }}>
+            Add New Section
+          </Button>
+        </Box>
+
+        {/* Due date */}
+        <Box>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, mb: 0.5 }}>Due (days after event)</Typography>
+          <TextField size="small" type="number" placeholder="e.g. 3"
+            value={task.dueAfterDays || ''}
+            onChange={(e) => onChange({ ...task, dueAfterDays: Number(e.target.value) })}
+            sx={{ width: 160 }}
+          />
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mt: 1 }}>
+            <InfoOutlinedIcon sx={{ fontSize: 14, color: '#94A3B8', mt: '2px', flexShrink: 0 }} />
+            <Typography sx={{ fontSize: '0.75rem', color: '#94A3B8', lineHeight: 1.5 }}>
+              Champions receive reminders as the deadline approaches. Incomplete tasks are escalated to their manager — not handled by CubX.
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
 function TaskPanel({ task, type }: { task: AppDetail['onboardingTask']; type: 'Onboarding' | 'Offboarding' }) {
   const chipStyle = type === 'Onboarding'
     ? { bg: '#DCFCE7', color: '#166534' }
@@ -351,11 +533,30 @@ function TaskPanel({ task, type }: { task: AppDetail['onboardingTask']; type: 'O
   )
 }
 
-function TasksSection({ app }: { app: AppDetail }) {
+function TasksSection({ app, onSave }: { app: AppDetail; onSave: (patch: Partial<AppDetail>) => void }) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState({ onboardingTask: app.onboardingTask, offboardingTask: app.offboardingTask })
+
+  function save() { onSave(draft); setEditing(false) }
+  function cancel() { setDraft({ onboardingTask: app.onboardingTask, offboardingTask: app.offboardingTask }); setEditing(false) }
+
   return (
-    <SectionCard title="Tasks Template" onEdit={() => {}}>
-      <TaskPanel task={app.onboardingTask} type="Onboarding" />
-      <TaskPanel task={app.offboardingTask} type="Offboarding" />
+    <SectionCard title="Tasks Template" onEdit={editing ? undefined : () => setEditing(true)}>
+      {editing ? (
+        <Box>
+          <TaskEditPanel label="Onboarding" task={draft.onboardingTask} onChange={(t) => setDraft({ ...draft, onboardingTask: t })} autoFocus />
+          <TaskEditPanel label="Offboarding" task={draft.offboardingTask} onChange={(t) => setDraft({ ...draft, offboardingTask: t })} />
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 1 }}>
+            <Button variant="outlined" size="small" onClick={cancel}>Cancel</Button>
+            <Button variant="contained" size="small" onClick={save}>Save</Button>
+          </Box>
+        </Box>
+      ) : (
+        <Box>
+          <TaskPanel task={app.onboardingTask} type="Onboarding" />
+          <TaskPanel task={app.offboardingTask} type="Offboarding" />
+        </Box>
+      )}
     </SectionCard>
   )
 }
@@ -370,7 +571,7 @@ export default function OverviewTab({ app, onUpdate }: Props) {
       <TypeEventsSection app={app} onSave={onUpdate} />
       <ScreenshotsSection />
       <SupportSection app={app} onSave={onUpdate} />
-      <TasksSection app={app} />
+      <TasksSection app={app} onSave={onUpdate} />
     </Box>
   )
 }

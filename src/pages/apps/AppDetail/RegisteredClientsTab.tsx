@@ -72,7 +72,7 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
         <Table>
           <TableHead>
             <TableRow sx={{ bgcolor: '#FAFAFA' }}>
-              {['Company Name', 'Provisioning', 'Sign-on', 'Users', 'Date Added', 'Status', ''].map((h) => (
+              {['Client Name', 'Provisioning', 'Sign-on', 'Users', 'Date Added', 'Status', ''].map((h) => (
                 <TableCell key={h} sx={{ fontWeight: 500, color: '#64748B', fontSize: '0.8125rem', py: 1.25, borderBottom: '1px solid #EAECF0' }}>{h}</TableCell>
               ))}
             </TableRow>
