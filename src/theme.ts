@@ -10,6 +10,7 @@ const cubxTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'class',
   },
+  defaultColorScheme: 'light',
 
   colorSchemes: {
     // ── LIGHT ─────────────────────────────────────────────────────────────────
