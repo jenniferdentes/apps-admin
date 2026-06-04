@@ -853,8 +853,8 @@ export default function ClientAppDetail() {
                               display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25,
                               borderBottom: i < arr.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
                               cursor: 'pointer',
-                              bgcolor: checked ? 'secondary.main' : 'background.default',
-                              '&:hover': { bgcolor: checked ? 'secondary.main' : 'background.paper' },
+                              bgcolor: checked ? 'secondary.main' : 'background.paper',
+                              '&:hover': { bgcolor: checked ? 'secondary.main' : 'secondary.light' },
                             }}
                           >
                             <Checkbox size="small" checked={checked}
