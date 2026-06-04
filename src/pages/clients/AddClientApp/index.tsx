@@ -222,7 +222,7 @@ function Step1SelectApp({
                   display: 'flex', alignItems: 'center', gap: 2, p: 2,
                   border: `1px solid ${isSelected ? 'var(--mui-palette-primary-main)' : 'var(--mui-palette-divider)'}`,
                   borderRadius: 1, cursor: 'pointer',
-                  bgcolor: isSelected ? 'secondary.main' : 'background.default',
+                  bgcolor: isSelected ? 'secondary.main' : 'background.paper',
                   boxShadow: '0px 1px 1px rgba(0,0,0,0.08)',
                   transition: 'border-color 0.15s, background-color 0.15s',
                   '&:hover': { borderColor: 'primary.main', bgcolor: isSelected ? 'secondary.main' : 'background.paper' },
