@@ -526,7 +526,7 @@ function RuleRow({
   return (
     <Box sx={{
       position: 'relative',
-      bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px',
+      bgcolor: 'secondary.light', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px',
       px: '14px', pt: '12px', pb: '14px', mb: 1.5,
       display: 'flex', flexDirection: 'column', gap: 1.5,
     }}>
@@ -718,7 +718,7 @@ function Step3Rules({ app }: { app: CatalogApp }) {
       )}
 
       {/* Result bar */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, bgcolor: 'background.paper', borderRadius: '12px', px: '20px', py: '14px' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, bgcolor: 'secondary.light', borderRadius: '12px', px: '20px', py: '14px' }}>
         <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'primary.main' }}>{matchCount.toLocaleString()}</Typography>
         <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>people match these rules</Typography>
       </Box>
