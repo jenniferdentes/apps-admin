@@ -66,8 +66,8 @@ const cubxTheme = createTheme({
         },
 
         background: {
-          default: '#ffffff',
-          paper:   '#f7f8fc',
+          default: '#f4f6f8',
+          paper:   '#ffffff',
         },
 
         divider: '#eaecf0',
@@ -190,11 +190,23 @@ const cubxTheme = createTheme({
       },
     },
 
+    MuiTableHead: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '& .MuiTableCell-root': {
+            backgroundColor: theme.palette.mode === 'dark'
+              ? theme.palette.secondary.dark
+              : '#f7f8fc',
+          },
+        }),
+      },
+    },
+
     MuiTableBody: {
       styleOverrides: {
         root: ({ theme }) => ({
           '& .MuiTableRow-root': {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.background.paper,
           },
           '& .MuiTableCell-root': {
             borderBottom: `1px solid ${theme.palette.divider}`,
