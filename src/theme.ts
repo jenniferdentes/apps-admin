@@ -67,7 +67,7 @@ const cubxTheme = createTheme({
 
         background: {
           default: '#ffffff',
-          paper:   '#ffffff',
+          paper:   '#f7f8fc',
         },
 
         divider: '#eaecf0',
@@ -187,6 +187,16 @@ const cubxTheme = createTheme({
         root: {
           backgroundColor: 'transparent',
         },
+      },
+    },
+
+    MuiTableBody: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '& .MuiTableRow-root': {
+            backgroundColor: theme.palette.background.default,
+          },
+        }),
       },
     },
 
