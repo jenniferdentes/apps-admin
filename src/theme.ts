@@ -67,7 +67,7 @@ const cubxTheme = createTheme({
 
         background: {
           default: '#ffffff',
-          paper:   '#f7f8fc',
+          paper:   '#ffffff',
         },
 
         divider: '#eaecf0',
@@ -182,6 +182,14 @@ const cubxTheme = createTheme({
 
   // ── COMPONENT OVERRIDES ─────────────────────────────────────────────────────
   components: {
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+
     MuiButton: {
       styleOverrides: {
         root: { textTransform: 'none', fontWeight: 500, boxShadow: 'none', '&:hover': { boxShadow: 'none' } },
