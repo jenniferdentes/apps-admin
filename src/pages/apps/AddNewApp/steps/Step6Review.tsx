@@ -42,7 +42,7 @@ function ReviewCard({
         }}
       >
         <Typography sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{title}</Typography>
-        <Button size="small" onClick={onEdit} sx={{ color: '#1B2A3B', fontWeight: 500, fontSize: '0.8rem', minWidth: 'auto' }}>
+        <Button size="small" onClick={onEdit} sx={{ color: 'text.primary', fontWeight: 500, fontSize: '0.8rem', minWidth: 'auto' }}>
           Edit
         </Button>
       </Box>
@@ -111,7 +111,7 @@ export default function Step6Review({ data, onEditStep }: Props) {
                     key={m}
                     label={provisioningLabels[m]}
                     size="small"
-                    sx={{ bgcolor: '#EEF2FF', color: '#4338CA', fontWeight: 500, fontSize: '0.75rem' }}
+                    sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 500, fontSize: '0.75rem' }}
                   />
                 ))}
               </Box>
@@ -130,7 +130,7 @@ export default function Step6Review({ data, onEditStep }: Props) {
                     key={m}
                     label={signOnLabels[m]}
                     size="small"
-                    sx={{ bgcolor: '#EEF2FF', color: '#4338CA', fontWeight: 500, fontSize: '0.75rem' }}
+                    sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 500, fontSize: '0.75rem' }}
                   />
                 ))}
               </Box>

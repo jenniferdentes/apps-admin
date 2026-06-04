@@ -29,7 +29,7 @@ function ImportedBadge() {
     <Chip
       label="Imported"
       size="small"
-      sx={{ fontSize: '0.7rem', height: 22, bgcolor: '#E0F2FE', color: '#0284C7', fontWeight: 500 }}
+      sx={{ fontSize: '0.7rem', height: 22, bgcolor: 'info.light', color: 'info.dark', fontWeight: 500 }}
     />
   )
 }
@@ -82,7 +82,7 @@ export default function Step2Description({ data, update }: Props) {
             sx={{
               width: 80,
               height: 80,
-              border: '2px dashed #CBD5E1',
+              border: '2px dashed var(--mui-palette-divider)',
               borderRadius: 1,
               display: 'flex',
               alignItems: 'center',
@@ -235,7 +235,7 @@ export default function Step2Description({ data, update }: Props) {
             sx={{
               width: 80,
               height: 80,
-              border: '2px dashed #CBD5E1',
+              border: '2px dashed var(--mui-palette-divider)',
               borderRadius: 1.5,
               display: 'flex',
               alignItems: 'center',
@@ -244,7 +244,7 @@ export default function Step2Description({ data, update }: Props) {
               '&:hover': { borderColor: 'text.disabled' },
             }}
           >
-            <AddIcon sx={{ color: '#CBD5E1', fontSize: 24 }} />
+            <AddIcon sx={{ color: 'text.disabled', fontSize: 24 }} />
           </Box>
         </Box>
         <input ref={screenshotInputRef} type="file" accept="image/*" multiple hidden onChange={handleScreenshot} />

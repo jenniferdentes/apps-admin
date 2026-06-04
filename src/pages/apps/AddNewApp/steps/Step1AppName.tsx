@@ -123,7 +123,7 @@ export default function Step1AppName({ data, update, onNext }: Props) {
                 <MenuItem
                   key={app.name}
                   onClick={() => selectApp(app)}
-                  sx={{ py: 1.25, gap: 1.5, '&:hover': { bgcolor: '#F1F5F9' } }}
+                  sx={{ py: 1.25, gap: 1.5, '&:hover': { bgcolor: 'action.hover' } }}
                 >
                   <Box sx={{ fontSize: 20, lineHeight: 1 }}>{app.icon}</Box>
                   <Typography sx={{ fontSize: '0.875rem', fontWeight: 500 }}>{app.name}</Typography>
@@ -133,7 +133,7 @@ export default function Step1AppName({ data, update, onNext }: Props) {
               {/* Continue with typed name */}
               <MenuItem
                 onClick={continueManually}
-                sx={{ py: 1.25, justifyContent: 'space-between', '&:hover': { bgcolor: '#F1F5F9' } }}
+                sx={{ py: 1.25, justifyContent: 'space-between', '&:hover': { bgcolor: 'action.hover' } }}
               >
                 <Typography sx={{ fontSize: '0.875rem' }}>
                   Continue with &ldquo;{query}&rdquo;

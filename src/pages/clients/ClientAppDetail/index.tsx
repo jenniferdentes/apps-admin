@@ -254,7 +254,7 @@ function InstructionCard({ index, title, steps }: { index: number; title: string
   return (
     <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#42A5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: 'primary.light', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#fff', lineHeight: 1 }}>{index}</Typography>
         </Box>
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>{title}</Typography>
@@ -360,10 +360,10 @@ function DetailRuleRow({ rule, variant, onFieldChange, onRemoveValue, onDeleteRu
           <Chip key={v} label={v} size="small"
             onDelete={() => onRemoveValue(rule.id, v)}
             deleteIcon={<CloseIcon sx={{ fontSize: '14px !important' }} />}
-            sx={{ bgcolor: isExclude ? 'error.light' : 'secondary.main', color: isExclude ? '#C83E2E' : 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+            sx={{ bgcolor: isExclude ? 'error.light' : 'secondary.main', color: isExclude ? 'error.main' : 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         ))}
         <Box component="button" onClick={(e) => onOpenPicker(e, rule.id, variant)}
-          sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, border: `1.5px dashed ${isExclude ? '#C83E2E' : '#0C2E50'}`, borderRadius: 100, px: 1.25, py: '3px', bgcolor: 'transparent', cursor: 'pointer', color: isExclude ? '#C83E2E' : 'primary.main', fontSize: '0.8125rem', fontWeight: 500, '&:hover': { bgcolor: isExclude ? 'error.light' : 'secondary.main' } }}>
+          sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, border: isExclude ? '1.5px dashed var(--mui-palette-error-main)' : '1.5px dashed var(--mui-palette-primary-dark)', borderRadius: 100, px: 1.25, py: '3px', bgcolor: 'transparent', cursor: 'pointer', color: isExclude ? '#C83E2E' : 'primary.main', fontSize: '0.8125rem', fontWeight: 500, '&:hover': { bgcolor: isExclude ? 'error.light' : 'secondary.main' } }}>
           <AddIcon sx={{ fontSize: 13 }} />
           Add {rule.field}
         </Box>
@@ -377,7 +377,7 @@ function ReadOnlyRuleRow({ field, values, variant }: { field: string; values: st
   return (
     <Box sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '14px', py: '12px', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-        <Box sx={{ bgcolor: isExclude ? 'error.light' : 'success.light', color: isExclude ? '#C83E2E' : '#084C2E', px: 1, py: '2px', borderRadius: '4px', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.57 }}>
+        <Box sx={{ bgcolor: isExclude ? 'error.light' : 'success.light', color: isExclude ? 'error.main' : 'success.dark', px: 1, py: '2px', borderRadius: '4px', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.57 }}>
           {field}
         </Box>
         <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>is any of</Typography>
@@ -1094,7 +1094,7 @@ export default function ClientAppDetail() {
             <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.secondary', letterSpacing: '0.1px', mb: 1 }}>
               Training Video
             </Typography>
-            <Box sx={{ width: 190, height: 131, borderRadius: 1, border: '2px solid #EAECF0', bgcolor: '#2D1B69', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 4px 8px rgba(16,24,40,0.1), 0px 2px 4px rgba(16,24,40,0.06)', cursor: 'pointer' }}>
+            <Box sx={{ width: 190, height: 131, borderRadius: 1, border: '1px solid var(--mui-palette-divider)', bgcolor: '#2D1B69', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 4px 8px rgba(16,24,40,0.1), 0px 2px 4px rgba(16,24,40,0.06)', cursor: 'pointer' }}>
               <Box sx={{ bgcolor: 'rgba(0,0,0,0.6)', borderRadius: '99px', p: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <PlayCircleOutlinedIcon sx={{ fontSize: 36, color: '#fff' }} />
               </Box>

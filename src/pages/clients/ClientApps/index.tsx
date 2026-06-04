@@ -173,7 +173,7 @@ export default function ClientApps() {
             <TableHead>
               <TableRow>
                 {['App Name', 'Provisioning', 'Sign-on', 'Users', 'Status', ''].map((h) => (
-                  <TableCell key={h} sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.8125rem', bgcolor: '#FAFAFA', borderBottom: '1px solid var(--mui-palette-divider)' }}>
+                  <TableCell key={h} sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.8125rem', borderBottom: '1px solid var(--mui-palette-divider)' }}>
                     {h}
                   </TableCell>
                 ))}

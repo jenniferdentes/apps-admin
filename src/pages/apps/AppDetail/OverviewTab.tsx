@@ -251,8 +251,8 @@ function ScreenshotsSection() {
           </Box>
         ))}
         {editing && (
-          <Box sx={{ width: 120, height: 80, border: '2px dashed #CBD5E1', borderRadius: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', '&:hover': { borderColor: 'divider' } }}>
-            <AddIcon sx={{ color: '#CBD5E1' }} />
+          <Box sx={{ width: 120, height: 80, border: '2px dashed var(--mui-palette-divider)', borderRadius: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', '&:hover': { borderColor: 'divider' } }}>
+            <AddIcon sx={{ color: 'text.disabled' }} />
           </Box>
         )}
       </Box>
@@ -412,21 +412,21 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {task.checklist.map((item) => (
               <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <DragIndicatorIcon sx={{ color: '#CBD5E1', fontSize: 18, cursor: 'grab', flexShrink: 0 }} />
-                <Box sx={{ width: 16, height: 16, borderRadius: '4px', border: '1.5px solid #CBD5E1', flexShrink: 0 }} />
+                <DragIndicatorIcon sx={{ color: 'text.disabled', fontSize: 18, cursor: 'grab', flexShrink: 0 }} />
+                <Box sx={{ width: 16, height: 16, borderRadius: '4px', border: '1.5px solid var(--mui-palette-divider)', flexShrink: 0 }} />
                 <TextField fullWidth size="small" placeholder="Add a checklist item…"
                   value={item.text}
                   onChange={(e) => updateChecklistText(item.id, e.target.value)}
                   slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleChecklistPaste(e, item.id) } }}
                   sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.paper' } }}
                 />
-                <IconButton size="small" onClick={() => removeChecklistItem(item.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
+                <IconButton size="small" onClick={() => removeChecklistItem(item.id)} sx={{ color: 'text.disabled', '&:hover': { color: 'error.main' } }}>
                   <CloseIcon fontSize="small" />
                 </IconButton>
               </Box>
             ))}
           </Box>
-          <Button size="small" startIcon={<AddIcon />} onClick={addChecklistItem} sx={{ mt: 1, color: '#1B2A3B', fontSize: '0.8rem' }}>
+          <Button size="small" startIcon={<AddIcon />} onClick={addChecklistItem} sx={{ mt: 1, color: 'text.primary', fontSize: '0.8rem' }}>
             Add Item
           </Button>
         </Box>
@@ -440,11 +440,11 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
           {task.sections.map((section, sIdx) => (
             <Box key={section.id} sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1.5, p: 2, mb: 1.5 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
-                <DragIndicatorIcon sx={{ color: '#CBD5E1', fontSize: 18, cursor: 'grab' }} />
-                <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: '#1B2A3B', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{sIdx + 1}</Box>
+                <DragIndicatorIcon sx={{ color: 'text.disabled', fontSize: 18, cursor: 'grab' }} />
+                <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: 'text.primary', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{sIdx + 1}</Box>
                 <TextField fullWidth size="small" placeholder="Section title"
                   value={section.title} onChange={(e) => updateSection(section.id, { title: e.target.value })} />
-                <IconButton size="small" onClick={() => removeSection(section.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
+                <IconButton size="small" onClick={() => removeSection(section.id)} sx={{ color: 'text.disabled', '&:hover': { color: 'error.main' } }}>
                   <CloseIcon fontSize="small" />
                 </IconButton>
               </Box>
@@ -457,17 +457,17 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
                     slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleStepPaste(e, section.id, step.id) } }}
                     sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.paper' } }}
                   />
-                  <IconButton size="small" onClick={() => removeStep(section.id, step.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
+                  <IconButton size="small" onClick={() => removeStep(section.id, step.id)} sx={{ color: 'text.disabled', '&:hover': { color: 'error.main' } }}>
                     <CloseIcon fontSize="small" />
                   </IconButton>
                 </Box>
               ))}
-              <Button size="small" startIcon={<AddIcon />} onClick={() => addStep(section.id)} sx={{ ml: 4, color: '#1B2A3B', fontSize: '0.78rem' }}>
+              <Button size="small" startIcon={<AddIcon />} onClick={() => addStep(section.id)} sx={{ ml: 4, color: 'text.primary', fontSize: '0.78rem' }}>
                 Add Step
               </Button>
             </Box>
           ))}
-          <Button size="small" startIcon={<AddIcon />} onClick={addSection} sx={{ color: '#1B2A3B', fontSize: '0.8rem' }}>
+          <Button size="small" startIcon={<AddIcon />} onClick={addSection} sx={{ color: 'text.primary', fontSize: '0.8rem' }}>
             Add New Section
           </Button>
         </Box>

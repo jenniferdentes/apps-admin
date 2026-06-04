@@ -66,8 +66,8 @@ export default function AppDetailPage() {
           sx={{
             minHeight: 44,
             '& .MuiTab-root': { minHeight: 44, textTransform: 'none', fontWeight: 400, fontSize: '0.875rem', color: 'text.secondary', px: 2 },
-            '& .Mui-selected': { fontWeight: 600, color: '#1B2A3B' },
-            '& .MuiTabs-indicator': { bgcolor: '#1B2A3B', height: 2 },
+            '& .Mui-selected': { fontWeight: 600, color: 'text.primary' },
+            '& .MuiTabs-indicator': { bgcolor: 'text.primary', height: 2 },
           }}>
           <Tab label="Overview" />
           <Tab label="Registered Clients" />

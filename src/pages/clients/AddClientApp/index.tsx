@@ -1043,7 +1043,7 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
             <Box key={section.id} sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                 <DragIndicatorIcon sx={{ fontSize: 20, color: 'text.disabled', flexShrink: 0 }} />
-                <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#42A5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: 'primary.light', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#fff', lineHeight: 1 }}>{sIdx + 1}</Typography>
                 </Box>
                 <InputBase value={section.title} onChange={(e) => onEditSectionTitle(section.id, e.target.value)}
@@ -1217,7 +1217,7 @@ function Step5Review({ app }: { app: CatalogApp }) {
         {/* Sign-on */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>Sign-on</Typography>
-          <Chip label="SSO" size="small" sx={{ bgcolor: '#EDE7F6', color: '#512DA8', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+          <Chip label="SSO" size="small" sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         </Box>
 
         <Divider />

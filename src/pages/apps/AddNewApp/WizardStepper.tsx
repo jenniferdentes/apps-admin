@@ -16,7 +16,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
       sx={{
         display: 'flex',
         alignItems: 'center',
-        bgcolor: '#EEF1F5',
+        bgcolor: 'secondary.light',
         borderRadius: '8px 8px 0 0',
         px: 3,
         py: 1.5,
@@ -39,7 +39,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bgcolor: completed || active ? '#1B2A3B' : '#CBD5E1',
+                  bgcolor: completed || active ? 'text.primary' : 'text.disabled',
                   color: '#fff',
                   flexShrink: 0,
                 }}
@@ -55,7 +55,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
                 sx={{
                   fontSize: '0.8rem',
                   fontWeight: active ? 600 : 400,
-                  color: active || completed ? '#1B2A3B' : 'text.disabled',
+                  color: active || completed ? 'text.primary' : 'text.disabled',
                 }}
               >
                 {label}
@@ -68,7 +68,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
                 sx={{
                   flex: 1,
                   height: 1,
-                  bgcolor: index < activeStep ? '#1B2A3B' : '#CBD5E1',
+                  bgcolor: index < activeStep ? 'text.primary' : 'text.disabled',
                   mx: 1.5,
                 }}
               />

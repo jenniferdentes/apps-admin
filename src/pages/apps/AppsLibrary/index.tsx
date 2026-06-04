@@ -74,8 +74,8 @@ function AppNameCell({ app }: { app: AppRow }) {
             label="Cubx App"
             size="small"
             sx={{
-              bgcolor: '#E3F2FD',
-              color: '#1565C0',
+              bgcolor: 'secondary.main',
+              color: 'primary.main',
               fontWeight: 600,
               fontSize: '0.75rem',
               height: 22,
