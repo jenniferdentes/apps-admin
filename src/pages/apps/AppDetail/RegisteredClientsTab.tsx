@@ -71,7 +71,7 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
       <TableContainer component={Paper} elevation={0}>
         <Table>
           <TableHead>
-            <TableRow sx={{ bgcolor: '#FAFAFA' }}>
+            <TableRow>
               {['Client Name', 'Provisioning', 'Sign-on', 'Users', 'Date Added', 'Status', ''].map((h) => (
                 <TableCell key={h} sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.8125rem', py: 1.25, borderBottom: '1px solid var(--mui-palette-divider)' }}>{h}</TableCell>
               ))}
@@ -82,7 +82,7 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
               <TableRow key={client.id} hover sx={{ '&:last-child td': { borderBottom: 0 } }}>
                 <TableCell sx={{ py: 1.5 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                    <Avatar sx={{ width: 32, height: 32, fontSize: '0.75rem', fontWeight: 600, bgcolor: '#90A4AE', color: '#fff', flexShrink: 0 }}>
+                    <Avatar sx={{ width: 32, height: 32, fontSize: '0.75rem', fontWeight: 600, bgcolor: 'text.disabled', color: '#fff', flexShrink: 0 }}>
                       {client.initials}
                     </Avatar>
                     <Typography sx={{ fontSize: '0.875rem', fontWeight: 500 }}>{client.name}</Typography>
@@ -97,12 +97,12 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
                 <TableCell sx={{ py: 1.5 }}>
                   <Typography
                     onClick={() => setUsersModalClient(client)}
-                    sx={{ fontSize: '0.875rem', textDecoration: 'underline', cursor: 'pointer', color: '#1B2A3B', width: 'fit-content' }}>
+                    sx={{ fontSize: '0.875rem', textDecoration: 'underline', cursor: 'pointer', color: 'text.primary', width: 'fit-content' }}>
                     {client.users}
                   </Typography>
                 </TableCell>
                 <TableCell sx={{ py: 1.5 }}>
-                  <Typography sx={{ fontSize: '0.875rem', color: '#374151' }}>{client.dateAdded}</Typography>
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{client.dateAdded}</Typography>
                 </TableCell>
                 <TableCell sx={{ py: 1.5 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
