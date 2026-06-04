@@ -182,6 +182,12 @@ const cubxTheme = createTheme({
 
   // ── COMPONENT OVERRIDES ─────────────────────────────────────────────────────
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: { textTransform: 'none', fontWeight: 500, boxShadow: 'none', '&:hover': { boxShadow: 'none' } },
+      },
+    },
+
     MuiCssBaseline: {
       styleOverrides: (theme) => ({
         // Custom scrollbar
