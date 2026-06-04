@@ -196,7 +196,7 @@ const cubxTheme = createTheme({
           '& .MuiTableCell-root': {
             backgroundColor: '#f7f8fc',
             ...theme.applyStyles('dark', {
-              backgroundColor: theme.palette.secondary.dark,
+              backgroundColor: '#606374',
             }),
           },
         }),
