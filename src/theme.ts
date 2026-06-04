@@ -96,7 +96,7 @@ const cubxTheme = createTheme({
         },
 
         secondary: {
-          main:        '#EBF0F5',
+          main:        '#444D61',
           dark:        '#606374',
           light:       '#404350',
           contrastText:'#ffffff',
