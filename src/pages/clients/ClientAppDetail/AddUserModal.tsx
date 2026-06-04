@@ -79,8 +79,8 @@ export default function AddUserModal({ open, appName, onClose }: Props) {
     <Dialog open={open} onClose={handleClose} maxWidth={false}
       slotProps={{ paper: { sx: { width: 520, borderRadius: 1 } } }}>
       <DialogTitle sx={{ p: 0 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2.5, borderBottom: '1px solid #EAECF0', bgcolor: '#FCFBFD', borderRadius: '8px 8px 0 0' }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2.5, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: 'background.paper', borderRadius: '8px 8px 0 0' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
             Add Users to {appName}
           </Typography>
           <IconButton size="small" onClick={handleClose} sx={{ ml: 1 }}>
@@ -101,7 +101,7 @@ export default function AddUserModal({ open, appName, onClose }: Props) {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ fontSize: 20, color: '#94A3B8' }} />
+                  <SearchIcon sx={{ fontSize: 20, color: 'text.disabled' }} />
                 </InputAdornment>
               ),
             },
@@ -113,23 +113,23 @@ export default function AddUserModal({ open, appName, onClose }: Props) {
             <Box
               key={user.name}
               onClick={() => toggle(user.name)}
-              sx={{ display: 'flex', alignItems: 'center', gap: 1.5, py: 1, px: 0.5, borderRadius: 1, cursor: 'pointer', '&:hover': { bgcolor: '#F7F8FC' } }}
+              sx={{ display: 'flex', alignItems: 'center', gap: 1.5, py: 1, px: 0.5, borderRadius: 1, cursor: 'pointer', '&:hover': { bgcolor: 'background.paper' } }}
             >
               <Checkbox
                 size="small"
                 checked={selected.has(user.name)}
                 onChange={() => toggle(user.name)}
                 onClick={(e) => e.stopPropagation()}
-                sx={{ color: '#D0D5DD', '&.Mui-checked': { color: '#244B72' }, p: 0.5, flexShrink: 0 }}
+                sx={{ color: 'text.disabled', '&.Mui-checked': { color: 'primary.main' }, p: 0.5, flexShrink: 0 }}
               />
               <Avatar sx={{ width: 32, height: 32, bgcolor: user.avatarColor, fontSize: '0.75rem', fontWeight: 400, flexShrink: 0 }}>
                 {user.initials}
               </Avatar>
               <Box sx={{ minWidth: 0 }}>
-                <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.57 }}>
+                <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', lineHeight: 1.57 }}>
                   {user.name}
                 </Typography>
-                <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466', letterSpacing: '0.2px', lineHeight: 1.2 }}>
+                <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', letterSpacing: '0.2px', lineHeight: 1.2 }}>
                   {user.jobTitle} · {user.site}
                 </Typography>
               </Box>
@@ -145,7 +145,7 @@ export default function AddUserModal({ open, appName, onClose }: Props) {
 
       <DialogActions sx={{ px: 3, py: 2, gap: 1, justifyContent: 'flex-end' }}>
         <Button variant="outlined" onClick={handleClose}
-          sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}>
+          sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}>
           Cancel
         </Button>
         <Button variant="contained" disabled={selected.size === 0} onClick={handleClose}

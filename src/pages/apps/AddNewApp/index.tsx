@@ -137,13 +137,13 @@ export default function AddNewApp() {
       </Typography>
 
       {/* Card: stepper + content + footer */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
 
         {/* Stepper */}
         <WizardStepper steps={STEPS} activeStep={step} onExit={exit} />
 
         {/* Scrollable step content */}
-        <Box sx={{ flex: 1, overflow: 'auto', bgcolor: '#fff', p: 3 }}>
+        <Box sx={{ flex: 1, overflow: 'auto', bgcolor: 'background.default', p: 3 }}>
           {step === 0 && <Step1AppName {...stepProps} />}
           {step === 1 && <Step2Description {...stepProps} />}
           {step === 2 && <Step3TypeEvents {...stepProps} />}
@@ -153,12 +153,12 @@ export default function AddNewApp() {
         </Box>
 
         {/* Sticky footer with Back / Next */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2, borderTop: '1px solid #EAECF0', bgcolor: '#fff', flexShrink: 0 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2, borderTop: '1px solid var(--mui-palette-divider)', bgcolor: 'background.default', flexShrink: 0 }}>
           <Button
             variant="outlined"
             startIcon={<ChevronLeftIcon sx={{ fontSize: 20 }} />}
             onClick={step === 0 ? exit : back}
-            sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}
+            sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}
           >
             {step === 0 ? 'Cancel' : 'Back'}
           </Button>

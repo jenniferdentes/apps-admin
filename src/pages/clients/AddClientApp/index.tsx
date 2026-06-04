@@ -90,8 +90,8 @@ function WizardStepper({ activeStep, onExit }: { activeStep: number; onExit: () 
   return (
     <Box sx={{
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      bgcolor: '#EBF0F5', px: 2, py: 2,
-      borderRadius: '8px 8px 0 0', borderBottom: '1px solid #EAECF0',
+      bgcolor: 'secondary.main', px: 2, py: 2,
+      borderRadius: '8px 8px 0 0', borderBottom: '1px solid var(--mui-palette-divider)',
     }}>
       <Box sx={{ width: 60 }} />
 
@@ -105,7 +105,7 @@ function WizardStepper({ activeStep, onExit }: { activeStep: number; onExit: () 
                 <Box sx={{
                   width: 24, height: 24, borderRadius: '50%', flexShrink: 0,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  bgcolor: completed || active ? '#244B72' : '#9AA2B2',
+                  bgcolor: completed || active ? 'primary.main' : 'text.disabled',
                   color: '#fff',
                 }}>
                   {completed
@@ -113,12 +113,12 @@ function WizardStepper({ activeStep, onExit }: { activeStep: number; onExit: () 
                     : <Typography sx={{ fontSize: '0.75rem', fontWeight: 400, lineHeight: 1, letterSpacing: '0.4px' }}>{idx + 1}</Typography>
                   }
                 </Box>
-                <Typography sx={{ fontSize: '0.875rem', fontWeight: active || completed ? 500 : 400, color: active || completed ? '#202938' : '#4A5466' }}>
+                <Typography sx={{ fontSize: '0.875rem', fontWeight: active || completed ? 500 : 400, color: active || completed ? 'text.primary' : 'text.secondary' }}>
                   {label}
                 </Typography>
               </Box>
               {idx < STEPS.length - 1 && (
-                <Box sx={{ flex: 1, height: '1px', bgcolor: '#D0D5DD', mx: 1 }} />
+                <Box sx={{ flex: 1, height: '1px', bgcolor: 'var(--mui-palette-divider)', mx: 1 }} />
               )}
             </React.Fragment>
           )
@@ -126,7 +126,7 @@ function WizardStepper({ activeStep, onExit }: { activeStep: number; onExit: () 
       </Box>
 
       <Box sx={{ width: 60, display: 'flex', justifyContent: 'flex-end' }}>
-        <ButtonBase onClick={onExit} sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#244B72', borderRadius: 1, px: 0.75, py: 0.5 }}>
+        <ButtonBase onClick={onExit} sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'primary.main', borderRadius: 1, px: 0.75, py: 0.5 }}>
           <CloseIcon sx={{ fontSize: 18 }} />
           <Typography sx={{ fontSize: '0.8125rem', fontWeight: 500 }}>Exit</Typography>
         </ButtonBase>
@@ -141,15 +141,15 @@ function AppBar({ app, chips }: { app: CatalogApp; chips?: React.ReactNode }) {
   return (
     <Box sx={{
       display: 'flex', alignItems: 'center', gap: 2,
-      border: '1px solid #EAECF0', borderRadius: 1, p: 1.5,
-      boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: '#fff',
+      border: '1px solid var(--mui-palette-divider)', borderRadius: 1, p: 1.5,
+      boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.default',
     }}>
-      <Avatar sx={{ width: 32, height: 32, bgcolor: app.logoColor, fontSize: '0.8rem', fontWeight: 700, borderRadius: 1, border: '1px solid #EAECF0', flexShrink: 0 }}>
+      <Avatar sx={{ width: 32, height: 32, bgcolor: app.logoColor, fontSize: '0.8rem', fontWeight: 700, borderRadius: 1, border: '1px solid var(--mui-palette-divider)', flexShrink: 0 }}>
         {app.logoInitial}
       </Avatar>
-      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>{app.name}</Typography>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>{app.name}</Typography>
       <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
-      <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{app.publisher}</Typography>
+      <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{app.publisher}</Typography>
       {chips}
     </Box>
   )
@@ -186,7 +186,7 @@ function Step1SelectApp({
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, height: '100%' }}>
       {/* Title + filters */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+        <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
           Select App
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -195,7 +195,7 @@ function Step1SelectApp({
               size="small" placeholder="Search" value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(1) }}
               sx={{ width: 300 }}
-              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 20, color: '#9AA2B2' }} /></InputAdornment> } }}
+              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 20, color: 'text.disabled' }} /></InputAdornment> } }}
             />
             <FormControl size="small" sx={{ width: 180 }}>
               <Select value={category} onChange={(e) => { setCategory(e.target.value); setPage(1) }} sx={{ fontSize: '0.875rem' }}>
@@ -205,7 +205,7 @@ function Step1SelectApp({
           </Box>
           <Button variant="outlined" startIcon={<AddIcon sx={{ fontSize: 18 }} />}
             onClick={() => setCatalogDialogOpen(true)}
-            sx={{ fontWeight: 500, textTransform: 'none', boxShadow: 'none', borderColor: '#D0D5DD', color: '#244B72', '&:hover': { borderColor: '#244B72', boxShadow: 'none' }, px: 2.5 }}>
+            sx={{ fontWeight: 500, textTransform: 'none', boxShadow: 'none', borderColor: 'var(--mui-palette-divider)', color: 'primary.main', '&:hover': { borderColor: 'primary.main', boxShadow: 'none' }, px: 2.5 }}>
             Add Custom App
           </Button>
         </Box>
@@ -220,21 +220,21 @@ function Step1SelectApp({
               <Box key={app.id} onClick={() => onSelect(isSelected ? null : app.id)}
                 sx={{
                   display: 'flex', alignItems: 'center', gap: 2, p: 2,
-                  border: `1px solid ${isSelected ? '#244B72' : '#EAECF0'}`,
+                  border: `1px solid ${isSelected ? 'var(--mui-palette-primary-main)' : 'var(--mui-palette-divider)'}`,
                   borderRadius: 1, cursor: 'pointer',
-                  bgcolor: isSelected ? '#EBF0F5' : '#fff',
+                  bgcolor: isSelected ? 'secondary.main' : 'background.default',
                   boxShadow: '0px 1px 1px rgba(0,0,0,0.08)',
                   transition: 'border-color 0.15s, background-color 0.15s',
-                  '&:hover': { borderColor: '#244B72', bgcolor: isSelected ? '#EBF0F5' : '#F7F8FC' },
+                  '&:hover': { borderColor: 'primary.main', bgcolor: isSelected ? 'secondary.main' : 'background.paper' },
                 }}>
-                <Avatar sx={{ width: 48, height: 48, bgcolor: app.logoColor, fontSize: '1rem', fontWeight: 700, borderRadius: '12px', border: '1px solid #EAECF0', flexShrink: 0 }}>
+                <Avatar sx={{ width: 48, height: 48, bgcolor: app.logoColor, fontSize: '1rem', fontWeight: 700, borderRadius: '12px', border: '1px solid var(--mui-palette-divider)', flexShrink: 0 }}>
                   {app.logoInitial}
                 </Avatar>
                 <Box sx={{ minWidth: 0 }}>
-                  <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px', lineHeight: 1.75, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px', lineHeight: 1.75, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {app.name}
                   </Typography>
-                  <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {app.publisher}
                   </Typography>
                 </Box>
@@ -249,7 +249,7 @@ function Step1SelectApp({
       )}
 
       {/* Pagination row */}
-      <Box sx={{ mt: 'auto', pt: 1, borderTop: '1px solid #EAECF0' }}>
+      <Box sx={{ mt: 'auto', pt: 1, borderTop: '1px solid var(--mui-palette-divider)' }}>
         <Pagination count={totalPages} page={page} onChange={(_, p) => setPage(p)} shape="rounded" size="small" showFirstButton showLastButton />
       </Box>
 
@@ -257,12 +257,12 @@ function Step1SelectApp({
       <Dialog open={catalogDialogOpen} onClose={() => setCatalogDialogOpen(false)} maxWidth="xs" fullWidth
         slotProps={{ paper: { sx: { borderRadius: '8px' } } }}>
         <DialogTitle sx={{
-          bgcolor: '#FCFBFD',
-          borderBottom: '1px solid #EAECF0',
+          bgcolor: 'background.paper',
+          borderBottom: '1px solid var(--mui-palette-divider)',
           p: 3,
           fontSize: '1.25rem',
           fontWeight: 600,
-          color: '#202938',
+          color: 'text.primary',
           letterSpacing: '0.15px',
           lineHeight: 1.6,
         }}>
@@ -270,21 +270,21 @@ function Step1SelectApp({
         </DialogTitle>
         <DialogContent sx={{ px: 3, pb: 2.5, pt: '0 !important' }}>
           <Box sx={{ pt: 1.5 }}>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938', lineHeight: 1.43, fontWeight: 400 }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary', lineHeight: 1.43, fontWeight: 400 }}>
               {"Custom apps are added to your organization's shared catalog and become available to all clients — not just this one."}
             </Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938', lineHeight: 1.43, fontWeight: 400 }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary', lineHeight: 1.43, fontWeight: 400 }}>
               Once created, you can come back here to assign it to this client.
             </Typography>
           </Box>
         </DialogContent>
         <DialogActions sx={{ px: 1, py: 2, gap: 1 }}>
           <Button variant="outlined" onClick={() => setCatalogDialogOpen(false)}
-            sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: '8px', px: 2, py: 0.75, boxShadow: '0px 1px 2px 0px rgba(16,24,40,0.05)', '&:hover': { borderColor: '#244B72', boxShadow: '0px 1px 2px 0px rgba(16,24,40,0.05)' } }}>
+            sx={{ borderColor: 'var(--mui-palette-divider)', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: '8px', px: 2, py: 0.75, boxShadow: '0px 1px 2px 0px rgba(16,24,40,0.05)', '&:hover': { borderColor: 'primary.main', boxShadow: '0px 1px 2px 0px rgba(16,24,40,0.05)' } }}>
             Cancel
           </Button>
           <Button variant="contained" onClick={() => navigate('/apps/new')}
-            sx={{ bgcolor: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: '8px', px: 2, py: 0.75, boxShadow: 'none', '&:hover': { bgcolor: '#1B3D5F', boxShadow: 'none' } }}>
+            sx={{ bgcolor: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: '8px', px: 2, py: 0.75, boxShadow: 'none', '&:hover': { bgcolor: 'primary.dark', boxShadow: 'none' } }}>
             Continue to App Catalog
           </Button>
         </DialogActions>
@@ -315,16 +315,17 @@ function OptionCard({ label, selected, onClick }: { label: string; selected: boo
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       width: 320, minHeight: 48, p: 1.5, borderRadius: 1,
       cursor: 'pointer', userSelect: 'none',
-      bgcolor: selected ? '#F7F8FC' : '#fff',
-      border: selected ? '2px solid #85A4C2' : '1px solid #EAECF0',
+      bgcolor: selected ? 'background.paper' : 'background.default',
+      border: selected ? '2px solid' : '1px solid',
+      borderColor: selected ? 'primary.light' : 'divider',
       transition: 'all 0.15s',
-      '&:hover': { borderColor: '#85A4C2', bgcolor: selected ? '#F0F5FA' : '#FCFBFD' },
+      '&:hover': { borderColor: 'primary.light', bgcolor: selected ? 'secondary.main' : 'background.paper' },
     }}>
-      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>
         {label}
       </Typography>
       {selected && (
-        <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: '#244B72', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: 'primary.main', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CheckIcon sx={{ fontSize: 14, color: '#fff' }} />
         </Box>
       )}
@@ -334,13 +335,13 @@ function OptionCard({ label, selected, onClick }: { label: string; selected: boo
 
 function EntraCallout({ tenantAppId, onChange }: { tenantAppId: string; onChange: (v: string) => void }) {
   return (
-    <Box sx={{ bgcolor: '#F7F8FC', border: '1px solid #EAECF0', borderRadius: 1, px: 1.75, py: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+    <Box sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.75, py: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
       <Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
-          <LinkOutlinedIcon sx={{ fontSize: 20, color: '#202938' }} />
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>Link to Microsoft Entra</Typography>
+          <LinkOutlinedIcon sx={{ fontSize: 20, color: 'text.primary' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>Link to Microsoft Entra</Typography>
         </Box>
-        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+        <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>
           SCIM requires a connection to a Microsoft enterprise app so CubX can read live user and group data.
         </Typography>
       </Box>
@@ -353,7 +354,7 @@ function EntraCallout({ tenantAppId, onChange }: { tenantAppId: string; onChange
             ? MOCK_TENANT_APPS.find((a) => a.id === v)?.name
             : 'Select enterprise app'
           }
-          sx={{ bgcolor: '#fff', fontSize: '0.875rem' }}
+          sx={{ bgcolor: 'background.default', fontSize: '0.875rem' }}
         >
           {MOCK_TENANT_APPS.map((a) => (
             <MenuItem key={a.id} value={a.id} sx={{ fontSize: '0.875rem' }}>{a.name}</MenuItem>
@@ -380,17 +381,17 @@ function ProvisioningCard({
   const isOnboarding = type === 'onboarding'
   const Icon = isOnboarding ? PersonAddOutlinedIcon : PersonRemoveOutlinedIcon
   return (
-    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
-      <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
-        <Icon sx={{ fontSize: 22, color: '#4A5466' }} />
-        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden' }}>
+      <Box sx={{ bgcolor: 'background.paper', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
+        <Icon sx={{ fontSize: 22, color: 'text.secondary' }} />
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>
           {isOnboarding ? 'Onboarding' : 'Offboarding'}
         </Typography>
       </Box>
       <Box sx={{ px: 2, py: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
         <Box>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 0.25, letterSpacing: '0.1px' }}>Provisioning Method</Typography>
-          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', mb: 0.25, letterSpacing: '0.1px' }}>Provisioning Method</Typography>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>
             {isOnboarding
               ? 'How will access be granted when a user is onboarded?'
               : 'How will access be revoked when a user is offboarded?'}
@@ -420,7 +421,7 @@ function Step2Provisioning({ app }: { app: CatalogApp }) {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <AppBar app={app} />
 
-      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
         Provisioning &amp; sign-on
       </Typography>
 
@@ -443,15 +444,15 @@ function Step2Provisioning({ app }: { app: CatalogApp }) {
       />
 
       {/* Sign-on card */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
-        <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
-          <VpnKeyOutlinedIcon sx={{ fontSize: 22, color: '#4A5466' }} />
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>Sign-on</Typography>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: 'background.paper', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
+          <VpnKeyOutlinedIcon sx={{ fontSize: 22, color: 'text.secondary' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>Sign-on</Typography>
         </Box>
         <Box sx={{ px: 2, py: 2, display: 'flex', alignItems: 'center', gap: 3 }}>
           <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 0.25 }}>SSO / SAML / OIDC</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', mb: 0.25 }}>SSO / SAML / OIDC</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>
               Users sign in via your identity provider. Manual login is always available as a fallback.
             </Typography>
           </Box>
@@ -460,8 +461,8 @@ function Step2Provisioning({ app }: { app: CatalogApp }) {
             onChange={(e) => setSsoEnabled(e.target.checked)}
             sx={{
               flexShrink: 0,
-              '& .MuiSwitch-switchBase.Mui-checked': { color: '#244B72' },
-              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: '#244B72' },
+              '& .MuiSwitch-switchBase.Mui-checked': { color: 'primary.main' },
+              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: 'primary.main' },
             }}
           />
         </Box>
@@ -525,14 +526,14 @@ function RuleRow({
   return (
     <Box sx={{
       position: 'relative',
-      bgcolor: '#FCFBFD', border: '1px solid #EAECF0', borderRadius: '8px',
+      bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px',
       px: '14px', pt: '12px', pb: '14px', mb: 1.5,
       display: 'flex', flexDirection: 'column', gap: 1.5,
     }}>
       <IconButton
         size="small"
         onClick={() => onDeleteRule(rule.id)}
-        sx={{ position: 'absolute', top: 6, right: 6, color: '#C4CAD4', '&:hover': { color: '#DE5243', bgcolor: '#FCF4F2' } }}
+        sx={{ position: 'absolute', top: 6, right: 6, color: 'text.disabled', '&:hover': { color: 'error.main', bgcolor: 'error.light' } }}
       >
         <DeleteIcon sx={{ fontSize: 16 }} />
       </IconButton>
@@ -548,7 +549,7 @@ function RuleRow({
             {RULE_FIELDS.map((f) => <MenuItem key={f} value={f}>{f}</MenuItem>)}
           </Select>
         </FormControl>
-        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>is any of</Typography>
+        <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>is any of</Typography>
       </Box>
 
       {/* Value chips + add button */}
@@ -560,7 +561,7 @@ function RuleRow({
             size="small"
             onDelete={() => onRemoveValue(rule.id, v)}
             deleteIcon={<CloseIcon sx={{ fontSize: '14px !important' }} />}
-            sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }}
+            sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }}
           />
         ))}
         <Box
@@ -568,11 +569,11 @@ function RuleRow({
           onClick={(e) => onOpenPicker(e as React.MouseEvent<HTMLElement>, rule.id)}
           sx={{
             display: 'inline-flex', alignItems: 'center', gap: 0.5,
-            border: '1.5px dashed #0C2E50', borderRadius: 100,
+            border: '1.5px dashed', borderColor: 'primary.dark', borderRadius: 100,
             px: 1.25, py: '3px',
             bgcolor: 'transparent', cursor: 'pointer',
-            color: '#244B72', fontSize: '0.8125rem', fontWeight: 500,
-            '&:hover': { bgcolor: '#EBF0F5' },
+            color: 'primary.main', fontSize: '0.8125rem', fontWeight: 500,
+            '&:hover': { bgcolor: 'secondary.main' },
           }}
         >
           <AddIcon sx={{ fontSize: 13 }} />
@@ -647,17 +648,17 @@ function Step3Rules({ app }: { app: CatalogApp }) {
       <AppBar
         app={app}
         chips={
-          <Chip label="SCIM" size="small" sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+          <Chip label="SCIM" size="small" sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         }
       />
 
-      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
         Set Scoping Rules
       </Typography>
 
       {/* Include section */}
       <Box>
-        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 1.5 }}>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', mb: 1.5 }}>
           People who match all of
         </Typography>
         {includeRules.map((rule) => (
@@ -673,7 +674,7 @@ function Step3Rules({ app }: { app: CatalogApp }) {
         <Button
           startIcon={<AddIcon sx={{ fontSize: 16 }} />}
           onClick={() => addRule(setIncludeRules, 'i')}
-          sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: 0, minWidth: 'auto', '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}
+          sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: 0, minWidth: 'auto', '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}
         >
           Add Rule
         </Button>
@@ -686,15 +687,15 @@ function Step3Rules({ app }: { app: CatalogApp }) {
         <Button
           startIcon={<BlockOutlinedIcon sx={{ fontSize: 16 }} />}
           onClick={() => { setShowExclude(true); addRule(setExcludeRules, 'e') }}
-          sx={{ color: '#DE5243', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: 0, alignSelf: 'flex-start', minWidth: 'auto', '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}
+          sx={{ color: 'error.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: 0, alignSelf: 'flex-start', minWidth: 'auto', '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}
         >
           Add Exclusion
         </Button>
       ) : (
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 1.5 }}>
-            <BlockOutlinedIcon sx={{ fontSize: 18, color: '#DE5243' }} />
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#DE5243' }}>Except</Typography>
+            <BlockOutlinedIcon sx={{ fontSize: 18, color: 'error.main' }} />
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'error.main' }}>Except</Typography>
           </Box>
           {excludeRules.map((rule) => (
             <RuleRow
@@ -709,7 +710,7 @@ function Step3Rules({ app }: { app: CatalogApp }) {
           <Button
             startIcon={<AddIcon sx={{ fontSize: 16 }} />}
             onClick={() => addRule(setExcludeRules, 'e')}
-            sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: 0, minWidth: 'auto', '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}
+            sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: 0, minWidth: 'auto', '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}
           >
             Add Rule
           </Button>
@@ -717,9 +718,9 @@ function Step3Rules({ app }: { app: CatalogApp }) {
       )}
 
       {/* Result bar */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, bgcolor: '#F7F8FC', borderRadius: '12px', px: '20px', py: '14px' }}>
-        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: '#244B72' }}>{matchCount.toLocaleString()}</Typography>
-        <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>people match these rules</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, bgcolor: 'background.paper', borderRadius: '12px', px: '20px', py: '14px' }}>
+        <Typography sx={{ fontWeight: 700, fontSize: '1rem', color: 'primary.main' }}>{matchCount.toLocaleString()}</Typography>
+        <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>people match these rules</Typography>
       </Box>
 
       {/* Value picker popover */}
@@ -731,7 +732,7 @@ function Step3Rules({ app }: { app: CatalogApp }) {
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         slotProps={{ paper: { sx: { width: 280, borderRadius: 1, mt: 0.5, boxShadow: '0px 8px 24px rgba(0,0,0,0.12)' } } }}
       >
-        <Box sx={{ p: 1.5, borderBottom: '1px solid #EAECF0' }}>
+        <Box sx={{ p: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
           <TextField
             fullWidth
             size="small"
@@ -743,7 +744,7 @@ function Step3Rules({ app }: { app: CatalogApp }) {
               input: {
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} />
+                    <SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} />
                   </InputAdornment>
                 ),
               },
@@ -755,14 +756,14 @@ function Step3Rules({ app }: { app: CatalogApp }) {
             <Box
               key={option}
               onClick={() => toggleValue(option)}
-              sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1.5, py: 0.75, cursor: 'pointer', '&:hover': { bgcolor: '#F7F8FC' } }}
+              sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1.5, py: 0.75, cursor: 'pointer', '&:hover': { bgcolor: 'background.paper' } }}
             >
               <Checkbox
                 size="small"
                 checked={popoverRule?.values.includes(option) ?? false}
-                sx={{ p: 0, color: '#D0D5DD', '&.Mui-checked': { color: '#244B72' } }}
+                sx={{ p: 0, color: 'divider', '&.Mui-checked': { color: 'primary.main' } }}
               />
-              <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{option}</Typography>
+              <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{option}</Typography>
             </Box>
           ))}
           {filteredOptions.length === 0 && (
@@ -798,16 +799,17 @@ function ScopeCard({ label, selected, onClick }: { label: string; selected: bool
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       minWidth: 120, px: 1.5, py: 1, borderRadius: 1,
       cursor: 'pointer', userSelect: 'none',
-      bgcolor: selected ? '#F7F8FC' : '#fff',
-      border: selected ? '2px solid #85A4C2' : '1px solid #EAECF0',
+      bgcolor: selected ? 'background.paper' : 'background.default',
+      border: selected ? '2px solid' : '1px solid',
+      borderColor: selected ? 'primary.light' : 'divider',
       transition: 'all 0.15s',
-      '&:hover': { borderColor: '#85A4C2', bgcolor: selected ? '#F0F5FA' : '#FCFBFD' },
+      '&:hover': { borderColor: 'primary.light', bgcolor: selected ? 'secondary.main' : 'background.paper' },
     }}>
-      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>
         {label}
       </Typography>
       {selected && (
-        <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: '#244B72', flexShrink: 0, ml: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: 'primary.main', flexShrink: 0, ml: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CheckIcon sx={{ fontSize: 12, color: '#fff' }} />
         </Box>
       )}
@@ -837,18 +839,18 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <AppBar app={app} chips={
-        <Chip label="SCIM" size="small" sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+        <Chip label="SCIM" size="small" sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
       } />
 
-      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
         Task Assignment
       </Typography>
 
       {/* ── App Manager ─────────────────────────────────────────── */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
-        <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
-          <ManageAccountsOutlinedIcon sx={{ fontSize: 22, color: '#4A5466' }} />
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>App Manager</Typography>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: 'background.paper', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
+          <ManageAccountsOutlinedIcon sx={{ fontSize: 22, color: 'text.secondary' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>App Manager</Typography>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* Search */}
@@ -857,7 +859,7 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
               placeholder="Search users to add as champions..."
               value={managerSearch}
               onChange={(e) => setManagerSearch(e.target.value)}
-              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
+              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} /></InputAdornment> } }}
             />
           </Box>
 
@@ -872,7 +874,7 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
                     label={u.name} size="small"
                     onDelete={() => toggleManager(id)}
                     deleteIcon={<CloseIcon sx={{ fontSize: '14px !important' }} />}
-                    sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 500, fontSize: '0.8125rem', height: 28, borderRadius: 100 }}
+                    sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 500, fontSize: '0.8125rem', height: 28, borderRadius: 100 }}
                   />
                 )
               })}
@@ -880,31 +882,31 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
           )}
 
           {/* User list */}
-          <Box sx={{ borderTop: '1px solid #EAECF0', maxHeight: 300, overflowY: 'auto' }}>
+          <Box sx={{ borderTop: '1px solid var(--mui-palette-divider)', maxHeight: 300, overflowY: 'auto' }}>
             {filteredManagers.map((u, i) => {
               const checked = selectedManagers.includes(u.id)
               return (
                 <Box key={u.id} onClick={() => toggleManager(u.id)}
                   sx={{
                     display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25,
-                    borderBottom: i < filteredManagers.length - 1 ? '1px solid #EAECF0' : 'none',
+                    borderBottom: i < filteredManagers.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
                     cursor: 'pointer',
-                    bgcolor: checked ? '#F0F5FA' : '#fff',
-                    '&:hover': { bgcolor: checked ? '#EBF0F5' : '#F7F8FC' },
+                    bgcolor: checked ? 'secondary.main' : 'background.default',
+                    '&:hover': { bgcolor: checked ? 'secondary.dark' : 'background.paper' },
                   }}
                 >
                   <Checkbox size="small" checked={checked}
                     onChange={() => toggleManager(u.id)}
                     onClick={(e) => e.stopPropagation()}
-                    sx={{ p: 0, color: '#D0D5DD', '&.Mui-checked': { color: '#244B72' } }}
+                    sx={{ p: 0, color: 'divider', '&.Mui-checked': { color: 'primary.main' } }}
                   />
                   <Avatar sx={{ width: 32, height: 32, bgcolor: u.avatarColor, fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
                     {u.initials}
                   </Avatar>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#202938', flexShrink: 0 }}>{u.name}</Typography>
-                    <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', flexShrink: 0 }}>{u.company}</Typography>
-                    <Typography sx={{ fontSize: '0.875rem', color: '#9AA2B2', flexShrink: 0 }}>{u.jobTitle}</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'text.primary', flexShrink: 0 }}>{u.name}</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', flexShrink: 0 }}>{u.company}</Typography>
+                    <Typography sx={{ fontSize: '0.875rem', color: 'text.disabled', flexShrink: 0 }}>{u.jobTitle}</Typography>
                   </Box>
                 </Box>
               )
@@ -914,13 +916,13 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
       </Box>
 
       {/* ── Task Assignment ──────────────────────────────────────── */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden' }}>
-        <Box sx={{ bgcolor: '#FCFBFD', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid #EAECF0' }}>
-          <AssignmentIndOutlinedIcon sx={{ fontSize: 22, color: '#4A5466' }} />
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>Task Assignment</Typography>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: 'background.paper', px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
+          <AssignmentIndOutlinedIcon sx={{ fontSize: 22, color: 'text.secondary' }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>Task Assignment</Typography>
         </Box>
         <Box sx={{ px: 2, py: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>
             When a task fires, it routes to the first available person matching these criteria.
           </Typography>
 
@@ -933,7 +935,7 @@ function Step4ChampionElection({ app }: { app: CatalogApp }) {
 
           {/* Job Title */}
           <Box>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', mb: 0.75, letterSpacing: '0.1px' }}>Job Title</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', mb: 0.75, letterSpacing: '0.1px' }}>Job Title</Typography>
             <FormControl size="small" sx={{ width: 320 }}>
               <Select
                 value={jobTitle}
@@ -982,12 +984,12 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
 }) {
   const isOnboarding = type === 'onboarding'
   return (
-    <Box sx={{ border: '1px solid #EAECF0', borderRadius: '8px' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: '8px' }}>
       {/* Header */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.5, borderBottom: '1px solid #EAECF0' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
         <Chip label={isOnboarding ? 'Onboarding' : 'Offboarding'} size="small"
-          sx={{ bgcolor: isOnboarding ? '#EDFCF2' : '#FCF4F2', color: isOnboarding ? '#095C37' : '#A63224', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
-        <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>
+          sx={{ bgcolor: isOnboarding ? 'success.light' : 'error.light', color: isOnboarding ? 'success.dark' : 'error.dark', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+        <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
           Default {isOnboarding ? 'onboarding' : 'offboarding'} task
         </Typography>
       </Box>
@@ -995,58 +997,58 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
       <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
         {/* Task Title */}
-        <Box sx={{ pb: 2, borderBottom: '1px solid #EAECF0' }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', mb: 0.75 }}>Task Title</Typography>
+        <Box sx={{ pb: 2, borderBottom: '1px solid var(--mui-palette-divider)' }}>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', mb: 0.75 }}>Task Title</Typography>
           <TextField fullWidth size="small" autoFocus={autoFocus} value={title} onChange={(e) => onTitleChange(e.target.value)} />
         </Box>
 
         {/* Checklist */}
-        <Box sx={{ pb: 2, borderBottom: '1px solid #EAECF0', display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ pb: 2, borderBottom: '1px solid var(--mui-palette-divider)', display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
-            <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>Checklist</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', mt: 0.5 }}>Step-by-step items champions check off as they work.</Typography>
+            <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>Checklist</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', mt: 0.5 }}>Step-by-step items champions check off as they work.</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             {checklistItems.map((item) => (
-              <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: '#fff', border: '1px solid #EAECF0', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)' }}>
-                <DragIndicatorIcon sx={{ fontSize: 20, color: '#C4CAD4', flexShrink: 0 }} />
+              <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.default', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)' }}>
+                <DragIndicatorIcon sx={{ fontSize: 20, color: 'text.disabled', flexShrink: 0 }} />
                 <InputBase value={item.text} onChange={(e) => onEditChecklist(item.id, e.target.value)}
-                  sx={{ flex: 1, fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', '& input': { p: 0 } }} />
-                <IconButton size="small" onClick={() => onRemoveChecklist(item.id)} sx={{ color: '#C4CAD4', p: 0.25, '&:hover': { color: '#DE5243' } }}>
+                  sx={{ flex: 1, fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', '& input': { p: 0 } }} />
+                <IconButton size="small" onClick={() => onRemoveChecklist(item.id)} sx={{ color: 'text.disabled', p: 0.25, '&:hover': { color: 'error.main' } }}>
                   <CloseIcon sx={{ fontSize: 18 }} />
                 </IconButton>
               </Box>
             ))}
             <Button startIcon={<AddIcon sx={{ fontSize: 18 }} />} onClick={onAddChecklist}
-              sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', alignSelf: 'flex-start', p: 0, '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}>
+              sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', alignSelf: 'flex-start', p: 0, '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}>
               Add Item
             </Button>
           </Box>
         </Box>
 
         {/* Instructions */}
-        <Box sx={{ pb: 2, borderBottom: '1px solid #EAECF0', display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ pb: 2, borderBottom: '1px solid var(--mui-palette-divider)', display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
-            <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>Instructions</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', mt: 0.5 }}>Provide detailed guidance for your champions.</Typography>
+            <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>Instructions</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', mt: 0.5 }}>Provide detailed guidance for your champions.</Typography>
           </Box>
           {/* Video upload zone */}
-          <Box sx={{ bgcolor: '#F7F8FC', border: '2px dashed #D0D5DD', borderRadius: '16px', py: '18px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5, cursor: 'pointer', '&:hover': { bgcolor: '#EBF0F5' } }}>
-            <VideocamOutlinedIcon sx={{ fontSize: 28, color: '#4A5466' }} />
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', letterSpacing: '0.1px' }}>Upload Walkthrough Video</Typography>
-            <Typography sx={{ fontSize: '0.75rem', color: '#9AA2B2', letterSpacing: '0.4px' }}>MP4, MOV up to 50MB</Typography>
+          <Box sx={{ bgcolor: 'background.paper', border: '2px dashed var(--mui-palette-divider)', borderRadius: '16px', py: '18px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5, cursor: 'pointer', '&:hover': { bgcolor: 'secondary.main' } }}>
+            <VideocamOutlinedIcon sx={{ fontSize: 28, color: 'text.secondary' }} />
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.secondary', letterSpacing: '0.1px' }}>Upload Walkthrough Video</Typography>
+            <Typography sx={{ fontSize: '0.75rem', color: 'text.disabled', letterSpacing: '0.4px' }}>MP4, MOV up to 50MB</Typography>
           </Box>
           {/* Instruction sections */}
           {sections.map((section, sIdx) => (
-            <Box key={section.id} sx={{ bgcolor: '#fff', border: '1px solid #EAECF0', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box key={section.id} sx={{ bgcolor: 'background.default', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <DragIndicatorIcon sx={{ fontSize: 20, color: '#C4CAD4', flexShrink: 0 }} />
+                <DragIndicatorIcon sx={{ fontSize: 20, color: 'text.disabled', flexShrink: 0 }} />
                 <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#42A5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#fff', lineHeight: 1 }}>{sIdx + 1}</Typography>
                 </Box>
                 <InputBase value={section.title} onChange={(e) => onEditSectionTitle(section.id, e.target.value)}
-                  sx={{ flex: 1, fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', '& input': { p: 0 } }} />
-                <IconButton size="small" onClick={() => onRemoveSection(section.id)} sx={{ color: '#C4CAD4', p: 0.25, '&:hover': { color: '#DE5243' } }}>
+                  sx={{ flex: 1, fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', '& input': { p: 0 } }} />
+                <IconButton size="small" onClick={() => onRemoveSection(section.id)} sx={{ color: 'text.disabled', p: 0.25, '&:hover': { color: 'error.main' } }}>
                   <CloseIcon sx={{ fontSize: 16 }} />
                 </IconButton>
               </Box>
@@ -1056,32 +1058,32 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
                     {stIdx > 0 && <Divider sx={{ mb: 1 }} />}
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flex: 1, minWidth: 0 }}>
-                        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', flexShrink: 0 }}>{stIdx + 1}.</Typography>
+                        <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', flexShrink: 0 }}>{stIdx + 1}.</Typography>
                         <InputBase value={step.text} onChange={(e) => onEditStep(section.id, step.id, e.target.value)}
-                          sx={{ flex: 1, fontSize: '0.875rem', color: '#4A5466', '& input': { p: 0 } }} />
+                          sx={{ flex: 1, fontSize: '0.875rem', color: 'text.secondary', '& input': { p: 0 } }} />
                       </Box>
-                      <IconButton size="small" onClick={() => onRemoveStep(section.id, step.id)} sx={{ color: '#C4CAD4', p: 0.25, flexShrink: 0, '&:hover': { color: '#DE5243' } }}>
+                      <IconButton size="small" onClick={() => onRemoveStep(section.id, step.id)} sx={{ color: 'text.disabled', p: 0.25, flexShrink: 0, '&:hover': { color: 'error.main' } }}>
                         <CloseIcon sx={{ fontSize: 16 }} />
                       </IconButton>
                     </Box>
                   </Box>
                 ))}
                 <Button startIcon={<AddIcon sx={{ fontSize: 14 }} />} onClick={() => onAddStep(section.id)}
-                  sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.8125rem', textTransform: 'none', alignSelf: 'flex-start', p: 0, mt: 0.25, '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}>
+                  sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.8125rem', textTransform: 'none', alignSelf: 'flex-start', p: 0, mt: 0.25, '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}>
                   Add Step
                 </Button>
               </Box>
             </Box>
           ))}
           <Button startIcon={<AddIcon sx={{ fontSize: 18 }} />} onClick={onAddSection}
-            sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', alignSelf: 'flex-start', p: 0, '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}>
+            sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', alignSelf: 'flex-start', p: 0, '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' } }}>
             Add New Section
           </Button>
         </Box>
 
         {/* Due days */}
         <Box>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', mb: 0.75 }}>Due (days after event)</Typography>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', mb: 0.75 }}>Due (days after event)</Typography>
           <TextField size="small" type="number" value={dueDays}
             onChange={(e) => onDueDaysChange(parseInt(e.target.value) || 0)}
             sx={{ width: '100%' }}
@@ -1154,7 +1156,7 @@ function Step4ChampionTasks({ app }: { app: CatalogApp }) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <AppBar app={app} />
-      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
         Champion Tasks
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -1185,22 +1187,22 @@ function Step5Review({ app }: { app: CatalogApp }) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+      <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
         Review and Confirm
       </Typography>
 
-      <Box sx={{ bgcolor: '#fff', border: '1px solid #EAECF0', borderRadius: '8px', boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', p: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <Box sx={{ bgcolor: 'background.default', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', p: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
         {/* App header */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Avatar sx={{ width: 48, height: 48, bgcolor: app.logoColor, fontSize: '1rem', fontWeight: 700, borderRadius: '8px', border: '1px solid #EAECF0', flexShrink: 0 }}>
+          <Avatar sx={{ width: 48, height: 48, bgcolor: app.logoColor, fontSize: '1rem', fontWeight: 700, borderRadius: '8px', border: '1px solid var(--mui-palette-divider)', flexShrink: 0 }}>
             {app.logoInitial}
           </Avatar>
           <Box>
-            <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px', lineHeight: 1.75 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px', lineHeight: 1.75 }}>
               {app.name}
             </Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938', lineHeight: 1.43 }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary', lineHeight: 1.43 }}>
               {app.publisher}
             </Typography>
           </Box>
@@ -1208,13 +1210,13 @@ function Step5Review({ app }: { app: CatalogApp }) {
 
         {/* Provisioning */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>Provisioning:</Typography>
-          <Chip label="SCIM" size="small" sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>Provisioning:</Typography>
+          <Chip label="SCIM" size="small" sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         </Box>
 
         {/* Sign-on */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>Sign-on</Typography>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>Sign-on</Typography>
           <Chip label="SSO" size="small" sx={{ bgcolor: '#EDE7F6', color: '#512DA8', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         </Box>
 
@@ -1222,18 +1224,18 @@ function Step5Review({ app }: { app: CatalogApp }) {
 
         {/* Provisioning Configuration */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
             Provisioning Configuration
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>API Endpoint:</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{endpoint}</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>API Endpoint:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{endpoint}</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>Connection Status:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>Connection Status:</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <CheckIcon sx={{ fontSize: 16, color: '#16B364' }} />
-              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#16B364', letterSpacing: '0.1px' }}>Verified</Typography>
+              <CheckIcon sx={{ fontSize: 16, color: 'success.main' }} />
+              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'success.main', letterSpacing: '0.1px' }}>Verified</Typography>
             </Box>
           </Box>
         </Box>
@@ -1242,20 +1244,20 @@ function Step5Review({ app }: { app: CatalogApp }) {
 
         {/* Access Rules */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
             Access Rules
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>Site:</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>New York, London, Tokyo, Sydney, Berlin</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>Site:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>New York, London, Tokyo, Sydney, Berlin</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>Job Title:</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>Product Manager, Data Scientist, UX Designer</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>Job Title:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>Product Manager, Data Scientist, UX Designer</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>In Scope:</Typography>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#244B72', letterSpacing: '0.1px' }}>312 users</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>In Scope:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'primary.main', letterSpacing: '0.1px' }}>312 users</Typography>
           </Box>
         </Box>
 
@@ -1263,31 +1265,31 @@ function Step5Review({ app }: { app: CatalogApp }) {
 
         {/* Champion Election */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
             Champion Election
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>Mode:</Typography>
-            <Chip label="Dynamic" size="small" sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>Mode:</Typography>
+            <Chip label="Dynamic" size="small" sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>Scope:</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>Company</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>Scope:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>Company</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', flexShrink: 0 }}>Job Title:</Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>HR Coordinator</Typography>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', flexShrink: 0 }}>Job Title:</Typography>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>HR Coordinator</Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#EBF0F5', borderRadius: 1, px: 2, py: 1.25 }}>
-            <InfoOutlinedIcon sx={{ fontSize: 16, color: '#244B72', flexShrink: 0, mt: '2px' }} />
-            <Typography sx={{ fontSize: '0.8125rem', color: '#244B72', lineHeight: 1.57 }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: 'secondary.main', borderRadius: 1, px: 2, py: 1.25 }}>
+            <InfoOutlinedIcon sx={{ fontSize: 16, color: 'primary.main', flexShrink: 0, mt: '2px' }} />
+            <Typography sx={{ fontSize: '0.8125rem', color: 'primary.main', lineHeight: 1.57 }}>
               First-come, first-served — the first available match will receive the task.
             </Typography>
           </Box>
         </Box>
 
         {/* Footer note */}
-        <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466', letterSpacing: '0.2px' }}>
+        <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', letterSpacing: '0.2px' }}>
           Additional users matching access rules will be provisioned automatically.
         </Typography>
 
@@ -1324,10 +1326,10 @@ export default function AddClientApp() {
   return (
     <Box sx={{ p: 3, pb: 2, height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
       {/* Stepper + content card */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', mb: 2 }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', mb: 2 }}>
         <WizardStepper activeStep={activeStep} onExit={() => navigate('/clients')} />
 
-        <Box sx={{ bgcolor: '#fff', p: 3, flex: 1, overflow: 'auto', borderRadius: '0 0 8px 8px' }}>
+        <Box sx={{ bgcolor: 'background.default', p: 3, flex: 1, overflow: 'auto', borderRadius: '0 0 8px 8px' }}>
           {activeStep === 0 && (
             <Step1SelectApp
               selected={selectedId}
@@ -1358,7 +1360,7 @@ export default function AddClientApp() {
           variant="outlined"
           startIcon={<ChevronLeftIcon sx={{ fontSize: 20 }} />}
           onClick={handleBack}
-          sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}
+          sx={{ borderColor: 'var(--mui-palette-divider)', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}
         >
           {activeStep === 0 ? 'Cancel' : 'Back'}
         </Button>

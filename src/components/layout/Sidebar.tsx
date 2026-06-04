@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useColorScheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutlined'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined'
@@ -11,6 +13,8 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutlined'
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined'
 import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined'
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined'
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
 
 const NAV_TOP = [
   { icon: <PeopleOutlineIcon fontSize="small" />, label: 'People', path: '/people' },
@@ -56,6 +60,8 @@ function NavIcon({ icon, label, path, active }: { icon: React.ReactNode; label: 
 export default function Sidebar() {
   const location = useLocation()
   const isActive = (path: string) => location.pathname.startsWith(path)
+  const { mode, setMode } = useColorScheme()
+  const isDark = mode === 'dark'
 
   return (
     <Box
@@ -100,8 +106,19 @@ export default function Sidebar() {
         <NavIcon key={item.label} {...item} active={isActive(item.path)} />
       ))}
 
+      {/* Dark mode toggle */}
+      <Tooltip title={isDark ? 'Light mode' : 'Dark mode'} placement="right">
+        <IconButton
+          size="small"
+          onClick={() => setMode(isDark ? 'light' : 'dark')}
+          sx={{ color: 'rgba(255,255,255,0.5)', '&:hover': { color: '#fff', bgcolor: 'rgba(255,255,255,0.1)' } }}
+        >
+          {isDark ? <LightModeOutlinedIcon fontSize="small" /> : <DarkModeOutlinedIcon fontSize="small" />}
+        </IconButton>
+      </Tooltip>
+
       {/* User avatar */}
-      <Box sx={{ mt: 1 }}>
+      <Box sx={{ mt: 0.5 }}>
         <Avatar sx={{ width: 32, height: 32, fontSize: 12, bgcolor: '#64748B' }}>MO</Avatar>
       </Box>
     </Box>

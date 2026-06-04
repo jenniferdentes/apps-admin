@@ -24,7 +24,7 @@ function ReviewCard({
   return (
     <Box
       sx={{
-        border: '1px solid #E2E8F0',
+        border: '1px solid var(--mui-palette-divider)',
         borderRadius: 1,
         mb: 2.5,
         overflow: 'hidden',
@@ -38,7 +38,7 @@ function ReviewCard({
           alignItems: 'center',
           px: 3,
           py: 2,
-          bgcolor: '#fff',
+          bgcolor: 'background.default',
         }}
       >
         <Typography sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{title}</Typography>
@@ -47,7 +47,7 @@ function ReviewCard({
         </Button>
       </Box>
       <Divider />
-      <Box sx={{ px: 3, py: 2, bgcolor: '#fff' }}>{children}</Box>
+      <Box sx={{ px: 3, py: 2, bgcolor: 'background.default' }}>{children}</Box>
     </Box>
   )
 }
@@ -55,7 +55,7 @@ function ReviewCard({
 function ReviewRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <Box sx={{ display: 'flex', gap: 3, py: 0.75 }}>
-      <Typography sx={{ fontSize: '0.8rem', color: '#64748B', width: 140, flexShrink: 0 }}>{label}</Typography>
+      <Typography sx={{ fontSize: '0.8rem', color: 'text.secondary', width: 140, flexShrink: 0 }}>{label}</Typography>
       <Box sx={{ flex: 1 }}>
         {typeof value === 'string' ? (
           <Typography sx={{ fontSize: '0.875rem' }}>{value || '—'}</Typography>
@@ -92,7 +92,7 @@ export default function Step6Review({ data, onEditStep }: Props) {
             data.categories.length > 0 ? (
               <Typography sx={{ fontSize: '0.875rem' }}>{data.categories.join(', ')}</Typography>
             ) : (
-              <Typography sx={{ fontSize: '0.875rem', color: '#94A3B8' }}>—</Typography>
+              <Typography sx={{ fontSize: '0.875rem', color: 'text.disabled' }}>—</Typography>
             )
           }
         />

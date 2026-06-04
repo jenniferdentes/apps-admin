@@ -96,7 +96,7 @@ export default function UsersModal({ open, client, onClose }: Props) {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} />
+                  <SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} />
                 </InputAdornment>
               ),
             },
@@ -111,7 +111,7 @@ export default function UsersModal({ open, client, onClose }: Props) {
                 alignItems: 'center',
                 gap: 1.5,
                 py: 1.25,
-                borderBottom: idx < filtered.length - 1 ? '1px solid #F1F5F9' : 'none',
+                borderBottom: idx < filtered.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
               }}>
               <Avatar
                 sx={{
@@ -129,11 +129,11 @@ export default function UsersModal({ open, client, onClose }: Props) {
                   {user.name}
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mt: 0.15 }}>
-                  <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466' }}>
+                  <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary' }}>
                     {user.company}
                   </Typography>
-                  <Box sx={{ width: '1px', height: 12, bgcolor: '#D1D5DB', flexShrink: 0 }} />
-                  <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466' }}>
+                  <Box sx={{ width: '1px', height: 12, bgcolor: 'divider', flexShrink: 0 }} />
+                  <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary' }}>
                     {user.jobTitle}
                   </Typography>
                 </Box>

@@ -75,18 +75,18 @@ export default function Step3TypeEvents({ data, update }: Props) {
       </Typography>
 
       {/* Capability switches */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden', mb: 2.5 }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden', mb: 2.5 }}>
         {toggles.map(({ cap, enabled, onToggle }, i) => (
           <Box
             key={cap.id}
             onClick={onToggle}
             sx={{
               display: 'flex', alignItems: 'center', gap: 2, px: 2.5, py: 2,
-              borderBottom: i < toggles.length - 1 ? '1px solid #EAECF0' : 'none',
-              bgcolor: enabled ? '#F7F8FC' : '#fff',
+              borderBottom: i < toggles.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
+              bgcolor: enabled ? 'background.paper' : 'background.default',
               cursor: 'pointer',
               transition: 'background-color 0.15s',
-              '&:hover': { bgcolor: enabled ? '#EBF0F5' : '#FCFBFD' },
+              '&:hover': { bgcolor: enabled ? 'secondary.main' : 'background.paper' },
             }}
           >
             <Switch
@@ -96,15 +96,15 @@ export default function Step3TypeEvents({ data, update }: Props) {
               size="small"
               sx={{
                 flexShrink: 0,
-                '& .MuiSwitch-switchBase.Mui-checked': { color: '#244B72' },
-                '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: '#244B72' },
+                '& .MuiSwitch-switchBase.Mui-checked': { color: 'primary.main' },
+                '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: 'primary.main' },
               }}
             />
             <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Typography sx={{ fontSize: '0.9375rem', fontWeight: 600, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.5 }}>
+              <Typography sx={{ fontSize: '0.9375rem', fontWeight: 600, color: 'text.primary', letterSpacing: '0.1px', lineHeight: 1.5 }}>
                 {cap.label}
               </Typography>
-              <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.5, mt: 0.25 }}>
+              <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', lineHeight: 1.5, mt: 0.25 }}>
                 {cap.description}
               </Typography>
             </Box>
@@ -113,10 +113,10 @@ export default function Step3TypeEvents({ data, update }: Props) {
       </Box>
 
       {/* Always-available note */}
-      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#F7F8FC', border: '1px solid #EAECF0', borderRadius: 1, px: 2, py: 1.5 }}>
-        <InfoOutlinedIcon sx={{ fontSize: 16, color: '#64748B', flexShrink: 0, mt: '2px' }} />
-        <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.6 }}>
-          <strong style={{ color: '#202938' }}>Champion Task provisioning</strong> and <strong style={{ color: '#202938' }}>manual login</strong> are always available — clients can use them regardless of the capabilities enabled above.
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 2, py: 1.5 }}>
+        <InfoOutlinedIcon sx={{ fontSize: 16, color: 'text.secondary', flexShrink: 0, mt: '2px' }} />
+        <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', lineHeight: 1.6 }}>
+          <strong style={{ color: 'inherit' }}>Champion Task provisioning</strong> and <strong style={{ color: 'inherit' }}>manual login</strong> are always available — clients can use them regardless of the capabilities enabled above.
         </Typography>
       </Box>
     </Box>

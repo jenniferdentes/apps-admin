@@ -96,7 +96,7 @@ export default function Step1AppName({ data, update, onNext }: Props) {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: '#94A3B8', fontSize: 20 }} />
+                  <SearchIcon sx={{ color: 'text.disabled', fontSize: 20 }} />
                 </InputAdornment>
               ),
             },
@@ -138,7 +138,7 @@ export default function Step1AppName({ data, update, onNext }: Props) {
                 <Typography sx={{ fontSize: '0.875rem' }}>
                   Continue with &ldquo;{query}&rdquo;
                 </Typography>
-                <Typography sx={{ fontSize: '0.8rem', color: '#94A3B8' }}>Add manually</Typography>
+                <Typography sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>Add manually</Typography>
               </MenuItem>
             </MenuList>
           </Paper>

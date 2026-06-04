@@ -76,10 +76,10 @@ export default function ClientApps() {
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', mb: 3 }}>
         <Box>
-          <Typography variant="body2" sx={{ color: '#4A5466', fontWeight: 500, mb: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500, mb: 0.5 }}>
             Client Manager
           </Typography>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#202938' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>
             Finity_Development
           </Typography>
         </Box>
@@ -87,16 +87,16 @@ export default function ClientApps() {
           variant="outlined"
           startIcon={<SettingsOutlinedIcon sx={{ fontSize: 18 }} />}
           sx={{
-            borderColor: '#D0D3E8',
-            color: '#244B72',
-            bgcolor: '#F7F8FC',
+            borderColor: 'divider',
+            color: 'primary.main',
+            bgcolor: 'background.paper',
             fontWeight: 500,
             fontSize: '0.875rem',
             textTransform: 'none',
             borderRadius: 1,
             px: 2,
             py: 0.75,
-            '&:hover': { borderColor: '#244B72', bgcolor: '#EBF0F5' },
+            '&:hover': { borderColor: 'primary.main', bgcolor: 'secondary.main' },
           }}
         >
           Client Settings
@@ -105,7 +105,7 @@ export default function ClientApps() {
 
       {/* Horizontal pill tabs */}
       <Box sx={{ mb: 2 }}>
-        <Box sx={{ display: 'flex', bgcolor: '#fff', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid #EAECF0' }}>
+        <Box sx={{ display: 'flex', bgcolor: 'background.default', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid var(--mui-palette-divider)' }}>
           {HORIZONTAL_TABS.map((tab) => {
             const isActive = tab === activeTab
             return (
@@ -117,14 +117,14 @@ export default function ClientApps() {
                   py: 1,
                   borderRadius: '6px',
                   cursor: 'pointer',
-                  bgcolor: isActive ? '#EBF0F5' : 'transparent',
-                  color: '#244B72',
+                  bgcolor: isActive ? 'secondary.main' : 'transparent',
+                  color: 'primary.main',
                   fontWeight: isActive ? 500 : 500,
                   fontSize: isActive ? '0.875rem' : '1rem',
                   lineHeight: '24px',
                   whiteSpace: 'nowrap',
                   userSelect: 'none',
-                  '&:hover': { bgcolor: isActive ? '#EBF0F5' : '#F7F8FC' },
+                  '&:hover': { bgcolor: isActive ? 'secondary.main' : 'background.paper' },
                 }}
               >
                 {tab}
@@ -135,10 +135,10 @@ export default function ClientApps() {
       </Box>
 
       {/* Content area */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
         {/* Filter bar */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid #EAECF0' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
           <TextField
             size="small"
             placeholder="Search apps"
@@ -149,7 +149,7 @@ export default function ClientApps() {
               input: {
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} />
+                    <SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} />
                   </InputAdornment>
                 ),
               },
@@ -173,7 +173,7 @@ export default function ClientApps() {
             <TableHead>
               <TableRow>
                 {['App Name', 'Provisioning', 'Sign-on', 'Users', 'Status', ''].map((h) => (
-                  <TableCell key={h} sx={{ fontWeight: 500, color: '#64748B', fontSize: '0.8125rem', bgcolor: '#FAFAFA', borderBottom: '1px solid #EAECF0' }}>
+                  <TableCell key={h} sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.8125rem', bgcolor: '#FAFAFA', borderBottom: '1px solid var(--mui-palette-divider)' }}>
                     {h}
                   </TableCell>
                 ))}
@@ -208,19 +208,19 @@ export default function ClientApps() {
                   </TableCell>
                   <TableCell sx={{ py: 1.5 }}>
                     <Typography onClick={() => setUsersModalApp(app)}
-                      sx={{ fontSize: '0.875rem', color: '#244B72', textDecoration: 'underline', cursor: 'pointer', width: 'fit-content' }}>
+                      sx={{ fontSize: '0.875rem', color: 'primary.main', textDecoration: 'underline', cursor: 'pointer', width: 'fit-content' }}>
                       {app.users}
                     </Typography>
                   </TableCell>
                   <TableCell sx={{ py: 1.5 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-                      <FiberManualRecordIcon sx={{ fontSize: 10, color: '#16B364' }} />
+                      <FiberManualRecordIcon sx={{ fontSize: 10, color: 'success.main' }} />
                       <Typography sx={{ fontSize: '0.875rem' }}>{app.status}</Typography>
                     </Box>
                   </TableCell>
                   <TableCell sx={{ py: 1.5, width: 120 }}>
                     <Button variant="text" size="small" onClick={() => navigate(`/clients/${app.id}`)}
-                      sx={{ color: '#244B72', fontWeight: 500, p: 0, minWidth: 'auto', fontSize: '0.875rem' }}>
+                      sx={{ color: 'primary.main', fontWeight: 500, p: 0, minWidth: 'auto', fontSize: '0.875rem' }}>
                       View
                     </Button>
                   </TableCell>
@@ -238,7 +238,7 @@ export default function ClientApps() {
           onPageChange={(_, p) => setPage(p)}
           onRowsPerPageChange={(e) => { setRowsPerPage(parseInt(e.target.value, 10)); setPage(0) }}
           rowsPerPageOptions={[5, 10, 25]}
-          sx={{ borderTop: '1px solid #EAECF0', mt: 'auto' }}
+          sx={{ borderTop: '1px solid var(--mui-palette-divider)', mt: 'auto' }}
         />
       </Box>
 

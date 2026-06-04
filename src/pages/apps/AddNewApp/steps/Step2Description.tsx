@@ -94,14 +94,14 @@ export default function Step2Description({ data, update }: Props) {
             {data.logoPreview ? (
               <img src={data.logoPreview} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             ) : (
-              <ImageOutlinedIcon sx={{ color: '#CBD5E1', fontSize: 32 }} />
+              <ImageOutlinedIcon sx={{ color: 'text.disabled', fontSize: 32 }} />
             )}
           </Box>
           <Box>
             <Button variant="outlined" size="small" onClick={() => logoInputRef.current?.click()} sx={{ mb: 0.5 }}>
               {data.logoPreview ? 'Replace Logo' : 'Upload Logo'}
             </Button>
-            <Typography variant="body2" sx={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+            <Typography variant="body2" sx={{ fontSize: '0.75rem', color: 'text.disabled' }}>
               PNG, JPEG, Gif. Max 2MB
             </Typography>
           </Box>
@@ -109,7 +109,7 @@ export default function Step2Description({ data, update }: Props) {
         <input ref={logoInputRef} type="file" accept="image/*" hidden onChange={handleLogoChange} />
       </Box>
 
-      <Box sx={{ bgcolor: '#F8FAFC', borderRadius: 1, p: 3, mb: 4 }}>
+      <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 3, mb: 4 }}>
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 2 }}>Details</Typography>
 
         {/* App Name */}
@@ -178,7 +178,7 @@ export default function Step2Description({ data, update }: Props) {
               displayEmpty
               renderValue={(selected) => {
                 if (!selected || (Array.isArray(selected) && selected.length === 0)) {
-                  return <Typography sx={{ color: '#94A3B8', fontSize: '0.875rem' }}>Select</Typography>
+                  return <Typography sx={{ color: 'text.disabled', fontSize: '0.875rem' }}>Select</Typography>
                 }
                 if (Array.isArray(selected)) {
                   return (
@@ -241,7 +241,7 @@ export default function Step2Description({ data, update }: Props) {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              '&:hover': { borderColor: '#94A3B8' },
+              '&:hover': { borderColor: 'text.disabled' },
             }}
           >
             <AddIcon sx={{ color: '#CBD5E1', fontSize: 24 }} />

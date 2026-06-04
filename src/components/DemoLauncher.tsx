@@ -55,10 +55,10 @@ export default function DemoLauncher() {
 
       {/* Panel */}
       {open && (
-        <Box sx={{ width: 272, bgcolor: '#fff', borderRadius: 1, boxShadow: '0px 8px 32px rgba(0,0,0,0.16)', border: '1px solid #EAECF0', overflow: 'hidden' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid #EAECF0', bgcolor: '#FCFBFD' }}>
-            <Typography sx={{ fontWeight: 600, fontSize: '0.875rem', color: '#202938' }}>Demo Flows</Typography>
-            <IconButton size="small" onClick={() => setOpen(false)} sx={{ p: 0.25, color: '#64748B' }}>
+        <Box sx={{ width: 272, bgcolor: 'background.default', borderRadius: 1, boxShadow: '0px 8px 32px rgba(0,0,0,0.16)', border: '1px solid var(--mui-palette-divider)', overflow: 'hidden' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: 'background.paper' }}>
+            <Typography sx={{ fontWeight: 600, fontSize: '0.875rem', color: 'text.primary' }}>Demo Flows</Typography>
+            <IconButton size="small" onClick={() => setOpen(false)} sx={{ p: 0.25, color: 'text.secondary' }}>
               <CloseIcon sx={{ fontSize: 16 }} />
             </IconButton>
           </Box>
@@ -67,29 +67,29 @@ export default function DemoLauncher() {
             {FLOWS.map((group, gi) => (
               <Box key={group.section}>
                 {gi > 0 && <Divider sx={{ my: 0.75 }} />}
-                <Typography sx={{ fontSize: '0.6875rem', fontWeight: 600, color: '#94A3B8', letterSpacing: '0.07em', textTransform: 'uppercase', px: 2, pb: 0.5, pt: 0.25 }}>
+                <Typography sx={{ fontSize: '0.6875rem', fontWeight: 600, color: 'text.disabled', letterSpacing: '0.07em', textTransform: 'uppercase', px: 2, pb: 0.5, pt: 0.25 }}>
                   {group.section}
                 </Typography>
                 {group.items.map((item) => {
                   const isActive = location.pathname === item.path && !item.state
                   return (
                     <Box key={item.label + item.path} onClick={() => go(item.path, item.state)}
-                      sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 0.875, cursor: 'pointer', bgcolor: isActive ? '#EBF0F5' : 'transparent', '&:hover': { bgcolor: isActive ? '#EBF0F5' : '#F7F8FC' } }}>
+                      sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 0.875, cursor: 'pointer', bgcolor: isActive ? 'secondary.main' : 'transparent', '&:hover': { bgcolor: isActive ? 'secondary.main' : 'background.paper' } }}>
                       <Box sx={{ width: 28, height: 28, borderRadius: '6px', bgcolor: item.logoColor, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.6875rem', fontWeight: 700, color: '#fff', letterSpacing: '0.01em' }}>
                         {item.logoInitial}
                       </Box>
                       <Box sx={{ minWidth: 0 }}>
-                        <Typography sx={{ fontSize: '0.875rem', fontWeight: isActive ? 600 : 400, color: '#202938', lineHeight: 1.4 }}>
+                        <Typography sx={{ fontSize: '0.875rem', fontWeight: isActive ? 600 : 400, color: 'text.primary', lineHeight: 1.4 }}>
                           {item.label}
                         </Typography>
                         {item.sublabel && (
-                          <Typography sx={{ fontSize: '0.75rem', color: '#64748B', lineHeight: 1.3 }}>
+                          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary', lineHeight: 1.3 }}>
                             {item.sublabel}
                           </Typography>
                         )}
                       </Box>
                       {isActive && (
-                        <Box sx={{ ml: 'auto', width: 6, height: 6, borderRadius: '99px', bgcolor: '#244B72', flexShrink: 0 }} />
+                        <Box sx={{ ml: 'auto', width: 6, height: 6, borderRadius: '99px', bgcolor: 'primary.main', flexShrink: 0 }} />
                       )}
                     </Box>
                   )

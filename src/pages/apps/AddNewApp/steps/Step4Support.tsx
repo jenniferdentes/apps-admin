@@ -21,7 +21,7 @@ export default function Step4Support({ data, update }: Props) {
         something&apos;s wrong.
       </Typography>
 
-      <Box sx={{ bgcolor: '#F8FAFC', borderRadius: 1, p: 3 }}>
+      <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 3 }}>
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 2.5 }}>Details</Typography>
 
         <Box sx={{ mb: 2 }}>

@@ -83,12 +83,12 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
     <Dialog open={open} onClose={handleClose} maxWidth={false}
       slotProps={{ paper: { sx: { width: 520, borderRadius: 1 } } }}>
       <DialogTitle sx={{ p: 0 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2.5, borderBottom: '1px solid #EAECF0', bgcolor: '#FCFBFD', borderRadius: '8px 8px 0 0' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2.5, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: 'background.paper', borderRadius: '8px 8px 0 0' }}>
           <Box>
-            <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+            <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
               Add Company to {appName}
             </Typography>
-            <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', mt: 0.25 }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', mt: 0.25 }}>
               Select a company to configure this app for
             </Typography>
           </Box>
@@ -110,7 +110,7 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ fontSize: 20, color: '#94A3B8' }} />
+                  <SearchIcon sx={{ fontSize: 20, color: 'text.disabled' }} />
                 </InputAdornment>
               ),
             },
@@ -127,9 +127,9 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
                 sx={{
                   display: 'flex', alignItems: 'center', gap: 1.5,
                   py: 1.25, px: 1.5, borderRadius: 1, cursor: 'pointer',
-                  border: isSelected ? '1.5px solid #244B72' : '1.5px solid transparent',
-                  bgcolor: isSelected ? '#EBF0F5' : '#fff',
-                  '&:hover': { bgcolor: isSelected ? '#EBF0F5' : '#F7F8FC' },
+                  border: isSelected ? '1.5px solid var(--mui-palette-primary-main)' : '1.5px solid transparent',
+                  bgcolor: isSelected ? 'secondary.main' : 'background.default',
+                  '&:hover': { bgcolor: isSelected ? 'secondary.main' : 'background.paper' },
                   transition: 'background-color 0.1s, border-color 0.1s',
                 }}
               >
@@ -137,15 +137,15 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
                   {company.initials}
                 </Avatar>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.57 }}>
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', lineHeight: 1.57 }}>
                     {company.name}
                   </Typography>
-                  <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466', letterSpacing: '0.2px' }}>
+                  <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', letterSpacing: '0.2px' }}>
                     {company.industry} · {company.location}
                   </Typography>
                 </Box>
                 {isSelected && (
-                  <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#244B72', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <CheckIcon sx={{ fontSize: 13, color: '#fff' }} />
                   </Box>
                 )}
@@ -162,7 +162,7 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
 
       <DialogActions sx={{ px: 3, py: 2, gap: 1, justifyContent: 'flex-end' }}>
         <Button variant="outlined" onClick={handleClose}
-          sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
+          sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
           Cancel
         </Button>
         <Button variant="contained" disabled={!selectedId} onClick={handleContinue}

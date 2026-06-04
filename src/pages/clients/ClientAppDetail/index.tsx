@@ -241,9 +241,9 @@ const SO_DESCS: Record<string, string> = {
 
 function ChecklistItem({ text }: { text: string }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, border: '1px solid #EAECF0', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: '#fff' }}>
-      <DoneIcon sx={{ fontSize: 20, color: '#244B72', flexShrink: 0 }} />
-      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.default' }}>
+      <DoneIcon sx={{ fontSize: 20, color: 'primary.main', flexShrink: 0 }} />
+      <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>
         {text}
       </Typography>
     </Box>
@@ -252,18 +252,18 @@ function ChecklistItem({ text }: { text: string }) {
 
 function InstructionCard({ index, title, steps }: { index: number; title: string; steps: string[] }) {
   return (
-    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: '#fff', display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.default', display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#42A5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#fff', lineHeight: 1 }}>{index}</Typography>
         </Box>
-        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px' }}>{title}</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>{title}</Typography>
       </Box>
       <Box sx={{ pl: 4.5, display: 'flex', flexDirection: 'column', gap: 1 }}>
         {steps.map((step, i) => (
           <Box key={i}>
             {i > 0 && <Divider sx={{ mb: 1 }} />}
-            <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>
               {i + 1}. {step}
             </Typography>
           </Box>
@@ -276,33 +276,33 @@ function InstructionCard({ index, title, steps }: { index: number; title: string
 function TaskBlock({ type, task }: { type: 'onboarding' | 'offboarding'; task: TaskData }) {
   const isOnboarding = type === 'onboarding'
   return (
-    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid #EAECF0', flexWrap: 'wrap', gap: 1.5 }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)', flexWrap: 'wrap', gap: 1.5 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <Chip label={isOnboarding ? 'Onboarding' : 'Offboarding'} size="small"
             sx={{
-              bgcolor: isOnboarding ? '#EDFCF2' : '#FCF4F2',
-              color: isOnboarding ? '#095C37' : '#A63224',
+              bgcolor: isOnboarding ? 'success.light' : 'error.light',
+              color: isOnboarding ? 'success.dark' : 'error.dark',
               fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100,
               '& .MuiChip-label': { px: '10px' },
             }} />
-          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
             {task.title}
           </Typography>
         </Box>
-        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>
+        <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
           Due {task.dueAfterDays} days after event
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', gap: 3, px: 2, py: 1.5, flexWrap: 'wrap' }}>
         <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', letterSpacing: '0.1px', mb: 0.5 }}>Checklist</Typography>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.secondary', letterSpacing: '0.1px', mb: 0.5 }}>Checklist</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             {task.checklist.map((item, i) => <ChecklistItem key={i} text={item} />)}
           </Box>
         </Box>
         <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', letterSpacing: '0.1px', mb: 0.5 }}>Instructions</Typography>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.secondary', letterSpacing: '0.1px', mb: 0.5 }}>Instructions</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             {task.instructions.map((instr, i) => <InstructionCard key={i} index={i + 1} title={instr.title} steps={instr.steps} />)}
           </Box>
@@ -314,15 +314,15 @@ function TaskBlock({ type, task }: { type: 'onboarding' | 'offboarding'; task: T
 
 function SectionCard({ title, onEdit, children }: { title: string; onEdit?: () => void; children: React.ReactNode }) {
   return (
-    <Box sx={{ bgcolor: '#fff', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
+    <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-        <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px' }}>
+        <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
           {title}
         </Typography>
         {onEdit && (
           <Button variant="text" size="small" startIcon={<EditOutlinedIcon sx={{ fontSize: 16 }} />}
             onClick={onEdit}
-            sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: '6px 8px', minWidth: 'auto' }}>
+            sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', p: '6px 8px', minWidth: 'auto' }}>
             Edit
           </Button>
         )}
@@ -342,9 +342,9 @@ function DetailRuleRow({ rule, variant, onFieldChange, onRemoveValue, onDeleteRu
 }) {
   const isExclude = variant === 'exclude'
   return (
-    <Box sx={{ position: 'relative', bgcolor: '#FCFBFD', border: '1px solid #EAECF0', borderRadius: '8px', px: '14px', pt: '12px', pb: '14px', mb: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+    <Box sx={{ position: 'relative', bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '14px', pt: '12px', pb: '14px', mb: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
       <IconButton size="small" onClick={() => onDeleteRule(rule.id)}
-        sx={{ position: 'absolute', top: 6, right: 6, color: '#C4CAD4', '&:hover': { color: '#DE5243', bgcolor: '#FCF4F2' } }}>
+        sx={{ position: 'absolute', top: 6, right: 6, color: 'text.disabled', '&:hover': { color: 'error.main', bgcolor: 'error.light' } }}>
         <DeleteIcon sx={{ fontSize: 16 }} />
       </IconButton>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -353,17 +353,17 @@ function DetailRuleRow({ rule, variant, onFieldChange, onRemoveValue, onDeleteRu
             {RULE_FIELDS_DETAIL.map((f) => <MenuItem key={f} value={f}>{f}</MenuItem>)}
           </Select>
         </FormControl>
-        <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>is any of</Typography>
+        <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>is any of</Typography>
       </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 0.75 }}>
         {rule.values.map((v) => (
           <Chip key={v} label={v} size="small"
             onDelete={() => onRemoveValue(rule.id, v)}
             deleteIcon={<CloseIcon sx={{ fontSize: '14px !important' }} />}
-            sx={{ bgcolor: isExclude ? '#FCF4F2' : '#EBF0F5', color: isExclude ? '#C83E2E' : '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+            sx={{ bgcolor: isExclude ? 'error.light' : 'secondary.main', color: isExclude ? '#C83E2E' : 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         ))}
         <Box component="button" onClick={(e) => onOpenPicker(e, rule.id, variant)}
-          sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, border: `1.5px dashed ${isExclude ? '#C83E2E' : '#0C2E50'}`, borderRadius: 100, px: 1.25, py: '3px', bgcolor: 'transparent', cursor: 'pointer', color: isExclude ? '#C83E2E' : '#244B72', fontSize: '0.8125rem', fontWeight: 500, '&:hover': { bgcolor: isExclude ? '#FCF4F2' : '#EBF0F5' } }}>
+          sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, border: `1.5px dashed ${isExclude ? '#C83E2E' : '#0C2E50'}`, borderRadius: 100, px: 1.25, py: '3px', bgcolor: 'transparent', cursor: 'pointer', color: isExclude ? '#C83E2E' : 'primary.main', fontSize: '0.8125rem', fontWeight: 500, '&:hover': { bgcolor: isExclude ? 'error.light' : 'secondary.main' } }}>
           <AddIcon sx={{ fontSize: 13 }} />
           Add {rule.field}
         </Box>
@@ -375,17 +375,17 @@ function DetailRuleRow({ rule, variant, onFieldChange, onRemoveValue, onDeleteRu
 function ReadOnlyRuleRow({ field, values, variant }: { field: string; values: string[]; variant: 'include' | 'exclude' }) {
   const isExclude = variant === 'exclude'
   return (
-    <Box sx={{ bgcolor: '#FCFBFD', border: '1px solid #EAECF0', borderRadius: '8px', px: '14px', py: '12px', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+    <Box sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '14px', py: '12px', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-        <Box sx={{ bgcolor: isExclude ? '#FCF4F2' : '#D3F8DF', color: isExclude ? '#C83E2E' : '#084C2E', px: 1, py: '2px', borderRadius: '4px', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.57 }}>
+        <Box sx={{ bgcolor: isExclude ? 'error.light' : 'success.light', color: isExclude ? '#C83E2E' : '#084C2E', px: 1, py: '2px', borderRadius: '4px', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.57 }}>
           {field}
         </Box>
-        <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>is any of</Typography>
+        <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>is any of</Typography>
       </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
         {values.map((v) => (
           <Chip key={v} label={v} size="small"
-            sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
+            sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
         ))}
       </Box>
     </Box>
@@ -394,7 +394,7 @@ function ReadOnlyRuleRow({ field, values, variant }: { field: string; values: st
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
-    <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', letterSpacing: '0.1px', lineHeight: 1.57, mb: 0.5 }}>
+    <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.secondary', letterSpacing: '0.1px', lineHeight: 1.57, mb: 0.5 }}>
       {children}
     </Typography>
   )
@@ -402,7 +402,7 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 
 function FieldValue({ children }: { children: React.ReactNode }) {
   return (
-    <Typography sx={{ fontSize: '1rem', color: '#202938', lineHeight: 1.5 }}>
+    <Typography sx={{ fontSize: '1rem', color: 'text.primary', lineHeight: 1.5 }}>
       {children}
     </Typography>
   )
@@ -515,15 +515,15 @@ export default function ClientAppDetail() {
       {/* Page header */}
       <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', mb: 2 }}>
         <Box>
-          <Typography variant="body2" sx={{ color: '#4A5466', fontWeight: 500, mb: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500, mb: 0.5 }}>
             Client Manager
           </Typography>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: '#202938' }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>
             Finity_Development
           </Typography>
         </Box>
         <Button variant="outlined" startIcon={<SettingsOutlinedIcon sx={{ fontSize: 18 }} />}
-          sx={{ borderColor: '#D0D3E8', color: '#244B72', bgcolor: '#F7F8FC', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, py: 0.75, '&:hover': { borderColor: '#244B72', bgcolor: '#EBF0F5' } }}>
+          sx={{ borderColor: 'divider', color: 'primary.main', bgcolor: 'background.paper', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, py: 0.75, '&:hover': { borderColor: 'primary.main', bgcolor: 'secondary.main' } }}>
           Client Settings
         </Button>
       </Box>
@@ -532,49 +532,49 @@ export default function ClientAppDetail() {
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 2 }}>
         <Typography
           onClick={() => navigate('/clients')}
-          sx={{ fontSize: '1rem', color: '#4A5466', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}>
+          sx={{ fontSize: '1rem', color: 'text.secondary', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}>
           Apps
         </Typography>
-        <ChevronRightIcon sx={{ fontSize: 20, color: '#4A5466' }} />
-        <Typography sx={{ fontSize: '1rem', fontWeight: 600, color: '#202938', letterSpacing: '0.15px' }}>
+        <ChevronRightIcon sx={{ fontSize: 20, color: 'text.secondary' }} />
+        <Typography sx={{ fontSize: '1rem', fontWeight: 600, color: 'text.primary', letterSpacing: '0.15px' }}>
           {app.name}
         </Typography>
       </Box>
 
       {/* App header card */}
-      <Box sx={{ bgcolor: '#fff', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
+      <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Avatar sx={{ width: 56, height: 56, bgcolor: app.logoColor, fontSize: '1.1rem', fontWeight: 700, borderRadius: '12px', border: '1px solid #EAECF0' }}>
+            <Avatar sx={{ width: 56, height: 56, bgcolor: app.logoColor, fontSize: '1.1rem', fontWeight: 700, borderRadius: '12px', border: '1px solid var(--mui-palette-divider)' }}>
               {app.logoInitial}
             </Avatar>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#202938', letterSpacing: '0.15px' }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: 'text.primary', letterSpacing: '0.15px' }}>
                 {app.name}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 0.5 }}>
                 <Chip label={localProvisioning.method} size="small"
                   sx={{ bgcolor: provChip.bg, color: provChip.color, fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                  <PersonOutlinedIcon sx={{ fontSize: 18, color: '#4A5466' }} />
-                  <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>{app.users} users</Typography>
+                  <PersonOutlinedIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>{app.users} users</Typography>
                 </Box>
               </Box>
             </Box>
           </Box>
-          <IconButton size="small" sx={{ border: '1px solid #D0D3E8', borderRadius: 1, bgcolor: '#F7F8FC' }}>
+          <IconButton size="small" sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper' }}>
             <MoreVertIcon fontSize="small" />
           </IconButton>
         </Box>
       </Box>
 
       {/* Pill tabs */}
-      <Box sx={{ display: 'flex', bgcolor: '#fff', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid #EAECF0', mb: 2 }}>
+      <Box sx={{ display: 'flex', bgcolor: 'background.default', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid var(--mui-palette-divider)', mb: 2 }}>
         {TABS.map((tab) => {
           const isActive = tab === activeTab
           return (
             <Box key={tab} onClick={() => setActiveTab(tab)}
-              sx={{ px: 1.5, py: 1, borderRadius: '6px', cursor: 'pointer', bgcolor: isActive ? '#EBF0F5' : 'transparent', color: '#244B72', fontWeight: 500, fontSize: isActive ? '0.875rem' : '1rem', lineHeight: '24px', userSelect: 'none', '&:hover': { bgcolor: isActive ? '#EBF0F5' : '#F7F8FC' } }}>
+              sx={{ px: 1.5, py: 1, borderRadius: '6px', cursor: 'pointer', bgcolor: isActive ? 'secondary.main' : 'transparent', color: 'primary.main', fontWeight: 500, fontSize: isActive ? '0.875rem' : '1rem', lineHeight: '24px', userSelect: 'none', '&:hover': { bgcolor: isActive ? 'secondary.main' : 'background.paper' } }}>
               {tab}
             </Box>
           )
@@ -598,11 +598,11 @@ export default function ClientAppDetail() {
                   </FormControl>
                 </Box>
                 {draftProv.desc && (
-                  <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', mb: 2 }}>{draftProv.desc}</Typography>
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', mb: 2 }}>{draftProv.desc}</Typography>
                 )}
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid #EAECF0' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid var(--mui-palette-divider)' }}>
                   <Button variant="outlined" size="small" onClick={() => setEditingProvisioning(false)}
-                    sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
                     Cancel
                   </Button>
                   <Button variant="contained" size="small" onClick={() => { setLocalProvisioning(draftProv); setEditingProvisioning(false); showToast('Provisioning settings saved') }}
@@ -615,7 +615,7 @@ export default function ClientAppDetail() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                 <Chip label={localProvisioning.method} size="small"
                   sx={{ bgcolor: provChip.bg, color: provChip.color, fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
-                <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>{localProvisioning.desc}</Typography>
+                <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>{localProvisioning.desc}</Typography>
               </Box>
             )}
           </SectionCard>
@@ -634,11 +634,11 @@ export default function ClientAppDetail() {
                   </FormControl>
                 </Box>
                 {draftSO.desc && (
-                  <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', mb: 2 }}>{draftSO.desc}</Typography>
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', mb: 2 }}>{draftSO.desc}</Typography>
                 )}
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid #EAECF0' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid var(--mui-palette-divider)' }}>
                   <Button variant="outlined" size="small" onClick={() => setEditingSignOn(false)}
-                    sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
                     Cancel
                   </Button>
                   <Button variant="contained" size="small" onClick={() => { setLocalSignOn(draftSO); setEditingSignOn(false); showToast('Sign-on settings saved') }}
@@ -651,7 +651,7 @@ export default function ClientAppDetail() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                 <Chip label={localSignOn.method} size="small"
                   sx={{ bgcolor: soChip.bg, color: soChip.color, fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }} />
-                <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>{localSignOn.desc}</Typography>
+                <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>{localSignOn.desc}</Typography>
               </Box>
             )}
           </SectionCard>
@@ -678,7 +678,7 @@ export default function ClientAppDetail() {
                   <Box sx={{ flex: 1 }}>
                     <FieldLabel>Connection Status</FieldLabel>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckIcon sx={{ fontSize: 20, color: '#16B364' }} />
+                      <CheckIcon sx={{ fontSize: 20, color: 'success.main' }} />
                       <FieldValue>Connected</FieldValue>
                     </Box>
                   </Box>
@@ -690,17 +690,17 @@ export default function ClientAppDetail() {
                 <Divider sx={{ mb: 2 }} />
                 <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                   <Button variant="outlined" size="small" startIcon={<PlayArrowOutlinedIcon sx={{ fontSize: 16 }} />}
-                    sx={{ borderColor: '#D0D3E8', color: '#244B72', bgcolor: '#F7F8FC', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', bgcolor: 'background.paper', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
                     Test Connection
                   </Button>
                   <Button variant="outlined" size="small" startIcon={<SyncIcon sx={{ fontSize: 16 }} />}
-                    sx={{ borderColor: '#D0D3E8', color: '#244B72', bgcolor: '#F7F8FC', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', bgcolor: 'background.paper', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
                     Sync Now
                   </Button>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid #EAECF0' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid var(--mui-palette-divider)' }}>
                   <Button variant="outlined" size="small" onClick={() => setEditingScim(false)}
-                    sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
                     Cancel
                   </Button>
                   <Button variant="contained" size="small" onClick={() => { setLocalScim(draftScim); setEditingScim(false); showToast('SCIM configuration saved') }}
@@ -714,13 +714,13 @@ export default function ClientAppDetail() {
                 <Box sx={{ display: 'flex', gap: 3, mb: 2 }}>
                   <Box sx={{ flex: 1 }}>
                     <FieldLabel>SCIM Endpoint URL</FieldLabel>
-                    <Typography sx={{ fontFamily: '"Roboto Mono", monospace', fontSize: '1rem', color: '#202938', fontWeight: 500 }}>
+                    <Typography sx={{ fontFamily: '"Roboto Mono", monospace', fontSize: '1rem', color: 'text.primary', fontWeight: 500 }}>
                       {localScim.endpoint}
                     </Typography>
                   </Box>
                   <Box sx={{ flex: 1 }}>
                     <FieldLabel>API Token</FieldLabel>
-                    <Typography sx={{ fontFamily: '"Roboto Mono", monospace', fontSize: '1rem', color: '#202938', fontWeight: 500 }}>
+                    <Typography sx={{ fontFamily: '"Roboto Mono", monospace', fontSize: '1rem', color: 'text.primary', fontWeight: 500 }}>
                       {localScim.token}
                     </Typography>
                   </Box>
@@ -729,7 +729,7 @@ export default function ClientAppDetail() {
                   <Box sx={{ flex: 1 }}>
                     <FieldLabel>Connection Status</FieldLabel>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckIcon sx={{ fontSize: 20, color: '#16B364' }} />
+                      <CheckIcon sx={{ fontSize: 20, color: 'success.main' }} />
                       <FieldValue>Connected</FieldValue>
                     </Box>
                   </Box>
@@ -741,11 +741,11 @@ export default function ClientAppDetail() {
                 <Divider sx={{ mb: 2 }} />
                 <Box sx={{ display: 'flex', gap: 2 }}>
                   <Button variant="outlined" size="small" startIcon={<PlayArrowOutlinedIcon sx={{ fontSize: 16 }} />}
-                    sx={{ borderColor: '#D0D3E8', color: '#244B72', bgcolor: '#F7F8FC', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', bgcolor: 'background.paper', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
                     Test Connection
                   </Button>
                   <Button variant="outlined" size="small" startIcon={<SyncIcon sx={{ fontSize: 16 }} />}
-                    sx={{ borderColor: '#D0D3E8', color: '#244B72', bgcolor: '#F7F8FC', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', bgcolor: 'background.paper', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, boxShadow: 'none' }}>
                     Sync Now
                   </Button>
                 </Box>
@@ -767,19 +767,20 @@ export default function ClientAppDetail() {
                     return (
                       <Box key={m.value} onClick={() => setDraftElection((prev) => ({ ...prev, mode: m.value }))}
                         sx={{
-                          flex: 1, border: selected ? '2px solid #85A4C2' : '1px solid #EAECF0',
+                          flex: 1, border: selected ? '2px solid' : '1px solid var(--mui-palette-divider)',
+                          borderColor: selected ? 'primary.light' : undefined,
                           borderRadius: 1, p: 1.5, cursor: 'pointer',
-                          bgcolor: selected ? '#F7F8FC' : '#fff',
+                          bgcolor: selected ? 'background.paper' : 'background.default',
                           display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                          '&:hover': { bgcolor: selected ? '#F7F8FC' : '#FCFBFD', borderColor: selected ? '#85A4C2' : '#D0D5DD' },
+                          '&:hover': { bgcolor: selected ? 'background.paper' : 'background.paper', borderColor: selected ? 'primary.light' : 'divider' },
                         }}
                       >
                         <Box>
-                          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.57, mb: 0.25 }}>{m.label}</Typography>
-                          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>{m.subtitle}</Typography>
+                          <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', lineHeight: 1.57, mb: 0.25 }}>{m.label}</Typography>
+                          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>{m.subtitle}</Typography>
                         </Box>
                         {selected && (
-                          <Box sx={{ width: 24, height: 24, borderRadius: '99px', bgcolor: '#244B72', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <Box sx={{ width: 24, height: 24, borderRadius: '99px', bgcolor: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                             <CheckIcon sx={{ fontSize: 14, color: '#fff' }} />
                           </Box>
                         )}
@@ -819,7 +820,7 @@ export default function ClientAppDetail() {
                     <TextField size="small" placeholder="Search users" value={electionSearch}
                       onChange={(e) => setElectionSearch(e.target.value)}
                       sx={{ width: 280, mb: 1.5 }}
-                      slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
+                      slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} /></InputAdornment> } }}
                     />
                     {draftElection.directUsers.length > 0 && (
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1.5 }}>
@@ -829,12 +830,12 @@ export default function ClientAppDetail() {
                             label={u.name} size="small"
                             onDelete={() => setDraftElection((prev) => ({ ...prev, directUsers: prev.directUsers.filter((x) => x.id !== u.id) }))}
                             deleteIcon={<CloseIcon sx={{ fontSize: '14px !important' }} />}
-                            sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 500, fontSize: '0.8125rem', height: 28, borderRadius: 100 }}
+                            sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 500, fontSize: '0.8125rem', height: 28, borderRadius: 100 }}
                           />
                         ))}
                       </Box>
                     )}
-                    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden', maxHeight: 280, overflowY: 'auto' }}>
+                    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden', maxHeight: 280, overflowY: 'auto' }}>
                       {APP_USERS.filter((u) =>
                         u.name.toLowerCase().includes(electionSearch.toLowerCase()) ||
                         u.jobTitle.toLowerCase().includes(electionSearch.toLowerCase())
@@ -850,23 +851,23 @@ export default function ClientAppDetail() {
                             }))}
                             sx={{
                               display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25,
-                              borderBottom: i < arr.length - 1 ? '1px solid #EAECF0' : 'none',
+                              borderBottom: i < arr.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
                               cursor: 'pointer',
-                              bgcolor: checked ? '#F0F5FA' : '#fff',
-                              '&:hover': { bgcolor: checked ? '#EBF0F5' : '#F7F8FC' },
+                              bgcolor: checked ? 'secondary.main' : 'background.default',
+                              '&:hover': { bgcolor: checked ? 'secondary.main' : 'background.paper' },
                             }}
                           >
                             <Checkbox size="small" checked={checked}
                               onChange={() => {}}
                               onClick={(e) => e.stopPropagation()}
-                              sx={{ p: 0, color: '#D0D5DD', '&.Mui-checked': { color: '#244B72' } }}
+                              sx={{ p: 0, color: 'text.disabled', '&.Mui-checked': { color: 'primary.main' } }}
                             />
                             <Avatar sx={{ width: 32, height: 32, bgcolor: u.avatarColor, fontSize: '0.8rem', fontWeight: 600, flexShrink: 0 }}>
                               {u.initials}
                             </Avatar>
                             <Box>
-                              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938' }}>{u.name}</Typography>
-                              <Typography sx={{ fontSize: '0.8125rem', color: '#4A5466' }}>{u.jobTitle}</Typography>
+                              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary' }}>{u.name}</Typography>
+                              <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary' }}>{u.jobTitle}</Typography>
                             </Box>
                           </Box>
                         )
@@ -876,18 +877,18 @@ export default function ClientAppDetail() {
                 )}
 
                 {/* FCFS callout */}
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#EBF0F5', borderRadius: 1, px: 2, py: 1.5, mb: 2 }}>
-                  <InfoOutlinedIcon sx={{ fontSize: 18, color: '#244B72', flexShrink: 0, mt: '1px' }} />
-                  <Typography sx={{ fontSize: '0.875rem', color: '#244B72', lineHeight: 1.57 }}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: 'secondary.main', borderRadius: 1, px: 2, py: 1.5, mb: 2 }}>
+                  <InfoOutlinedIcon sx={{ fontSize: 18, color: 'primary.main', flexShrink: 0, mt: '1px' }} />
+                  <Typography sx={{ fontSize: '0.875rem', color: 'primary.main', lineHeight: 1.57 }}>
                     {draftElection.mode === 'direct'
                       ? 'When a task fires, it is sent to all selected champions. The first to accept becomes the responsible champion.'
                       : 'When a task fires, the first available champion matching this scope and job title will receive it. If they don\'t accept, it moves to the next match.'}
                   </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid #EAECF0' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 2, borderTop: '1px solid var(--mui-palette-divider)' }}>
                   <Button variant="outlined" size="small" onClick={() => setEditingElection(false)}
-                    sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
+                    sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: 'none' }}>
                     Cancel
                   </Button>
                   <Button variant="contained" size="small" onClick={() => { setLocalElection(draftElection); setEditingElection(false); showToast('Champion election updated') }}
@@ -903,7 +904,7 @@ export default function ClientAppDetail() {
                   <Chip
                     label={localElection.mode === 'dynamic' ? 'Dynamic' : 'Direct'}
                     size="small"
-                    sx={{ bgcolor: '#EBF0F5', color: '#244B72', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }}
+                    sx={{ bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 600, fontSize: '0.8125rem', height: 24, borderRadius: 100, '& .MuiChip-label': { px: '10px' } }}
                   />
                 </Box>
 
@@ -928,17 +929,17 @@ export default function ClientAppDetail() {
                           {u.initials}
                         </Avatar>
                         <Box>
-                          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px', lineHeight: 1.75 }}>{u.name}</Typography>
-                          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', lineHeight: 1.43 }}>{u.email}</Typography>
+                          <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px', lineHeight: 1.75 }}>{u.name}</Typography>
+                          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', lineHeight: 1.43 }}>{u.email}</Typography>
                         </Box>
                       </Box>
                     ))}
                   </Box>
                 )}
 
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#EBF0F5', borderRadius: 1, px: 2, py: 1.25 }}>
-                  <InfoOutlinedIcon sx={{ fontSize: 16, color: '#244B72', flexShrink: 0, mt: '2px' }} />
-                  <Typography sx={{ fontSize: '0.8125rem', color: '#244B72', lineHeight: 1.57 }}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: 'secondary.main', borderRadius: 1, px: 2, py: 1.25 }}>
+                  <InfoOutlinedIcon sx={{ fontSize: 16, color: 'primary.main', flexShrink: 0, mt: '2px' }} />
+                  <Typography sx={{ fontSize: '0.8125rem', color: 'primary.main', lineHeight: 1.57 }}>
                     {localElection.mode === 'direct'
                       ? 'When a task fires, it is sent to all selected champions. The first to accept becomes the responsible champion.'
                       : 'When a task fires, the first available champion matching this scope and job title will receive it.'}
@@ -953,19 +954,19 @@ export default function ClientAppDetail() {
       {activeTab === 'Rules' && (() => {
         if (editingRules) {
           return (
-            <Box sx={{ bgcolor: '#fff', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
-              <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#202938', letterSpacing: '0.15px', mb: 2 }}>
+            <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px', mb: 2 }}>
                 Scoping Rules
               </Typography>
 
               {/* Result bar */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, bgcolor: '#F7F8FC', borderRadius: '12px', px: '20px', py: '14px', mb: 2 }}>
-                <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#244B72' }}>{draftMatchCount.toLocaleString()}</Typography>
-                <Typography sx={{ fontSize: '1rem', color: '#202938' }}>people match these rules</Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, bgcolor: 'background.paper', borderRadius: '12px', px: '20px', py: '14px', mb: 2 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'primary.main' }}>{draftMatchCount.toLocaleString()}</Typography>
+                <Typography sx={{ fontSize: '1rem', color: 'text.primary' }}>people match these rules</Typography>
               </Box>
 
               {/* Include rules */}
-              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', mb: 1 }}>
+              <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', mb: 1 }}>
                 People who match all of
               </Typography>
               {draftInclude.map((rule) => (
@@ -978,7 +979,7 @@ export default function ClientAppDetail() {
               ))}
               <Button variant="text" size="small" startIcon={<AddIcon sx={{ fontSize: 16 }} />}
                 onClick={() => setDraftInclude((prev) => [...prev, { id: `${Date.now()}`, field: 'Site', values: [] }])}
-                sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', mb: 2, pl: 0 }}>
+                sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', mb: 2, pl: 0 }}>
                 Add Rule
               </Button>
 
@@ -988,8 +989,8 @@ export default function ClientAppDetail() {
               {showDraftExclude ? (
                 <>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 1 }}>
-                    <BlockOutlinedIcon sx={{ fontSize: 18, color: '#DE5243' }} />
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#DE5243' }}>Except</Typography>
+                    <BlockOutlinedIcon sx={{ fontSize: 18, color: 'error.main' }} />
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'error.main' }}>Except</Typography>
                   </Box>
                   {draftExclude.map((rule) => (
                     <DetailRuleRow key={rule.id} rule={rule} variant="exclude"
@@ -1001,22 +1002,22 @@ export default function ClientAppDetail() {
                   ))}
                   <Button variant="text" size="small" startIcon={<AddIcon sx={{ fontSize: 16 }} />}
                     onClick={() => setDraftExclude((prev) => [...prev, { id: `${Date.now()}`, field: 'Site', values: [] }])}
-                    sx={{ color: '#DE5243', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', mb: 2, pl: 0 }}>
+                    sx={{ color: 'error.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', mb: 2, pl: 0 }}>
                     Add Exclusion Rule
                   </Button>
                 </>
               ) : (
                 <Button variant="text" size="small" startIcon={<BlockOutlinedIcon sx={{ fontSize: 16 }} />}
                   onClick={() => { setShowDraftExclude(true); setDraftExclude([{ id: `${Date.now()}`, field: 'Site', values: [] }]) }}
-                  sx={{ color: '#DE5243', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', mb: 2, pl: 0 }}>
+                  sx={{ color: 'error.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', mb: 2, pl: 0 }}>
                   Add Exclusion
                 </Button>
               )}
 
               {/* Cancel / Save */}
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 1, borderTop: '1px solid #EAECF0' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, pt: 1, borderTop: '1px solid var(--mui-palette-divider)' }}>
                 <Button variant="outlined" size="small" onClick={() => setEditingRules(false)}
-                  sx={{ borderColor: '#D0D5DD', color: '#244B72', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}>
+                  sx={{ borderColor: 'divider', color: 'primary.main', fontWeight: 500, fontSize: '0.875rem', textTransform: 'none', borderRadius: 1, px: 2, boxShadow: '0px 1px 2px rgba(16,24,40,0.05)' }}>
                   Cancel
                 </Button>
                 <Button variant="contained" size="small"
@@ -1047,17 +1048,17 @@ export default function ClientAppDetail() {
         if (exclude.length > 0) summaryParts.push(`${exclude.length} exclusion${exclude.length !== 1 ? 's' : ''}`)
         return (
           <SectionCard title="Scoping Rules" onEdit={startEditing}>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 0.75, bgcolor: '#F7F8FC', borderRadius: '12px', px: '20px', py: '14px', mb: 2 }}>
-              <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: '#244B72' }}>{matchCount.toLocaleString()}</Typography>
-              <Typography sx={{ fontSize: '1rem', color: '#202938' }}>people match these rules</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 0.75, bgcolor: 'background.paper', borderRadius: '12px', px: '20px', py: '14px', mb: 2 }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'primary.main' }}>{matchCount.toLocaleString()}</Typography>
+              <Typography sx={{ fontSize: '1rem', color: 'text.primary' }}>people match these rules</Typography>
               {summaryParts.length > 0 && (
                 <>
-                  <Typography sx={{ fontSize: '0.875rem', color: '#4A5466', mx: 0.25 }}>·</Typography>
-                  <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>{summaryParts.join(' · ')}</Typography>
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary', mx: 0.25 }}>·</Typography>
+                  <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>{summaryParts.join(' · ')}</Typography>
                 </>
               )}
             </Box>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#202938', letterSpacing: '0.1px', mb: 1.5 }}>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', mb: 1.5 }}>
               People who match all of
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: exclude.length > 0 ? 2 : 0 }}>
@@ -1069,8 +1070,8 @@ export default function ClientAppDetail() {
               <>
                 <Divider sx={{ mb: 2 }} />
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 1.5 }}>
-                  <BlockOutlinedIcon sx={{ fontSize: 18, color: '#DE5243' }} />
-                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#DE5243' }}>Except</Typography>
+                  <BlockOutlinedIcon sx={{ fontSize: 18, color: 'error.main' }} />
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'error.main' }}>Except</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                   {exclude.map((rule) => (
@@ -1084,13 +1085,13 @@ export default function ClientAppDetail() {
       })()}
 
       {activeTab === 'Tasks' && (
-        <Box sx={{ bgcolor: '#fff', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', display: 'flex', flexDirection: 'column', gap: 2 }}>
           <TaskBlock type="onboarding" task={app.onboarding} />
           <TaskBlock type="offboarding" task={app.offboarding} />
 
           {/* Video thumbnail */}
           <Box>
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#4A5466', letterSpacing: '0.1px', mb: 1 }}>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.secondary', letterSpacing: '0.1px', mb: 1 }}>
               Training Video
             </Typography>
             <Box sx={{ width: 190, height: 131, borderRadius: 1, border: '2px solid #EAECF0', bgcolor: '#2D1B69', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 4px 8px rgba(16,24,40,0.1), 0px 2px 4px rgba(16,24,40,0.06)', cursor: 'pointer' }}>
@@ -1103,13 +1104,13 @@ export default function ClientAppDetail() {
       )}
 
       {activeTab === 'Users' && (
-        <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Filter bar */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, px: 2, py: 1.5, borderBottom: '1px solid #EAECF0' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
             <TextField size="small" placeholder="Search" value={userSearch}
               onChange={(e) => { setUserSearch(e.target.value); setUserPage(0) }}
               sx={{ width: 260 }}
-              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
+              slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} /></InputAdornment> } }}
             />
             <FormControl size="small" sx={{ width: 160 }}>
               <Select value={siteFilter} onChange={(e) => { setSiteFilter(e.target.value); setUserPage(0) }}
@@ -1141,7 +1142,7 @@ export default function ClientAppDetail() {
               <TableHead>
                 <TableRow>
                   {['Name', 'Job Title', 'Site', 'Departments', 'Date Added', 'Status'].map((h) => (
-                    <TableCell key={h} sx={{ fontWeight: 500, color: '#64748B', fontSize: '0.8125rem', bgcolor: '#FCFBFD', borderBottom: '1px solid #EAECF0' }}>
+                    <TableCell key={h} sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.8125rem', bgcolor: 'background.paper', borderBottom: '1px solid var(--mui-palette-divider)' }}>
                       {h}
                     </TableCell>
                   ))}
@@ -1156,26 +1157,26 @@ export default function ClientAppDetail() {
                           {user.initials}
                         </Avatar>
                         <Box>
-                          <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{user.name}</Typography>
-                          <Typography sx={{ fontSize: '0.875rem', color: '#4A5466' }}>{user.email}</Typography>
+                          <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{user.name}</Typography>
+                          <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>{user.email}</Typography>
                         </Box>
                       </Box>
                     </TableCell>
                     <TableCell sx={{ py: 1.5 }}>
-                      <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{user.jobTitle}</Typography>
+                      <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{user.jobTitle}</Typography>
                     </TableCell>
                     <TableCell sx={{ py: 1.5 }}>
-                      <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{user.site}</Typography>
+                      <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{user.site}</Typography>
                     </TableCell>
                     <TableCell sx={{ py: 1.5 }}>
-                      <Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{user.departments}</Typography>
+                      <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{user.departments}</Typography>
                     </TableCell>
                     <TableCell sx={{ py: 1.5 }}>
-                      <Typography sx={{ fontSize: '0.875rem', color: '#374151' }}>{user.dateAdded}</Typography>
+                      <Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{user.dateAdded}</Typography>
                     </TableCell>
                     <TableCell sx={{ py: 1.5 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-                        <FiberManualRecordIcon sx={{ fontSize: 10, color: '#16B364' }} />
+                        <FiberManualRecordIcon sx={{ fontSize: 10, color: 'success.main' }} />
                         <Typography sx={{ fontSize: '0.875rem' }}>{user.status}</Typography>
                       </Box>
                     </TableCell>
@@ -1189,7 +1190,7 @@ export default function ClientAppDetail() {
             onPageChange={(_, p) => setUserPage(p)}
             onRowsPerPageChange={(e) => { setUserRowsPerPage(parseInt(e.target.value, 10)); setUserPage(0) }}
             rowsPerPageOptions={[5, 10, 25]}
-            sx={{ borderTop: '1px solid #EAECF0', mt: 'auto' }}
+            sx={{ borderTop: '1px solid var(--mui-palette-divider)', mt: 'auto' }}
           />
         </Box>
       )}
@@ -1216,14 +1217,14 @@ export default function ClientAppDetail() {
             <Box sx={{ px: 2, pt: 2, pb: 1 }}>
               <TextField fullWidth size="small" placeholder="Search..." value={rulesSearch}
                 onChange={(e) => setRulesSearch(e.target.value)} sx={{ mb: 1 }}
-                slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
+                slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} /></InputAdornment> } }}
               />
               <Box sx={{ maxHeight: 260, overflowY: 'auto' }}>
                 {filtered.map((v) => (
                   <FormControlLabel key={v}
                     control={<Checkbox size="small" checked={currentRule.values.includes(v)} onChange={() => toggleValue(v)}
-                      sx={{ color: '#D0D5DD', '&.Mui-checked': { color: '#244B72' } }} />}
-                    label={<Typography sx={{ fontSize: '0.875rem', color: '#202938' }}>{v}</Typography>}
+                      sx={{ color: 'text.disabled', '&.Mui-checked': { color: 'primary.main' } }} />}
+                    label={<Typography sx={{ fontSize: '0.875rem', color: 'text.primary' }}>{v}</Typography>}
                     sx={{ display: 'flex', width: '100%', mx: 0, py: 0.25 }}
                   />
                 ))}

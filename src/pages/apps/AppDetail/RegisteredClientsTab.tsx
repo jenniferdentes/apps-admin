@@ -53,13 +53,13 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
 
 
   return (
-    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', overflow: 'hidden' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', overflow: 'hidden' }}>
       {/* Filter bar */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1.5, borderBottom: '1px solid #EAECF0' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
         <TextField size="small" placeholder="Search" value={search}
           onChange={(e) => { setSearch(e.target.value); setPage(0) }}
           sx={{ width: 300 }}
-          slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} /></InputAdornment> } }}
+          slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} /></InputAdornment> } }}
         />
         <Button variant="contained" startIcon={<AddIcon />} onClick={() => setAddCompanyOpen(true)}
           sx={{ minWidth: 140, height: 36, boxShadow: 'none', '&:hover': { boxShadow: 'none' } }}>
@@ -73,7 +73,7 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
           <TableHead>
             <TableRow sx={{ bgcolor: '#FAFAFA' }}>
               {['Client Name', 'Provisioning', 'Sign-on', 'Users', 'Date Added', 'Status', ''].map((h) => (
-                <TableCell key={h} sx={{ fontWeight: 500, color: '#64748B', fontSize: '0.8125rem', py: 1.25, borderBottom: '1px solid #EAECF0' }}>{h}</TableCell>
+                <TableCell key={h} sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.8125rem', py: 1.25, borderBottom: '1px solid var(--mui-palette-divider)' }}>{h}</TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -121,7 +121,7 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
         onPageChange={(_, p) => setPage(p)}
         onRowsPerPageChange={(e) => { setRowsPerPage(parseInt(e.target.value, 10)); setPage(0) }}
         rowsPerPageOptions={[5, 10, 25]}
-        sx={{ borderTop: '1px solid #EAECF0' }}
+        sx={{ borderTop: '1px solid var(--mui-palette-divider)' }}
       />
 
       <UsersModal

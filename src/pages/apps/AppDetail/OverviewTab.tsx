@@ -24,12 +24,12 @@ const CATEGORIES = ['Messaging', 'Collaboration', 'CRM', 'Finance', 'HR', 'Secur
 
 function SectionCard({ title, onEdit, children }: { title: string; onEdit?: () => void; children: React.ReactNode }) {
   return (
-    <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', mb: 2 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, pt: 2.5, pb: 2, borderBottom: '1px solid #EAECF0' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', mb: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, pt: 2.5, pb: 2, borderBottom: '1px solid var(--mui-palette-divider)' }}>
         <Typography sx={{ fontWeight: 600, fontSize: '0.9375rem' }}>{title}</Typography>
         {onEdit && (
           <Button size="small" startIcon={<EditOutlinedIcon sx={{ fontSize: '14px !important' }} />} onClick={onEdit}
-            sx={{ color: '#244B72', fontWeight: 500, fontSize: '0.8rem', minWidth: 'auto' }}>
+            sx={{ color: 'primary.main', fontWeight: 500, fontSize: '0.8rem', minWidth: 'auto' }}>
             Edit
           </Button>
         )}
@@ -42,9 +42,9 @@ function SectionCard({ title, onEdit, children }: { title: string; onEdit?: () =
 function ReadField({ label, value, half }: { label: string; value: React.ReactNode; half?: boolean }) {
   return (
     <Box sx={{ mb: 2, width: half ? '50%' : '100%', pr: half ? 2 : 0 }}>
-      <Typography sx={{ fontSize: '0.75rem', color: '#64748B', mb: 0.5, fontWeight: 500 }}>{label}</Typography>
+      <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 0.5, fontWeight: 500 }}>{label}</Typography>
       {typeof value === 'string'
-        ? <Typography sx={{ fontSize: '0.875rem' }}>{value || <span style={{ color: '#94A3B8' }}>Not Set</span>}</Typography>
+        ? <Typography sx={{ fontSize: '0.875rem' }}>{value || <span style={{ color: 'var(--mui-palette-text-disabled)' }}>Not Set</span>}</Typography>
         : value}
     </Box>
   )
@@ -125,14 +125,14 @@ function AppDetailsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
             <ReadField label="Publisher" value={app.publisher} half />
             <ReadField label="Website" value={
               app.websiteUrl
-                ? <Typography sx={{ fontSize: '0.875rem', color: '#244B72' }}>{app.websiteUrl}</Typography>
-                : <Typography sx={{ fontSize: '0.875rem', color: '#94A3B8' }}>Not Set</Typography>
+                ? <Typography sx={{ fontSize: '0.875rem', color: 'primary.main' }}>{app.websiteUrl}</Typography>
+                : <Typography sx={{ fontSize: '0.875rem', color: 'text.disabled' }}>Not Set</Typography>
             } half />
           </Box>
           <ReadField label="Categories" value={
             app.categories.length > 0
               ? <Typography sx={{ fontSize: '0.875rem' }}>{app.categories.join(', ')}</Typography>
-              : <Typography sx={{ fontSize: '0.875rem', color: '#94A3B8' }}>Not Set</Typography>
+              : <Typography sx={{ fontSize: '0.875rem', color: 'text.disabled' }}>Not Set</Typography>
           } />
         </Box>
       )}
@@ -166,7 +166,7 @@ function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
             14 clients are registered with this app. Changes here will affect how the app is configured across all of them.
           </Alert>
 
-          <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, overflow: 'hidden', mb: 2.5 }}>
+          <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden', mb: 2.5 }}>
             {CAPABILITY_ROWS.map(({ id, field, label, description }, i) => {
               const enabled = (draft[field] as string[]).includes(id)
               return (
@@ -175,11 +175,11 @@ function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
                   onClick={() => toggle(field, id)}
                   sx={{
                     display: 'flex', alignItems: 'center', gap: 2, px: 2.5, py: 2,
-                    borderBottom: i < CAPABILITY_ROWS.length - 1 ? '1px solid #EAECF0' : 'none',
-                    bgcolor: enabled ? '#F7F8FC' : '#fff',
+                    borderBottom: i < CAPABILITY_ROWS.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
+                    bgcolor: enabled ? 'background.paper' : 'background.default',
                     cursor: 'pointer',
                     transition: 'background-color 0.15s',
-                    '&:hover': { bgcolor: enabled ? '#EBF0F5' : '#FCFBFD' },
+                    '&:hover': { bgcolor: enabled ? 'secondary.main' : 'background.paper' },
                   }}
                 >
                   <Switch
@@ -189,15 +189,15 @@ function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
                     size="small"
                     sx={{
                       flexShrink: 0,
-                      '& .MuiSwitch-switchBase.Mui-checked': { color: '#244B72' },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: '#244B72' },
+                      '& .MuiSwitch-switchBase.Mui-checked': { color: 'primary.main' },
+                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { bgcolor: 'primary.main' },
                     }}
                   />
                   <Box sx={{ flex: 1, minWidth: 0 }}>
-                    <Typography sx={{ fontSize: '0.9375rem', fontWeight: 600, color: '#202938', letterSpacing: '0.1px', lineHeight: 1.5 }}>
+                    <Typography sx={{ fontSize: '0.9375rem', fontWeight: 600, color: 'text.primary', letterSpacing: '0.1px', lineHeight: 1.5 }}>
                       {label}
                     </Typography>
-                    <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.5, mt: 0.25 }}>
+                    <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', lineHeight: 1.5, mt: 0.25 }}>
                       {description}
                     </Typography>
                   </Box>
@@ -206,10 +206,10 @@ function TypeEventsSection({ app, onSave }: { app: AppDetail; onSave: (patch: Pa
             })}
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: '#F7F8FC', border: '1px solid #EAECF0', borderRadius: 1, px: 2, py: 1.5, mb: 3 }}>
-            <InfoOutlinedIcon sx={{ fontSize: 16, color: '#64748B', flexShrink: 0, mt: '2px' }} />
-            <Typography sx={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.6 }}>
-              <strong style={{ color: '#202938' }}>Champion Task provisioning</strong> and <strong style={{ color: '#202938' }}>manual login</strong> are always available — clients can use them regardless of the capabilities enabled above.
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 2, py: 1.5, mb: 3 }}>
+            <InfoOutlinedIcon sx={{ fontSize: 16, color: 'text.secondary', flexShrink: 0, mt: '2px' }} />
+            <Typography sx={{ fontSize: '0.8125rem', color: 'text.secondary', lineHeight: 1.6 }}>
+              <strong style={{ color: 'var(--mui-palette-text-primary)' }}>Champion Task provisioning</strong> and <strong style={{ color: 'var(--mui-palette-text-primary)' }}>manual login</strong> are always available — clients can use them regardless of the capabilities enabled above.
             </Typography>
           </Box>
 
@@ -244,14 +244,14 @@ function ScreenshotsSection() {
       <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
         {placeholders.map((bg, i) => (
           <Box key={i} sx={{ position: 'relative' }}>
-            <Box sx={{ width: 120, height: 80, borderRadius: 1.5, bgcolor: bg, border: '1px solid #E2E8F0' }} />
+            <Box sx={{ width: 120, height: 80, borderRadius: 1.5, bgcolor: bg, border: '1px solid var(--mui-palette-divider)' }} />
             {editing && (
               <Box onClick={() => {}} sx={{ position: 'absolute', top: 4, right: 4, width: 20, height: 20, bgcolor: '#EF4444', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff', fontSize: 12, fontWeight: 700 }}>×</Box>
             )}
           </Box>
         ))}
         {editing && (
-          <Box sx={{ width: 120, height: 80, border: '2px dashed #CBD5E1', borderRadius: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', '&:hover': { borderColor: '#94A3B8' } }}>
+          <Box sx={{ width: 120, height: 80, border: '2px dashed #CBD5E1', borderRadius: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', '&:hover': { borderColor: 'divider' } }}>
             <AddIcon sx={{ color: '#CBD5E1' }} />
           </Box>
         )}
@@ -308,14 +308,14 @@ function SupportSection({ app, onSave }: { app: AppDetail; onSave: (patch: Parti
           <Box sx={{ display: 'flex' }}>
             <ReadField label="Name" value={app.contactName} half />
             <ReadField label="Email" value={
-              <Typography sx={{ fontSize: '0.875rem', color: '#244B72' }}>{app.contactEmail}</Typography>
+              <Typography sx={{ fontSize: '0.875rem', color: 'primary.main' }}>{app.contactEmail}</Typography>
             } half />
           </Box>
           <Box sx={{ display: 'flex' }}>
             <ReadField label="Phone" value={app.contactPhone || 'Not Set'} half />
             <ReadField label="Support URL" value={
-              app.supportUrl ? <Typography sx={{ fontSize: '0.875rem', color: '#244B72' }}>{app.supportUrl}</Typography>
-                : <Typography sx={{ fontSize: '0.875rem', color: '#94A3B8' }}>Not Set</Typography>
+              app.supportUrl ? <Typography sx={{ fontSize: '0.875rem', color: 'primary.main' }}>{app.supportUrl}</Typography>
+                : <Typography sx={{ fontSize: '0.875rem', color: 'text.disabled' }}>Not Set</Typography>
             } half />
           </Box>
         </Box>
@@ -380,8 +380,8 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
   }
 
   return (
-    <Box sx={{ border: '1px solid #E2E8F0', borderRadius: 1, overflow: 'hidden', mb: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: '#F8FAFC', px: 2, py: 1.5, borderBottom: '1px solid #E2E8F0' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, overflow: 'hidden', mb: 3 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.paper', px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
         <Chip label={label} size="small" sx={{ bgcolor: chipColor.bg, color: chipColor.color, fontWeight: 600, fontSize: '0.75rem', height: 24 }} />
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>Default {label.toLowerCase()} task</Typography>
       </Box>
@@ -406,7 +406,7 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
               </Box>
             )}
           </Box>
-          <Typography sx={{ fontSize: '0.75rem', color: '#64748B', mb: 1.5 }}>
+          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 1.5 }}>
             Paste a numbered list to fill these automatically.
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -418,7 +418,7 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
                   value={item.text}
                   onChange={(e) => updateChecklistText(item.id, e.target.value)}
                   slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleChecklistPaste(e, item.id) } }}
-                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#fff' } }}
+                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
                 />
                 <IconButton size="small" onClick={() => removeChecklistItem(item.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
                   <CloseIcon fontSize="small" />
@@ -434,11 +434,11 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
         {/* Instructions */}
         <Box sx={{ mb: 3 }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, mb: 0.25 }}>Instructions</Typography>
-          <Typography sx={{ fontSize: '0.75rem', color: '#64748B', mb: 1.5 }}>
+          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 1.5 }}>
             Paste multi-line content into any step to split it automatically.
           </Typography>
           {task.sections.map((section, sIdx) => (
-            <Box key={section.id} sx={{ border: '1px solid #E2E8F0', borderRadius: 1.5, p: 2, mb: 1.5 }}>
+            <Box key={section.id} sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1.5, p: 2, mb: 1.5 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
                 <DragIndicatorIcon sx={{ color: '#CBD5E1', fontSize: 18, cursor: 'grab' }} />
                 <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: '#1B2A3B', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{sIdx + 1}</Box>
@@ -450,12 +450,12 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
               </Box>
               {section.steps.map((step: InstructionStep, stIdx: number) => (
                 <Box key={step.id} sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 4, mb: 1 }}>
-                  <Typography sx={{ fontSize: '0.8rem', color: '#64748B', minWidth: 20 }}>{stIdx + 1}.</Typography>
+                  <Typography sx={{ fontSize: '0.8rem', color: 'text.secondary', minWidth: 20 }}>{stIdx + 1}.</Typography>
                   <TextField fullWidth size="small" placeholder="Add step…"
                     value={step.text}
                     onChange={(e) => updateStep(section.id, step.id, e.target.value)}
                     slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleStepPaste(e, section.id, step.id) } }}
-                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#fff' } }}
+                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
                   />
                   <IconButton size="small" onClick={() => removeStep(section.id, step.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
                     <CloseIcon fontSize="small" />
@@ -481,8 +481,8 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
             sx={{ width: 160 }}
           />
           <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mt: 1 }}>
-            <InfoOutlinedIcon sx={{ fontSize: 14, color: '#94A3B8', mt: '2px', flexShrink: 0 }} />
-            <Typography sx={{ fontSize: '0.75rem', color: '#94A3B8', lineHeight: 1.5 }}>
+            <InfoOutlinedIcon sx={{ fontSize: 14, color: 'text.disabled', mt: '2px', flexShrink: 0 }} />
+            <Typography sx={{ fontSize: '0.75rem', color: 'text.disabled', lineHeight: 1.5 }}>
               Champions receive reminders as the deadline approaches. Incomplete tasks are escalated to their manager — not handled by CubX.
             </Typography>
           </Box>
@@ -498,11 +498,11 @@ function TaskPanel({ task, type }: { task: AppDetail['onboardingTask']; type: 'O
     : { bg: '#FEE2E2', color: '#991B1B' }
 
   return (
-    <Box sx={{ border: '1px solid #E2E8F0', borderRadius: 1, mb: 2, overflow: 'hidden' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25, borderBottom: '1px solid #E2E8F0', bgcolor: '#FAFAFA' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, mb: 2, overflow: 'hidden' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: '#FAFAFA' }}>
         <Chip label={type} size="small" sx={{ bgcolor: chipStyle.bg, color: chipStyle.color, fontWeight: 600, fontSize: '0.75rem', height: 22, borderRadius: 100 }} />
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>{task.title}</Typography>
-        <Typography sx={{ ml: 'auto', fontSize: '0.8rem', color: '#64748B' }}>Due {task.dueAfterDays} days after event</Typography>
+        <Typography sx={{ ml: 'auto', fontSize: '0.8rem', color: 'text.secondary' }}>Due {task.dueAfterDays} days after event</Typography>
       </Box>
       <Box sx={{ display: 'flex', gap: 0, p: 2 }}>
         <Box sx={{ flex: 1, pr: 3 }}>

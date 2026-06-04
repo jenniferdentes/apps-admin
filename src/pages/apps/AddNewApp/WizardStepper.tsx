@@ -55,7 +55,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
                 sx={{
                   fontSize: '0.8rem',
                   fontWeight: active ? 600 : 400,
-                  color: active || completed ? '#1B2A3B' : '#94A3B8',
+                  color: active || completed ? '#1B2A3B' : 'text.disabled',
                 }}
               >
                 {label}
@@ -81,7 +81,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
       <Box sx={{ ml: 2 }}>
         <ButtonBase
           onClick={onExit}
-          sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#64748B', borderRadius: 1, px: 0.5, py: 0.25 }}
+          sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary', borderRadius: 1, px: 0.5, py: 0.25 }}
         >
           <CloseIcon sx={{ fontSize: 16 }} />
           <Typography sx={{ fontSize: '0.8rem' }}>Exit</Typography>

@@ -124,7 +124,7 @@ export default function AppsLibrary() {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ fontSize: 18, color: '#94A3B8' }} />
+                  <SearchIcon sx={{ fontSize: 18, color: 'text.disabled' }} />
                 </InputAdornment>
               ),
             },
@@ -153,22 +153,22 @@ export default function AppsLibrary() {
           <Table stickyHeader sx={{ flex: 1 }}>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ width: 280, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
+                <TableCell sx={{ width: 280, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   App Name
                 </TableCell>
-                <TableCell sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
+                <TableCell sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   Categories
                 </TableCell>
-                <TableCell sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
+                <TableCell sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   Provisioning
                 </TableCell>
-                <TableCell sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
+                <TableCell sx={{ fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   Sign-on
                 </TableCell>
-                <TableCell sx={{ width: 140, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
+                <TableCell sx={{ width: 140, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   Clients
                 </TableCell>
-                <TableCell sx={{ width: 110, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: '#FCFBFD' }}>
+                <TableCell sx={{ width: 110, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   Actions
                 </TableCell>
               </TableRow>
@@ -204,7 +204,7 @@ export default function AppsLibrary() {
                       variant="text"
                       size="small"
                       onClick={() => navigate(`/apps/${app.id}`)}
-                      sx={{ color: '#244B72', fontWeight: 500, p: 0, minWidth: 'auto' }}
+                      sx={{ color: 'primary.main', fontWeight: 500, p: 0, minWidth: 'auto' }}
                     >
                       View
                     </Button>
@@ -222,7 +222,7 @@ export default function AppsLibrary() {
             onPageChange={(_, newPage) => setPage(newPage)}
             onRowsPerPageChange={(e) => { setRowsPerPage(parseInt(e.target.value, 10)); setPage(0) }}
             rowsPerPageOptions={[5, 10, 25]}
-            sx={{ borderTop: '1px solid #EAECF0', mt: 'auto' }}
+            sx={{ borderTop: '1px solid var(--mui-palette-divider)', mt: 'auto' }}
           />
         </TableContainer>
       </Box>

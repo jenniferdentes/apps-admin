@@ -42,7 +42,7 @@ export default function AppDetailPage() {
       <Typography variant="h4" sx={{ mb: 3 }}>{app.name}</Typography>
 
       {/* App header card */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', p: 2.5, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', p: 2.5, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Avatar sx={{ width: 52, height: 52, bgcolor: app.logoColor, fontSize: '1.1rem', fontWeight: 700, borderRadius: 1 }}>
             {app.logoInitial}
@@ -50,22 +50,22 @@ export default function AppDetailPage() {
           <Box>
             <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>{app.name}</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.25 }}>
-              <CorporateFareOutlinedIcon sx={{ fontSize: 14, color: '#64748B' }} />
-              <Typography sx={{ fontSize: '0.8rem', color: '#64748B' }}>{app.companies} companies</Typography>
+              <CorporateFareOutlinedIcon sx={{ fontSize: 14, color: 'text.secondary' }} />
+              <Typography sx={{ fontSize: '0.8rem', color: 'text.secondary' }}>{app.companies} companies</Typography>
             </Box>
           </Box>
         </Box>
-        <IconButton size="small" sx={{ border: '1px solid #E2E8F0', borderRadius: 1.5 }}>
+        <IconButton size="small" sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1.5 }}>
           <MoreVertIcon fontSize="small" />
         </IconButton>
       </Box>
 
       {/* Tabs */}
-      <Box sx={{ border: '1px solid #EAECF0', borderRadius: 1, bgcolor: '#fff', px: 0, mt: 2, mb: 2 }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', px: 0, mt: 2, mb: 2 }}>
         <Tabs value={tab} onChange={(_, v) => setTab(v)}
           sx={{
             minHeight: 44,
-            '& .MuiTab-root': { minHeight: 44, textTransform: 'none', fontWeight: 400, fontSize: '0.875rem', color: '#64748B', px: 2 },
+            '& .MuiTab-root': { minHeight: 44, textTransform: 'none', fontWeight: 400, fontSize: '0.875rem', color: 'text.secondary', px: 2 },
             '& .Mui-selected': { fontWeight: 600, color: '#1B2A3B' },
             '& .MuiTabs-indicator': { bgcolor: '#1B2A3B', height: 2 },
           }}>
