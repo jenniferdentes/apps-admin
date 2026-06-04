@@ -168,9 +168,6 @@ export default function AppsLibrary() {
                 <TableCell sx={{ width: 140, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
                   Clients
                 </TableCell>
-                <TableCell sx={{ width: 110, fontWeight: 500, color: 'text.secondary', fontSize: '0.875rem', bgcolor: 'background.paper' }}>
-                  Actions
-                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -178,6 +175,7 @@ export default function AppsLibrary() {
                 <TableRow
                   key={app.id}
                   hover
+                  onClick={() => navigate(`/apps/${app.id}`)}
                   sx={{ cursor: 'pointer', '&:last-child td': { borderBottom: 0 } }}
                 >
                   <TableCell sx={{ py: 1.5 }}>
@@ -198,16 +196,6 @@ export default function AppsLibrary() {
                     <Typography variant="body2" color="text.primary">
                       {app.companies}
                     </Typography>
-                  </TableCell>
-                  <TableCell sx={{ py: 1.5 }}>
-                    <Button
-                      variant="text"
-                      size="small"
-                      onClick={() => navigate(`/apps/${app.id}`)}
-                      sx={{ color: 'primary.main', fontWeight: 500, p: 0, minWidth: 'auto' }}
-                    >
-                      View
-                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
