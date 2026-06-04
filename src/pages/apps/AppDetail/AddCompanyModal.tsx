@@ -128,7 +128,7 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
                   display: 'flex', alignItems: 'center', gap: 1.5,
                   py: 1.25, px: 1.5, borderRadius: 1, cursor: 'pointer',
                   border: isSelected ? '1.5px solid var(--mui-palette-primary-main)' : '1.5px solid transparent',
-                  bgcolor: isSelected ? 'secondary.main' : 'background.default',
+                  bgcolor: isSelected ? 'secondary.main' : 'background.paper',
                   '&:hover': { bgcolor: isSelected ? 'secondary.main' : 'background.paper' },
                   transition: 'background-color 0.1s, border-color 0.1s',
                 }}

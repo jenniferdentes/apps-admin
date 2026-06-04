@@ -83,7 +83,7 @@ export default function Step3TypeEvents({ data, update }: Props) {
             sx={{
               display: 'flex', alignItems: 'center', gap: 2, px: 2.5, py: 2,
               borderBottom: i < toggles.length - 1 ? '1px solid var(--mui-palette-divider)' : 'none',
-              bgcolor: enabled ? 'background.paper' : 'background.default',
+              bgcolor: 'background.paper',
               cursor: 'pointer',
               transition: 'background-color 0.15s',
               '&:hover': { bgcolor: enabled ? 'secondary.main' : 'background.paper' },

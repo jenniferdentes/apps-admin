@@ -770,7 +770,7 @@ export default function ClientAppDetail() {
                           flex: 1, border: selected ? '2px solid' : '1px solid var(--mui-palette-divider)',
                           borderColor: selected ? 'primary.light' : undefined,
                           borderRadius: 1, p: 1.5, cursor: 'pointer',
-                          bgcolor: selected ? 'background.paper' : 'background.default',
+                          bgcolor: 'background.paper',
                           display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
                           '&:hover': { bgcolor: selected ? 'background.paper' : 'background.paper', borderColor: selected ? 'primary.light' : 'divider' },
                         }}
