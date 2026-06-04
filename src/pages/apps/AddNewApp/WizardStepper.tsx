@@ -17,7 +17,7 @@ export default function WizardStepper({ steps, activeStep, onExit }: WizardStepp
         display: 'flex',
         alignItems: 'center',
         bgcolor: '#EEF1F5',
-        borderRadius: 1,
+        borderRadius: '8px 8px 0 0',
         px: 3,
         py: 1.5,
         gap: 0,
