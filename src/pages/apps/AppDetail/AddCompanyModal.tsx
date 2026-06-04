@@ -133,7 +133,7 @@ export default function AddCompanyModal({ open, appName, appId, onClose }: Props
                   transition: 'background-color 0.1s, border-color 0.1s',
                 }}
               >
-                <Avatar sx={{ width: 36, height: 36, bgcolor: '#90A4AE', fontSize: '0.8rem', fontWeight: 600, flexShrink: 0 }}>
+                <Avatar sx={{ width: 36, height: 36, bgcolor: 'text.disabled', fontSize: '0.8rem', fontWeight: 600, flexShrink: 0 }}>
                   {company.initials}
                 </Avatar>
                 <Box sx={{ flex: 1, minWidth: 0 }}>

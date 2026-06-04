@@ -499,7 +499,7 @@ function TaskPanel({ task, type }: { task: AppDetail['onboardingTask']; type: 'O
 
   return (
     <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, mb: 2, overflow: 'hidden' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: '#FAFAFA' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 1.25, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: 'secondary.light' }}>
         <Chip label={type} size="small" sx={{ bgcolor: chipStyle.bg, color: chipStyle.color, fontWeight: 600, fontSize: '0.75rem', height: 22, borderRadius: 100 }} />
         <Typography sx={{ fontSize: '0.875rem', fontWeight: 600 }}>{task.title}</Typography>
         <Typography sx={{ ml: 'auto', fontSize: '0.8rem', color: 'text.secondary' }}>Due {task.dueAfterDays} days after event</Typography>
@@ -519,11 +519,11 @@ function TaskPanel({ task, type }: { task: AppDetail['onboardingTask']; type: 'O
           {task.sections.map((section, i) => (
             <Box key={section.id} sx={{ mb: 1.5 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-                <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: '#1B2A3B', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{i + 1}</Box>
+                <Box sx={{ width: 20, height: 20, borderRadius: '50%', bgcolor: 'text.primary', color: 'background.paper', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{i + 1}</Box>
                 <Typography sx={{ fontSize: '0.8125rem', fontWeight: 600 }}>{section.title}</Typography>
               </Box>
               {section.steps.map((step, si) => (
-                <Typography key={step.id} sx={{ fontSize: '0.8rem', color: '#374151', ml: 3.5, mb: 0.25 }}>{si + 1}. {step.text}</Typography>
+                <Typography key={step.id} sx={{ fontSize: '0.8rem', color: 'text.secondary', ml: 3.5, mb: 0.25 }}>{si + 1}. {step.text}</Typography>
               ))}
             </Box>
           ))}
