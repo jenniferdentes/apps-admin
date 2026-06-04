@@ -194,9 +194,10 @@ const cubxTheme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           '& .MuiTableCell-root': {
-            backgroundColor: theme.palette.mode === 'dark'
-              ? theme.palette.secondary.dark
-              : '#f7f8fc',
+            backgroundColor: '#f7f8fc',
+            ...theme.applyStyles('dark', {
+              backgroundColor: theme.palette.secondary.dark,
+            }),
           },
         }),
       },
@@ -204,17 +205,17 @@ const cubxTheme = createTheme({
 
     MuiTableBody: {
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: {
           '& .MuiTableRow-root': {
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: 'var(--mui-palette-background-paper)',
           },
           '& .MuiTableCell-root': {
-            borderBottom: `1px solid ${theme.palette.divider}`,
+            borderBottom: '1px solid var(--mui-palette-divider)',
           },
           '& .MuiTableRow-root:last-child .MuiTableCell-root': {
             borderBottom: 'none',
           },
-        }),
+        },
       },
     },
 
