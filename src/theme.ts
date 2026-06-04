@@ -196,6 +196,12 @@ const cubxTheme = createTheme({
           '& .MuiTableRow-root': {
             backgroundColor: theme.palette.background.default,
           },
+          '& .MuiTableCell-root': {
+            borderBottom: `1px solid ${theme.palette.divider}`,
+          },
+          '& .MuiTableRow-root:last-child .MuiTableCell-root': {
+            borderBottom: 'none',
+          },
         }),
       },
     },
