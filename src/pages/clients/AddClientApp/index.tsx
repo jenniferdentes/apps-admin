@@ -335,7 +335,7 @@ function OptionCard({ label, selected, onClick }: { label: string; selected: boo
 
 function EntraCallout({ tenantAppId, onChange }: { tenantAppId: string; onChange: (v: string) => void }) {
   return (
-    <Box sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.75, py: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+    <Box sx={{ bgcolor: '#FCFBFD', border: '1px solid #EAECF0', borderRadius: '8px', px: 1.75, py: 1.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
       <Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
           <LinkOutlinedIcon sx={{ fontSize: 20, color: 'text.primary' }} />
