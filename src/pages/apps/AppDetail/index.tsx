@@ -42,7 +42,7 @@ export default function AppDetailPage() {
       <Typography variant="h4" sx={{ mb: 3 }}>{app.name}</Typography>
 
       {/* App header card */}
-      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', p: 2.5, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper', p: 2.5, mb: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Avatar sx={{ width: 52, height: 52, bgcolor: app.logoColor, fontSize: '1.1rem', fontWeight: 700, borderRadius: 1 }}>
             {app.logoInitial}
@@ -61,7 +61,7 @@ export default function AppDetailPage() {
       </Box>
 
       {/* Tabs */}
-      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', px: 0, mt: 2, mb: 2 }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper', px: 0, mt: 2, mb: 2 }}>
         <Tabs value={tab} onChange={(_, v) => setTab(v)}
           sx={{
             minHeight: 44,

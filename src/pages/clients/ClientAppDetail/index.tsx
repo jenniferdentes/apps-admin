@@ -241,7 +241,7 @@ const SO_DESCS: Record<string, string> = {
 
 function ChecklistItem({ text }: { text: string }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.default' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.paper' }}>
       <DoneIcon sx={{ fontSize: 20, color: 'primary.main', flexShrink: 0 }} />
       <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px' }}>
         {text}
@@ -252,7 +252,7 @@ function ChecklistItem({ text }: { text: string }) {
 
 function InstructionCard({ index, title, steps }: { index: number; title: string; steps: string[] }) {
   return (
-    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.default', display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, px: 1.625, py: 1.125, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#42A5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#fff', lineHeight: 1 }}>{index}</Typography>
@@ -314,7 +314,7 @@ function TaskBlock({ type, task }: { type: 'onboarding' | 'offboarding'; task: T
 
 function SectionCard({ title, onEdit, children }: { title: string; onEdit?: () => void; children: React.ReactNode }) {
   return (
-    <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
+    <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px' }}>
           {title}
@@ -542,7 +542,7 @@ export default function ClientAppDetail() {
       </Box>
 
       {/* App header card */}
-      <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
+      <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Avatar sx={{ width: 56, height: 56, bgcolor: app.logoColor, fontSize: '1.1rem', fontWeight: 700, borderRadius: '12px', border: '1px solid var(--mui-palette-divider)' }}>
@@ -569,7 +569,7 @@ export default function ClientAppDetail() {
       </Box>
 
       {/* Pill tabs */}
-      <Box sx={{ display: 'flex', bgcolor: 'background.default', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid var(--mui-palette-divider)', mb: 2 }}>
+      <Box sx={{ display: 'flex', bgcolor: 'background.paper', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid var(--mui-palette-divider)', mb: 2 }}>
         {TABS.map((tab) => {
           const isActive = tab === activeTab
           return (
@@ -954,7 +954,7 @@ export default function ClientAppDetail() {
       {activeTab === 'Rules' && (() => {
         if (editingRules) {
           return (
-            <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
+            <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', mb: 2 }}>
               <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: 'text.primary', letterSpacing: '0.15px', mb: 2 }}>
                 Scoping Rules
               </Typography>
@@ -1085,7 +1085,7 @@ export default function ClientAppDetail() {
       })()}
 
       {activeTab === 'Tasks' && (
-        <Box sx={{ bgcolor: 'background.default', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 3, boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', display: 'flex', flexDirection: 'column', gap: 2 }}>
           <TaskBlock type="onboarding" task={app.onboarding} />
           <TaskBlock type="offboarding" task={app.offboarding} />
 
@@ -1104,7 +1104,7 @@ export default function ClientAppDetail() {
       )}
 
       {activeTab === 'Users' && (
-        <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Filter bar */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
             <TextField size="small" placeholder="Search" value={userSearch}

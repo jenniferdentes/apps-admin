@@ -143,7 +143,7 @@ export default function AddNewApp() {
         <WizardStepper steps={STEPS} activeStep={step} onExit={exit} />
 
         {/* Scrollable step content */}
-        <Box sx={{ flex: 1, overflow: 'auto', bgcolor: 'background.default', p: 3 }}>
+        <Box sx={{ flex: 1, overflow: 'auto', bgcolor: 'background.paper', p: 3 }}>
           {step === 0 && <Step1AppName {...stepProps} />}
           {step === 1 && <Step2Description {...stepProps} />}
           {step === 2 && <Step3TypeEvents {...stepProps} />}
@@ -153,7 +153,7 @@ export default function AddNewApp() {
         </Box>
 
         {/* Sticky footer with Back / Next */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2, borderTop: '1px solid var(--mui-palette-divider)', bgcolor: 'background.default', flexShrink: 0 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2, borderTop: '1px solid var(--mui-palette-divider)', bgcolor: 'background.paper', flexShrink: 0 }}>
           <Button
             variant="outlined"
             startIcon={<ChevronLeftIcon sx={{ fontSize: 20 }} />}

@@ -197,7 +197,7 @@ function TaskPanel({ label, task, onChange, onRemove }: TaskPanelProps) {
                   value={item.text}
                   onChange={(e) => updateChecklistText(item.id, e.target.value)}
                   slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleChecklistPaste(e, item.id) } }}
-                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
+                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.paper' } }}
                 />
                 <IconButton size="small" onClick={() => removeChecklistItem(item.id)} sx={{ color: 'text.disabled', '&:hover': { color: '#EF4444' } }}>
                   <CloseIcon fontSize="small" />
@@ -250,7 +250,7 @@ function TaskPanel({ label, task, onChange, onRemove }: TaskPanelProps) {
                     value={step.text}
                     onChange={(e) => updateStep(section.id, step.id, e.target.value)}
                     slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleStepPaste(e, section.id, step.id) } }}
-                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
+                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.paper' } }}
                   />
                   <IconButton size="small" onClick={() => removeStep(section.id, step.id)} sx={{ color: 'text.disabled', '&:hover': { color: '#EF4444' } }}>
                     <CloseIcon fontSize="small" />

@@ -55,7 +55,7 @@ export default function DemoLauncher() {
 
       {/* Panel */}
       {open && (
-        <Box sx={{ width: 272, bgcolor: 'background.default', borderRadius: 1, boxShadow: '0px 8px 32px rgba(0,0,0,0.16)', border: '1px solid var(--mui-palette-divider)', overflow: 'hidden' }}>
+        <Box sx={{ width: 272, bgcolor: 'background.paper', borderRadius: 1, boxShadow: '0px 8px 32px rgba(0,0,0,0.16)', border: '1px solid var(--mui-palette-divider)', overflow: 'hidden' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)', bgcolor: 'background.paper' }}>
             <Typography sx={{ fontWeight: 600, fontSize: '0.875rem', color: 'text.primary' }}>Demo Flows</Typography>
             <IconButton size="small" onClick={() => setOpen(false)} sx={{ p: 0.25, color: 'text.secondary' }}>

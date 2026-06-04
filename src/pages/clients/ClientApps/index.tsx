@@ -105,7 +105,7 @@ export default function ClientApps() {
 
       {/* Horizontal pill tabs */}
       <Box sx={{ mb: 2 }}>
-        <Box sx={{ display: 'flex', bgcolor: 'background.default', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid var(--mui-palette-divider)' }}>
+        <Box sx={{ display: 'flex', bgcolor: 'background.paper', borderRadius: 1, p: 0.75, gap: 0.5, border: '1px solid var(--mui-palette-divider)' }}>
           {HORIZONTAL_TABS.map((tab) => {
             const isActive = tab === activeTab
             return (
@@ -135,7 +135,7 @@ export default function ClientApps() {
       </Box>
 
       {/* Content area */}
-      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
         {/* Filter bar */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>

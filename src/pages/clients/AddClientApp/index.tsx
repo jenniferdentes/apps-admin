@@ -142,7 +142,7 @@ function AppBar({ app, chips }: { app: CatalogApp; chips?: React.ReactNode }) {
     <Box sx={{
       display: 'flex', alignItems: 'center', gap: 2,
       border: '1px solid var(--mui-palette-divider)', borderRadius: 1, p: 1.5,
-      boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.default',
+      boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', bgcolor: 'background.paper',
     }}>
       <Avatar sx={{ width: 32, height: 32, bgcolor: app.logoColor, fontSize: '0.8rem', fontWeight: 700, borderRadius: 1, border: '1px solid var(--mui-palette-divider)', flexShrink: 0 }}>
         {app.logoInitial}
@@ -354,7 +354,7 @@ function EntraCallout({ tenantAppId, onChange }: { tenantAppId: string; onChange
             ? MOCK_TENANT_APPS.find((a) => a.id === v)?.name
             : 'Select enterprise app'
           }
-          sx={{ bgcolor: 'background.default', fontSize: '0.875rem' }}
+          sx={{ bgcolor: 'background.paper', fontSize: '0.875rem' }}
         >
           {MOCK_TENANT_APPS.map((a) => (
             <MenuItem key={a.id} value={a.id} sx={{ fontSize: '0.875rem' }}>{a.name}</MenuItem>
@@ -1010,7 +1010,7 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             {checklistItems.map((item) => (
-              <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.default', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)' }}>
+              <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)' }}>
                 <DragIndicatorIcon sx={{ fontSize: 20, color: 'text.disabled', flexShrink: 0 }} />
                 <InputBase value={item.text} onChange={(e) => onEditChecklist(item.id, e.target.value)}
                   sx={{ flex: 1, fontSize: '0.875rem', fontWeight: 500, color: 'text.primary', letterSpacing: '0.1px', '& input': { p: 0 } }} />
@@ -1040,7 +1040,7 @@ function TaskSetupCard({ type, title, onTitleChange, checklistItems, onAddCheckl
           </Box>
           {/* Instruction sections */}
           {sections.map((section, sIdx) => (
-            <Box key={section.id} sx={{ bgcolor: 'background.default', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box key={section.id} sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', px: '13px', py: '9px', boxShadow: '0px 2px 2px rgba(0,0,0,0.03), 0px 4px 3px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                 <DragIndicatorIcon sx={{ fontSize: 20, color: 'text.disabled', flexShrink: 0 }} />
                 <Box sx={{ width: 22, height: 22, borderRadius: '99px', bgcolor: '#42A5F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -1191,7 +1191,7 @@ function Step5Review({ app }: { app: CatalogApp }) {
         Review and Confirm
       </Typography>
 
-      <Box sx={{ bgcolor: 'background.default', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', p: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <Box sx={{ bgcolor: 'background.paper', border: '1px solid var(--mui-palette-divider)', borderRadius: '8px', boxShadow: '0px 1px 1px rgba(0,0,0,0.08)', p: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
         {/* App header */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
@@ -1329,7 +1329,7 @@ export default function AddClientApp() {
       <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', mb: 2 }}>
         <WizardStepper activeStep={activeStep} onExit={() => navigate('/clients')} />
 
-        <Box sx={{ bgcolor: 'background.default', p: 3, flex: 1, overflow: 'auto', borderRadius: '0 0 8px 8px' }}>
+        <Box sx={{ bgcolor: 'background.paper', p: 3, flex: 1, overflow: 'auto', borderRadius: '0 0 8px 8px' }}>
           {activeStep === 0 && (
             <Step1SelectApp
               selected={selectedId}

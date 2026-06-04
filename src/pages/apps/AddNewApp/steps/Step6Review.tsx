@@ -38,7 +38,7 @@ function ReviewCard({
           alignItems: 'center',
           px: 3,
           py: 2,
-          bgcolor: 'background.default',
+          bgcolor: 'background.paper',
         }}
       >
         <Typography sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{title}</Typography>
@@ -47,7 +47,7 @@ function ReviewCard({
         </Button>
       </Box>
       <Divider />
-      <Box sx={{ px: 3, py: 2, bgcolor: 'background.default' }}>{children}</Box>
+      <Box sx={{ px: 3, py: 2, bgcolor: 'background.paper' }}>{children}</Box>
     </Box>
   )
 }

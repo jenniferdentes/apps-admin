@@ -53,7 +53,7 @@ export default function RegisteredClientsTab({ appName, appId }: { appName: stri
 
 
   return (
-    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', overflow: 'hidden' }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper', overflow: 'hidden' }}>
       {/* Filter bar */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1.5, borderBottom: '1px solid var(--mui-palette-divider)' }}>
         <TextField size="small" placeholder="Search" value={search}

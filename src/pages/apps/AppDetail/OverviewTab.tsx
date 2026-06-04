@@ -24,7 +24,7 @@ const CATEGORIES = ['Messaging', 'Collaboration', 'CRM', 'Finance', 'HR', 'Secur
 
 function SectionCard({ title, onEdit, children }: { title: string; onEdit?: () => void; children: React.ReactNode }) {
   return (
-    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.default', mb: 2 }}>
+    <Box sx={{ border: '1px solid var(--mui-palette-divider)', borderRadius: 1, bgcolor: 'background.paper', mb: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, pt: 2.5, pb: 2, borderBottom: '1px solid var(--mui-palette-divider)' }}>
         <Typography sx={{ fontWeight: 600, fontSize: '0.9375rem' }}>{title}</Typography>
         {onEdit && (
@@ -418,7 +418,7 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
                   value={item.text}
                   onChange={(e) => updateChecklistText(item.id, e.target.value)}
                   slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleChecklistPaste(e, item.id) } }}
-                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
+                  sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.paper' } }}
                 />
                 <IconButton size="small" onClick={() => removeChecklistItem(item.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
                   <CloseIcon fontSize="small" />
@@ -455,7 +455,7 @@ function TaskEditPanel({ label, task, onChange, autoFocus }: { label: 'Onboardin
                     value={step.text}
                     onChange={(e) => updateStep(section.id, step.id, e.target.value)}
                     slotProps={{ htmlInput: { onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => handleStepPaste(e, section.id, step.id) } }}
-                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
+                    sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.paper' } }}
                   />
                   <IconButton size="small" onClick={() => removeStep(section.id, step.id)} sx={{ color: '#CBD5E1', '&:hover': { color: '#EF4444' } }}>
                     <CloseIcon fontSize="small" />
